@@ -224,7 +224,7 @@ public class QT_Tool_Renderer implements IItemRenderer {
 		      case EQUIPPED:
 		      //case EQUIPPED_FIRST_PERSON:
 		      {
-		    	renderModel(knucklesRenderer, item, (Entity)data[1], 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.625F, new ResourceLocation("qwertech:textures/items/modeled/knuckles.png"), 0, 0, 0, 0F, 0F, 0F);
+		    	renderModel(knucklesRenderer, item, (Entity)data[1], 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F, new ResourceLocation("qwertech:textures/items/modeled/knuckles.png"), 0, 0, 0, 0F, 0F, 0F);
 		    	break;
 		      }
 		      default:

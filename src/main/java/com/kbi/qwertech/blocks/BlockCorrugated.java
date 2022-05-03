@@ -72,7 +72,7 @@ public class BlockCorrugated extends BlockBaseMeta {
 	
 	
 	@Override
-	public float getExplosionResistance(int meta)
+	public float getExplosionResistance(byte meta)
 	{
 		return 3.3F * hardness[meta];
 	}
@@ -91,7 +91,7 @@ public class BlockCorrugated extends BlockBaseMeta {
 	
 	
 	@Override
-	public boolean isSealable(int aMeta, byte aSide)
+	public boolean isSealable(byte aMeta, byte aSide)
 	{
 	   return false;
 	}

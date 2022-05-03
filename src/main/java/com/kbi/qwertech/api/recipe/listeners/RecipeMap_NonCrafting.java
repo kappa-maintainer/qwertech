@@ -36,7 +36,7 @@ public class RecipeMap_NonCrafting implements IRecipeMapHandler {
 	}
 
 	@Override
-	public boolean addRecipesUsing(RecipeMap aMap, ItemStack aStack,
+	public boolean addRecipesUsing(RecipeMap aMap, boolean aNEI,ItemStack aStack,
 			OreDictItemData aData) {
 		if (isDone()) return F;
 		if (isInputPrefix) {
@@ -48,12 +48,12 @@ public class RecipeMap_NonCrafting implements IRecipeMapHandler {
 	
 
 	@Override
-	public boolean addRecipesUsing(RecipeMap aMap, Fluid aFluid) {
+	public boolean addRecipesUsing(RecipeMap aMap, boolean aNEI, Fluid aFluid) {
 		return false;
 	}
 
 	@Override
-	public boolean addRecipesProducing(RecipeMap aMap, ItemStack aStack,
+	public boolean addRecipesProducing(RecipeMap aMap, boolean aNEI, ItemStack aStack,
 			OreDictItemData aData) {
 		if (isDone()) return F;
 		if (this.isOutputPrefix)
@@ -65,7 +65,7 @@ public class RecipeMap_NonCrafting implements IRecipeMapHandler {
 	}
 
 	@Override
-	public boolean addRecipesProducing(RecipeMap aMap, Fluid aFluid) {
+	public boolean addRecipesProducing(RecipeMap aMap, boolean aNEI, Fluid aFluid) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -74,7 +74,7 @@ public class RecipeMap_NonCrafting implements IRecipeMapHandler {
 	public boolean containsInput(RecipeMap aMap, ItemStack aStack,
 			OreDictItemData aData) {
 		if (isDone()) return F;
-		return addRecipesUsing(aMap, aStack, aData);
+		return addRecipesUsing(aMap, true, aStack, aData);
 	}
 
 	@Override

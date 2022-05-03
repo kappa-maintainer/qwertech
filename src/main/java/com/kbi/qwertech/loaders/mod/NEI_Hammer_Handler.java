@@ -93,7 +93,7 @@ public class NEI_Hammer_Handler extends ShapedRecipeHandler {
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
                 	Object returnIt = items[y * width + x];
-                    if (returnIt == null || (returnIt instanceof List && ((List)returnIt).size() <= 0) || (returnIt instanceof ItemStack[] && ((ItemStack[])returnIt).length <= 0))
+                    if (returnIt == null || (returnIt instanceof List && ((List<?>)returnIt).size() <= 0) || (returnIt instanceof ItemStack[] && ((ItemStack[])returnIt).length <= 0))
                     {
                         continue;
                     }
