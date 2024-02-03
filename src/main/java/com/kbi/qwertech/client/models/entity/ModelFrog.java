@@ -1,19 +1,22 @@
 package com.kbi.qwertech.client.models.entity;
 
-import com.kbi.qwertech.entities.passive.EntityFrog;
+import java.util.HashMap;
+import java.util.Iterator;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
-import java.util.HashMap;
-import java.util.Iterator;
+import com.kbi.qwertech.entities.passive.EntityFrog;
 
 /**
  * ModelFrog - Qwertygiy
  * Created using Tabula 4.1.1
  */
 public class ModelFrog extends ModelBase {
+
     public ModelRenderer Body;
     public ModelRenderer Back;
     public ModelRenderer LeftEye;
@@ -33,7 +36,7 @@ public class ModelFrog extends ModelBase {
     public ModelRenderer Brim;
     public ModelRenderer Hat;
     public ModelRenderer Cane;
-    
+
     public HashMap<ModelRenderer, float[]> emptyAngles = new HashMap();
     public HashMap<ModelRenderer, float[]> fullAngles = new HashMap();
 
@@ -132,7 +135,7 @@ public class ModelFrog extends ModelBase {
         this.setRotateAngle(Cane, -0.5759586531581287F, 0.0F, 0.0F);
         this.LeftArm.addChild(this.Cane);
         this.Brim.addChild(this.Hat);
-        
+
         this.setRotateAngleFull(Back, 0.7853981633974483F, 0.0F, 0.0F);
         this.setRotateAngleFull(UpperLeftRear, -0.8726646259971648F, 0.0F, 0.0F);
         this.setRotateAngleFull(LowerRightRear, -2.6179938779914944F, 0.0F, 0.0F);
@@ -157,8 +160,8 @@ public class ModelFrog extends ModelBase {
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
-        if (entity instanceof EntityFrog && ((EntityFrog)entity).getCustomNameTag().contains("Michigan"))
-        {
+        if (entity instanceof EntityFrog && ((EntityFrog) entity).getCustomNameTag()
+            .contains("Michigan")) {
             this.Brim.render(f5);
             this.Cane.showModel = true;
         } else {
@@ -167,14 +170,17 @@ public class ModelFrog extends ModelBase {
 
         GL11.glPushMatrix();
         GL11.glScalef(1, 1, -1);
-    	this.UpperRightRear.render(f5);
+        this.UpperRightRear.render(f5);
         this.UpperLeftRear.render(f5);
         GL11.glPushMatrix();
         GL11.glTranslatef(this.Back.offsetX, this.Back.offsetY, this.Back.offsetZ);
         GL11.glTranslatef(this.Back.rotationPointX * f5, this.Back.rotationPointY * f5, this.Back.rotationPointZ * f5);
         GL11.glScaled(0.99D, 1.05D, 1.0D);
         GL11.glTranslatef(-this.Back.offsetX, -this.Back.offsetY, -this.Back.offsetZ);
-        GL11.glTranslatef(-this.Back.rotationPointX * f5, -this.Back.rotationPointY * f5, -this.Back.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -this.Back.rotationPointX * f5,
+            -this.Back.rotationPointY * f5,
+            -this.Back.rotationPointZ * f5);
         this.Back.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
@@ -182,25 +188,40 @@ public class ModelFrog extends ModelBase {
         GL11.glTranslatef(this.Head.rotationPointX * f5, this.Head.rotationPointY * f5, this.Head.rotationPointZ * f5);
         GL11.glScaled(0.99D, 1.05D, 1.5D);
         GL11.glTranslatef(-this.Head.offsetX, -this.Head.offsetY, -this.Head.offsetZ);
-        GL11.glTranslatef(-this.Head.rotationPointX * f5, -this.Head.rotationPointY * f5, -this.Head.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -this.Head.rotationPointX * f5,
+            -this.Head.rotationPointY * f5,
+            -this.Head.rotationPointZ * f5);
         this.Head.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(this.LeftEye.offsetX, this.LeftEye.offsetY, this.LeftEye.offsetZ);
-        GL11.glTranslatef(this.LeftEye.rotationPointX * f5, this.LeftEye.rotationPointY * f5, this.LeftEye.rotationPointZ * f5);
+        GL11.glTranslatef(
+            this.LeftEye.rotationPointX * f5,
+            this.LeftEye.rotationPointY * f5,
+            this.LeftEye.rotationPointZ * f5);
         GL11.glScaled(0.4D, 0.4D, 0.4D);
         GL11.glTranslatef(-this.LeftEye.offsetX, -this.LeftEye.offsetY, -this.LeftEye.offsetZ);
-        GL11.glTranslatef(-this.LeftEye.rotationPointX * f5, -this.LeftEye.rotationPointY * f5, -this.LeftEye.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -this.LeftEye.rotationPointX * f5,
+            -this.LeftEye.rotationPointY * f5,
+            -this.LeftEye.rotationPointZ * f5);
         this.LeftEye.render(f5);
         GL11.glPopMatrix();
         this.Arms.render(f5);
         this.Body.render(f5);
         GL11.glPushMatrix();
         GL11.glTranslatef(this.RightEye.offsetX, this.RightEye.offsetY, this.RightEye.offsetZ);
-        GL11.glTranslatef(this.RightEye.rotationPointX * f5, this.RightEye.rotationPointY * f5, this.RightEye.rotationPointZ * f5);
+        GL11.glTranslatef(
+            this.RightEye.rotationPointX * f5,
+            this.RightEye.rotationPointY * f5,
+            this.RightEye.rotationPointZ * f5);
         GL11.glScaled(0.4D, 0.4D, 0.4D);
         GL11.glTranslatef(-this.RightEye.offsetX, -this.RightEye.offsetY, -this.RightEye.offsetZ);
-        GL11.glTranslatef(-this.RightEye.rotationPointX * f5, -this.RightEye.rotationPointY * f5, -this.RightEye.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -this.RightEye.rotationPointX * f5,
+            -this.RightEye.rotationPointY * f5,
+            -this.RightEye.rotationPointZ * f5);
         this.RightEye.render(f5);
         GL11.glPopMatrix();
         GL11.glPopMatrix();
@@ -209,41 +230,38 @@ public class ModelFrog extends ModelBase {
     /**
      * This is a helper function from Tabula to set the rotation of model parts
      */
-    public void doTheRotate(ModelRenderer modelRenderer, float x, float y, float z)
-    {
-    	modelRenderer.rotateAngleX = x;
+    public void doTheRotate(ModelRenderer modelRenderer, float x, float y, float z) {
+        modelRenderer.rotateAngleX = x;
         modelRenderer.rotateAngleY = y;
-        modelRenderer.rotateAngleZ = z;	
+        modelRenderer.rotateAngleZ = z;
     }
-    
+
     public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-        emptyAngles.put(modelRenderer, new float[]{x, y, z});
+        emptyAngles.put(modelRenderer, new float[] { x, y, z });
     }
-    
+
     public void setRotateAngleFull(ModelRenderer modelRenderer, float x, float y, float z) {
-    	fullAngles.put(modelRenderer, new float[]{x, y, z});
+        fullAngles.put(modelRenderer, new float[] { x, y, z });
     }
-    
-    public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
-    {
-    	Iterator<ModelRenderer> iterate = emptyAngles.keySet().iterator();
-    	while (iterate.hasNext())
-    	{
-    		ModelRenderer box = iterate.next();
-    		float[] emptyVec = emptyAngles.get(box);
-    		float[] fullVec = fullAngles.get(box);
-    		float swingamount = 1 - Math.min(entity.fallDistance, 1);
-    		if (swingamount >= 1) 
-    		{
-    			this.doTheRotate(box, emptyVec[0], emptyVec[1], emptyVec[2]);
-    		} else if (swingamount <= 0) {
-    			this.doTheRotate(box, fullVec[0], fullVec[1], fullVec[2]);
-    		} else {
-	    		double x = emptyVec[0] + ((fullVec[0] - emptyVec[0])/swingamount);
-	    		double y = emptyVec[1] + ((fullVec[1] - emptyVec[1])/swingamount);
-	    		double z = emptyVec[2] + ((fullVec[2] - emptyVec[2])/swingamount);
-	    		this.doTheRotate(box, (float)x, (float)y, (float)z);
-    		}
-    	}
+
+    public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
+        Iterator<ModelRenderer> iterate = emptyAngles.keySet()
+            .iterator();
+        while (iterate.hasNext()) {
+            ModelRenderer box = iterate.next();
+            float[] emptyVec = emptyAngles.get(box);
+            float[] fullVec = fullAngles.get(box);
+            float swingamount = 1 - Math.min(entity.fallDistance, 1);
+            if (swingamount >= 1) {
+                this.doTheRotate(box, emptyVec[0], emptyVec[1], emptyVec[2]);
+            } else if (swingamount <= 0) {
+                this.doTheRotate(box, fullVec[0], fullVec[1], fullVec[2]);
+            } else {
+                double x = emptyVec[0] + ((fullVec[0] - emptyVec[0]) / swingamount);
+                double y = emptyVec[1] + ((fullVec[1] - emptyVec[1]) / swingamount);
+                double z = emptyVec[2] + ((fullVec[2] - emptyVec[2]) / swingamount);
+                this.doTheRotate(box, (float) x, (float) y, (float) z);
+            }
+        }
     }
 }

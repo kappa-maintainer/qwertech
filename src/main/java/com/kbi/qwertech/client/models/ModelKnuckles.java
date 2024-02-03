@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
  * Created using Tabula 4.1.1
  */
 public class ModelKnuckles extends ModelBaseTool {
+
     public ModelRenderer knuckles;
 
     public ModelKnuckles() {
@@ -20,9 +21,9 @@ public class ModelKnuckles extends ModelBaseTool {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         applyColorPrimary();
-    	this.knuckles.render(f5);
+        this.knuckles.render(f5);
     }
 
     /**

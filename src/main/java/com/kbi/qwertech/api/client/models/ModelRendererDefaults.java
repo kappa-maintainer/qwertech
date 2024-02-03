@@ -31,8 +31,7 @@ public class ModelRendererDefaults extends ModelRenderer {
     /**
      * Restore this box back to its default position, such as when an animation ends
      */
-    public void restore()
-    {
+    public void restore() {
         this.rotationPointX = defaultOriginX;
         this.rotationPointY = defaultOriginY;
         this.rotationPointZ = defaultOriginZ;
@@ -47,8 +46,7 @@ public class ModelRendererDefaults extends ModelRenderer {
     /**
      * Sets the default rotation point for the box (top right front corner if no offset)
      */
-    public void setDefaultOrigin(float x, float y, float z)
-    {
+    public void setDefaultOrigin(float x, float y, float z) {
         defaultOriginX = x;
         defaultOriginY = y;
         defaultOriginZ = z;
@@ -57,8 +55,7 @@ public class ModelRendererDefaults extends ModelRenderer {
     /**
      * Sets the default offset from rotation point for the box.
      */
-    public void setDefaultOffset(float x, float y, float z)
-    {
+    public void setDefaultOffset(float x, float y, float z) {
         defaultOffsetX = x;
         defaultOffsetY = y;
         defaultOffsetZ = z;
@@ -67,8 +64,7 @@ public class ModelRendererDefaults extends ModelRenderer {
     /**
      * Sets the default rotation values of the box.
      */
-    public void setDefaultRotation(float x, float y, float z)
-    {
+    public void setDefaultRotation(float x, float y, float z) {
         defaultRotateX = x;
         defaultRotateY = y;
         defaultRotateZ = z;
@@ -77,16 +73,15 @@ public class ModelRendererDefaults extends ModelRenderer {
     /**
      * Sets whether the box should be hidden by default.
      */
-    public void setDefaultHidden(boolean hide)
-    {
+    public void setDefaultHidden(boolean hide) {
         defaultHidden = hide;
     }
 
     /**
      * Sets all default parameters of the box except visibility.
      */
-    public void setDefaults(float originX, float originY, float originZ, float offsetX, float offsetY, float offsetZ, float rotateX, float rotateY, float rotateZ)
-    {
+    public void setDefaults(float originX, float originY, float originZ, float offsetX, float offsetY, float offsetZ,
+        float rotateX, float rotateY, float rotateZ) {
         setDefaultOrigin(originX, originY, originZ);
         setDefaultOffset(offsetX, offsetY, offsetZ);
         setDefaultRotation(rotateX, rotateY, rotateZ);
@@ -95,8 +90,8 @@ public class ModelRendererDefaults extends ModelRenderer {
     /**
      * Sets all default parameters of the box.
      */
-    public void setDefaults(float originX, float originY, float originZ, float offsetX, float offsetY, float offsetZ, float rotateX, float rotateY, float rotateZ, boolean hidden)
-    {
+    public void setDefaults(float originX, float originY, float originZ, float offsetX, float offsetY, float offsetZ,
+        float rotateX, float rotateY, float rotateZ, boolean hidden) {
         setDefaultOrigin(originX, originY, originZ);
         setDefaultOffset(offsetX, offsetY, offsetZ);
         setDefaultRotation(rotateX, rotateY, rotateZ);

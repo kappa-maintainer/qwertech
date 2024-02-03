@@ -1,17 +1,20 @@
 package com.kbi.qwertech.client.models.entity;
 
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
+
+import org.lwjgl.opengl.GL11;
+
 import com.kbi.qwertech.api.client.models.ModelRendererDefaults;
 import com.kbi.qwertech.api.client.registry.AnimationHelper;
 import com.kbi.qwertech.api.client.registry.AnimationsRegistry;
-import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
-import org.lwjgl.opengl.GL11;
 
 /**
  * ModelLeghorn - Qwertygiy
  * Created using Tabula 4.1.1
  */
 public class ModelChickenTailed extends ModelChickenCrested {
+
     public ModelRenderer tail2;
     public ModelRenderer tail3;
     public ModelRenderer a2tail;
@@ -65,14 +68,14 @@ public class ModelChickenTailed extends ModelChickenCrested {
         this.head.setRotationPoint(0.0F, 13.75F, -2.25F);
         this.bill.setRotationPoint(0.0F, 13.75F, -2.25F);
         this.crest.setRotationPoint(0.0F, 13.75F, -2.25F);
-        addBox((ModelRendererDefaults)this.tail, "tail");
-        addBox((ModelRendererDefaults)this.a2tail, "tail2-1");
-        addBox((ModelRendererDefaults)this.a2tail2, "tail2-2");
-        addBox((ModelRendererDefaults)this.a2tail3, "tail2-3");
-        addBox((ModelRendererDefaults)this.a3tail, "tail3-1");
-        addBox((ModelRendererDefaults)this.a3tail2, "tail3-2");
-        addBox((ModelRendererDefaults)this.tail2, "tail2");
-        addBox((ModelRendererDefaults)this.tail3, "tail3");
+        addBox((ModelRendererDefaults) this.tail, "tail");
+        addBox((ModelRendererDefaults) this.a2tail, "tail2-1");
+        addBox((ModelRendererDefaults) this.a2tail2, "tail2-2");
+        addBox((ModelRendererDefaults) this.a2tail3, "tail2-3");
+        addBox((ModelRendererDefaults) this.a3tail, "tail3-1");
+        addBox((ModelRendererDefaults) this.a3tail2, "tail3-2");
+        addBox((ModelRendererDefaults) this.tail2, "tail2");
+        addBox((ModelRendererDefaults) this.tail3, "tail3");
         AnimationHelper.setAsDefault(this);
     }
 
@@ -82,8 +85,7 @@ public class ModelChickenTailed extends ModelChickenCrested {
         this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         AnimationsRegistry.setAnimations(entity);
 
-        if (this.isChild)
-        {
+        if (this.isChild) {
             float f6 = 2.0F;
             GL11.glPushMatrix();
             GL11.glTranslatef(0.0F, 5.0F * f5, 2.0F * f5);
@@ -100,8 +102,7 @@ public class ModelChickenTailed extends ModelChickenCrested {
             this.rightWing.render(f5);
             this.leftWing.render(f5);
             GL11.glPopMatrix();
-        }
-        else {
+        } else {
             this.body.render(f5);
             this.tail.render(f5);
             this.tail2.render(f5);

@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
  * Created using Tabula 4.1.1
  */
 public class ModelGear extends ModelBaseTool {
+
     public ModelRenderer shape1;
     public ModelRenderer shape1_1;
     public ModelRenderer shape1_2;
@@ -51,9 +52,9 @@ public class ModelGear extends ModelBaseTool {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         applyColorPrimary();
-    	this.shape1_5.render(f5);
+        this.shape1_5.render(f5);
         this.shape1_6.render(f5);
         this.shape1_7.render(f5);
         this.shape1_4.render(f5);

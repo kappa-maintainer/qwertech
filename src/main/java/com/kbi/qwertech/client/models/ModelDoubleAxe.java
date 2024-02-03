@@ -8,7 +8,7 @@ import net.minecraft.entity.Entity;
  * Created using Tabula 4.1.1
  */
 public class ModelDoubleAxe extends ModelBaseTool {
-    
+
     public ModelRenderer handle;
     public ModelRenderer head;
     public ModelRenderer handle_1;
@@ -115,11 +115,11 @@ public class ModelDoubleAxe extends ModelBaseTool {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
-    	applyColorSecondary();
-    	this.handle.render(f5);
-    	applyColorPrimary();
-    	this.handle_1.render(f5);
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+        applyColorSecondary();
+        this.handle.render(f5);
+        applyColorPrimary();
+        this.handle_1.render(f5);
         this.bladeLRB_3.render(f5);
         this.bladeURB_1.render(f5);
         this.bladeLRB_1.render(f5);

@@ -2,6 +2,7 @@ package com.kbi.qwertech.client.models;
 
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -9,6 +10,7 @@ import org.lwjgl.opengl.GL11;
  * Created using Tabula 4.1.1
  */
 public class ModelBat extends ModelBaseTool {
+
     public ModelRenderer spike1;
     public ModelRenderer spike2;
     public ModelRenderer spike3;
@@ -71,7 +73,7 @@ public class ModelBat extends ModelBaseTool {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         applyColorPrimary();
         this.bat.render(f5);
         this.bat_3.render(f5);
@@ -79,57 +81,92 @@ public class ModelBat extends ModelBaseTool {
         this.handle_1.render(f5);
         GL11.glPushMatrix();
         GL11.glTranslatef(this.handle.offsetX, this.handle.offsetY, this.handle.offsetZ);
-        GL11.glTranslatef(this.handle.rotationPointX * f5, this.handle.rotationPointY * f5, this.handle.rotationPointZ * f5);
+        GL11.glTranslatef(
+            this.handle.rotationPointX * f5,
+            this.handle.rotationPointY * f5,
+            this.handle.rotationPointZ * f5);
         GL11.glScaled(0.75D, 0.5D, 0.75D);
         GL11.glTranslatef(-this.handle.offsetX, -this.handle.offsetY, -this.handle.offsetZ);
-        GL11.glTranslatef(-this.handle.rotationPointX * f5, -this.handle.rotationPointY * f5, -this.handle.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -this.handle.rotationPointX * f5,
+            -this.handle.rotationPointY * f5,
+            -this.handle.rotationPointZ * f5);
         this.handle.render(f5);
         GL11.glPopMatrix();
         this.bat_1.render(f5);
         GL11.glPushMatrix();
         GL11.glTranslatef(this.center.offsetX, this.center.offsetY, this.center.offsetZ);
-        GL11.glTranslatef(this.center.rotationPointX * f5, this.center.rotationPointY * f5, this.center.rotationPointZ * f5);
+        GL11.glTranslatef(
+            this.center.rotationPointX * f5,
+            this.center.rotationPointY * f5,
+            this.center.rotationPointZ * f5);
         GL11.glScaled(1.33D, 1.0D, 1.33D);
         GL11.glTranslatef(-this.center.offsetX, -this.center.offsetY, -this.center.offsetZ);
-        GL11.glTranslatef(-this.center.rotationPointX * f5, -this.center.rotationPointY * f5, -this.center.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -this.center.rotationPointX * f5,
+            -this.center.rotationPointY * f5,
+            -this.center.rotationPointZ * f5);
         this.center.render(f5);
         GL11.glPopMatrix();
-        
-        if (this.handleColor != this.defaultHandleColor)
-        {
-	        applyColorSecondary();
-	        GL11.glPushMatrix();
-	        GL11.glTranslatef(this.spike1.offsetX, this.spike1.offsetY, this.spike1.offsetZ);
-	        GL11.glTranslatef(this.spike1.rotationPointX * f5, this.spike1.rotationPointY * f5, this.spike1.rotationPointZ * f5);
-	        GL11.glScaled(2.5D, 0.33D, 0.33D);
-	        GL11.glTranslatef(-this.spike1.offsetX, -this.spike1.offsetY, -this.spike1.offsetZ);
-	        GL11.glTranslatef(-this.spike1.rotationPointX * f5, -this.spike1.rotationPointY * f5, -this.spike1.rotationPointZ * f5);
-	        this.spike1.render(f5);
-	        GL11.glPopMatrix();
-	        GL11.glPushMatrix();
-	        GL11.glTranslatef(this.spike3.offsetX, this.spike3.offsetY, this.spike3.offsetZ);
-	        GL11.glTranslatef(this.spike3.rotationPointX * f5, this.spike3.rotationPointY * f5, this.spike3.rotationPointZ * f5);
-	        GL11.glScaled(2.5D, 0.33D, 0.33D);
-	        GL11.glTranslatef(-this.spike3.offsetX, -this.spike3.offsetY, -this.spike3.offsetZ);
-	        GL11.glTranslatef(-this.spike3.rotationPointX * f5, -this.spike3.rotationPointY * f5, -this.spike3.rotationPointZ * f5);
-	        this.spike3.render(f5);
-	        GL11.glPopMatrix();
-	        GL11.glPushMatrix();
-	        GL11.glTranslatef(this.spike2.offsetX, this.spike2.offsetY, this.spike2.offsetZ);
-	        GL11.glTranslatef(this.spike2.rotationPointX * f5, this.spike2.rotationPointY * f5, this.spike2.rotationPointZ * f5);
-	        GL11.glScaled(0.33D, 0.33D, 2.5D);
-	        GL11.glTranslatef(-this.spike2.offsetX, -this.spike2.offsetY, -this.spike2.offsetZ);
-	        GL11.glTranslatef(-this.spike2.rotationPointX * f5, -this.spike2.rotationPointY * f5, -this.spike2.rotationPointZ * f5);
-	        this.spike2.render(f5);
-	        GL11.glPopMatrix();
-	        GL11.glPushMatrix();
-	        GL11.glTranslatef(this.spike4.offsetX, this.spike4.offsetY, this.spike4.offsetZ);
-	        GL11.glTranslatef(this.spike4.rotationPointX * f5, this.spike4.rotationPointY * f5, this.spike4.rotationPointZ * f5);
-	        GL11.glScaled(0.33D, 0.33D, 2.5D);
-	        GL11.glTranslatef(-this.spike4.offsetX, -this.spike4.offsetY, -this.spike4.offsetZ);
-	        GL11.glTranslatef(-this.spike4.rotationPointX * f5, -this.spike4.rotationPointY * f5, -this.spike4.rotationPointZ * f5);
-	        this.spike4.render(f5);
-	        GL11.glPopMatrix();
+
+        if (this.handleColor != this.defaultHandleColor) {
+            applyColorSecondary();
+            GL11.glPushMatrix();
+            GL11.glTranslatef(this.spike1.offsetX, this.spike1.offsetY, this.spike1.offsetZ);
+            GL11.glTranslatef(
+                this.spike1.rotationPointX * f5,
+                this.spike1.rotationPointY * f5,
+                this.spike1.rotationPointZ * f5);
+            GL11.glScaled(2.5D, 0.33D, 0.33D);
+            GL11.glTranslatef(-this.spike1.offsetX, -this.spike1.offsetY, -this.spike1.offsetZ);
+            GL11.glTranslatef(
+                -this.spike1.rotationPointX * f5,
+                -this.spike1.rotationPointY * f5,
+                -this.spike1.rotationPointZ * f5);
+            this.spike1.render(f5);
+            GL11.glPopMatrix();
+            GL11.glPushMatrix();
+            GL11.glTranslatef(this.spike3.offsetX, this.spike3.offsetY, this.spike3.offsetZ);
+            GL11.glTranslatef(
+                this.spike3.rotationPointX * f5,
+                this.spike3.rotationPointY * f5,
+                this.spike3.rotationPointZ * f5);
+            GL11.glScaled(2.5D, 0.33D, 0.33D);
+            GL11.glTranslatef(-this.spike3.offsetX, -this.spike3.offsetY, -this.spike3.offsetZ);
+            GL11.glTranslatef(
+                -this.spike3.rotationPointX * f5,
+                -this.spike3.rotationPointY * f5,
+                -this.spike3.rotationPointZ * f5);
+            this.spike3.render(f5);
+            GL11.glPopMatrix();
+            GL11.glPushMatrix();
+            GL11.glTranslatef(this.spike2.offsetX, this.spike2.offsetY, this.spike2.offsetZ);
+            GL11.glTranslatef(
+                this.spike2.rotationPointX * f5,
+                this.spike2.rotationPointY * f5,
+                this.spike2.rotationPointZ * f5);
+            GL11.glScaled(0.33D, 0.33D, 2.5D);
+            GL11.glTranslatef(-this.spike2.offsetX, -this.spike2.offsetY, -this.spike2.offsetZ);
+            GL11.glTranslatef(
+                -this.spike2.rotationPointX * f5,
+                -this.spike2.rotationPointY * f5,
+                -this.spike2.rotationPointZ * f5);
+            this.spike2.render(f5);
+            GL11.glPopMatrix();
+            GL11.glPushMatrix();
+            GL11.glTranslatef(this.spike4.offsetX, this.spike4.offsetY, this.spike4.offsetZ);
+            GL11.glTranslatef(
+                this.spike4.rotationPointX * f5,
+                this.spike4.rotationPointY * f5,
+                this.spike4.rotationPointZ * f5);
+            GL11.glScaled(0.33D, 0.33D, 2.5D);
+            GL11.glTranslatef(-this.spike4.offsetX, -this.spike4.offsetY, -this.spike4.offsetZ);
+            GL11.glTranslatef(
+                -this.spike4.rotationPointX * f5,
+                -this.spike4.rotationPointY * f5,
+                -this.spike4.rotationPointZ * f5);
+            this.spike4.render(f5);
+            GL11.glPopMatrix();
         }
     }
 

@@ -3,6 +3,7 @@ package com.kbi.qwertech.client.models;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -10,6 +11,7 @@ import org.lwjgl.opengl.GL11;
  * Created using Tabula 4.1.1
  */
 public class ModelBall extends ModelBase {
+
     public ModelRenderer rocky;
     public ModelRenderer rockyX;
     public ModelRenderer rockyY;
@@ -56,48 +58,41 @@ public class ModelBall extends ModelBase {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
-    	short[] l = new short[]{255, 255, 255, 255};
-    	boolean blend = false;
-    	switch((int)f)
-    	{
-	    	case 3:
-	    	{
-	    		l = new short[]{255, 245, 230, 255};
-	    		break;
-	    	}
-	    	case 4:
-	    	{
-	    		l = new short[]{100, 250, 100, 50};
-	    		blend = GL11.glIsEnabled(GL11.GL_BLEND);
-	    		GL11.glEnable(GL11.GL_BLEND);
-	    		break;
-	    	}
-	    	case 5:
-	    	{
-	    		l = new short[]{30, 10, 0, 255};
-	    		break;
-	    	}
-	    	case 6:
-	    	{
-	    		l = new short[]{222, 0, 0, 255};
-	    		break;
-	    	}
-    	}
-    	//System.out.println("Render Material is " + entity.getMaterial().mNameLocal);
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+        short[] l = new short[] { 255, 255, 255, 255 };
+        boolean blend = false;
+        switch ((int) f) {
+            case 3: {
+                l = new short[] { 255, 245, 230, 255 };
+                break;
+            }
+            case 4: {
+                l = new short[] { 100, 250, 100, 50 };
+                blend = GL11.glIsEnabled(GL11.GL_BLEND);
+                GL11.glEnable(GL11.GL_BLEND);
+                break;
+            }
+            case 5: {
+                l = new short[] { 30, 10, 0, 255 };
+                break;
+            }
+            case 6: {
+                l = new short[] { 222, 0, 0, 255 };
+                break;
+            }
+        }
+        // System.out.println("Render Material is " + entity.getMaterial().mNameLocal);
         float g5 = (l[0]) / 255.0F;
         float g6 = (l[1]) / 255.0F;
         float g7 = (l[2]) / 255.0F;
         float g8 = (l[3]) / 255.0F;
         GL11.glColor4f(g5, g6, g7, g8);
-    	this.rocky.render(f5);
-    	if (f == 4)
-    	{
-    		if (!blend)
-    		{
-    			GL11.glDisable(GL11.GL_BLEND);
-    		}
-    	}
+        this.rocky.render(f5);
+        if (f == 4) {
+            if (!blend) {
+                GL11.glDisable(GL11.GL_BLEND);
+            }
+        }
     }
 
     /**

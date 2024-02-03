@@ -1,15 +1,17 @@
 package com.kbi.qwertech.items.stats;
 
-import com.kbi.qwertech.items.behavior.Behavior_Note;
-import com.kbi.qwertech.loaders.RegisterArmor;
-import gregapi.item.multiitem.MultiItemTool;
-import gregapi.item.multiitem.tools.ToolStats;
-import gregapi.render.IIconContainer;
+import static gregapi.data.CS.UNCOLOURED;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-import static gregapi.data.CS.UNCOLOURED;
+import com.kbi.qwertech.items.behavior.Behavior_Note;
+import com.kbi.qwertech.loaders.RegisterArmor;
+
+import gregapi.item.multiitem.MultiItemTool;
+import gregapi.item.multiitem.tools.ToolStats;
+import gregapi.render.IIconContainer;
 
 public class QT_Tool_Kazoo extends ToolStats {
 
@@ -39,26 +41,22 @@ public class QT_Tool_Kazoo extends ToolStats {
     }
 
     @Override
-    public boolean isWeapon()
-    {
+    public boolean isWeapon() {
         return true;
     }
 
     @Override
-    public boolean isMiningTool()
-    {
+    public boolean isMiningTool() {
         return false;
     }
 
     @Override
-    public float getBaseDamage()
-    {
+    public float getBaseDamage() {
         return 0.5F;
     }
 
     @Override
-    public float getMaxDurabilityMultiplier()
-    {
+    public float getMaxDurabilityMultiplier() {
         return 0.1F;
     }
 
@@ -69,7 +67,7 @@ public class QT_Tool_Kazoo extends ToolStats {
 
     @Override
     public IIcon getIcon(ItemStack aStack, int aRenderPass) {
-        return ((IIconContainer)RegisterArmor.iconTitle.get("qwertech:kazoo")).getIcon(aRenderPass);
+        return ((IIconContainer) RegisterArmor.iconTitle.get("qwertech:kazoo")).getIcon(aRenderPass);
     }
 
     @Override
@@ -78,14 +76,12 @@ public class QT_Tool_Kazoo extends ToolStats {
     }
 
     @Override
-    public String getDeathMessage()
-    {
+    public String getDeathMessage() {
         return "[VICTIM]'s ears exploded after a [KILLER] concert";
     }
 
     @Override
-    public void onStatsAddedToTool(MultiItemTool aItem, int aID)
-    {
+    public void onStatsAddedToTool(MultiItemTool aItem, int aID) {
         aItem.addItemBehavior(aID, new Behavior_Note("qwertech:note.kazoo"));
     }
 }

@@ -2,6 +2,7 @@ package com.kbi.qwertech.client.models;
 
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -9,6 +10,7 @@ import org.lwjgl.opengl.GL11;
  * Created using Tabula 4.1.1
  */
 public class ModelUpgradeStation extends ModelBaseTool {
+
     public ModelRenderer Boxbase;
     public ModelRenderer HandleLeft;
     public ModelRenderer HandleRight;
@@ -69,9 +71,9 @@ public class ModelUpgradeStation extends ModelBaseTool {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         GL11.glColor4f(1, 1, 1, 1);
-    	GL11.glScalef(1, 1, 0.5F);
+        GL11.glScalef(1, 1, 0.5F);
         this.HandleLeft.render(f5);
         this.HandleRight.render(f5);
         GL11.glScalef(1, 1, 2);

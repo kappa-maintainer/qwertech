@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
  * Created using Tabula 4.1.1
  */
 public class ModelArmorPlates extends ModelBiped {
+
     public ModelRenderer bipedHeadPlate;
     public ModelRenderer bipedBodyPlate;
     public ModelRenderer bipedLegPlate;
@@ -37,16 +38,24 @@ public class ModelArmorPlates extends ModelBiped {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
-    	this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-    	
-    	setRotateAngle(bipedLeftBootPlate, bipedLeftLeg.rotateAngleX, bipedLeftLeg.rotateAngleY, bipedLeftLeg.rotateAngleZ);
-    	setRotateAngle(bipedRightBootPlate, bipedRightLeg.rotateAngleX, bipedRightLeg.rotateAngleY, bipedRightLeg.rotateAngleZ);
-    	setRotateAngle(bipedBodyPlate, bipedBody.rotateAngleX, bipedBody.rotateAngleY, bipedBody.rotateAngleZ);
-    	setRotateAngle(bipedLegPlate, bipedBody.rotateAngleX, bipedBody.rotateAngleY, bipedBody.rotateAngleZ);
-    	setRotateAngle(bipedHeadPlate, bipedHead.rotateAngleX, bipedHead.rotateAngleY, bipedHead.rotateAngleZ);
-    	
-    	this.bipedBodyPlate.render(f5);
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+        this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+
+        setRotateAngle(
+            bipedLeftBootPlate,
+            bipedLeftLeg.rotateAngleX,
+            bipedLeftLeg.rotateAngleY,
+            bipedLeftLeg.rotateAngleZ);
+        setRotateAngle(
+            bipedRightBootPlate,
+            bipedRightLeg.rotateAngleX,
+            bipedRightLeg.rotateAngleY,
+            bipedRightLeg.rotateAngleZ);
+        setRotateAngle(bipedBodyPlate, bipedBody.rotateAngleX, bipedBody.rotateAngleY, bipedBody.rotateAngleZ);
+        setRotateAngle(bipedLegPlate, bipedBody.rotateAngleX, bipedBody.rotateAngleY, bipedBody.rotateAngleZ);
+        setRotateAngle(bipedHeadPlate, bipedHead.rotateAngleX, bipedHead.rotateAngleY, bipedHead.rotateAngleZ);
+
+        this.bipedBodyPlate.render(f5);
         this.bipedRightBootPlate.render(f5);
         this.bipedLeftBootPlate.render(f5);
         this.bipedHeadPlate.render(f5);

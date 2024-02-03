@@ -1,20 +1,22 @@
 package com.kbi.qwertech.api.recipe.managers;
 
-import com.kbi.qwertech.api.data.FOOD;
-import com.kbi.qwertech.api.data.QTI;
-import com.kbi.qwertech.api.recipe.CountertopRecipe;
-import gregapi.data.IL;
-import gregapi.data.MT;
-import gregapi.data.OP;
-import gregapi.util.ST;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import com.kbi.qwertech.api.data.FOOD;
+import com.kbi.qwertech.api.data.QTI;
+import com.kbi.qwertech.api.recipe.CountertopRecipe;
+
+import gregapi.data.IL;
+import gregapi.data.MT;
+import gregapi.data.OP;
+import gregapi.util.ST;
 
 public class CraftingManagerCountertop implements Runnable {
 
@@ -28,51 +30,59 @@ public class CraftingManagerCountertop implements Runnable {
     /**
      * Returns the static instance of this class
      */
-    public static CraftingManagerCountertop getInstance()
-    {
+    public static CraftingManagerCountertop getInstance() {
         /* The static instance of this class */
         return instance;
     }
 
-    public ArrayList<CountertopRecipe> findMatchingRecipes(List<ItemStack> checking, World p_82787_2_)
-    {
-        //System.out.println("Getting recipes");
-        //returnable: only includes the things we have not yet made
+    public ArrayList<CountertopRecipe> findMatchingRecipes(List<ItemStack> checking, World p_82787_2_) {
+        // System.out.println("Getting recipes");
+        // returnable: only includes the things we have not yet made
         ArrayList<CountertopRecipe> returnable = new ArrayList<CountertopRecipe>();
         ArrayList<CountertopRecipe> potentialRecipes = new ArrayList<CountertopRecipe>();
-        //System.out.println("We found " + checking.size() + " items");
-        //if we added a new item through the last recursive check
+        // System.out.println("We found " + checking.size() + " items");
+        // if we added a new item through the last recursive check
         boolean newItem = true;
-        //how many recursive tries we have had
+        // how many recursive tries we have had
         int lastRun = 0;
 
-        //as long as we have added a new item to the list and we haven't yet gone five times, check it again
+        // as long as we have added a new item to the list and we haven't yet gone five times, check it again
         while (newItem && lastRun++ < 5) {
-            //System.out.println("doing recursive check #" + lastRun);
+            // System.out.println("doing recursive check #" + lastRun);
             newItem = false;
             for (int j = 0; j < checking.size() + returnable.size() + potentialRecipes.size(); j++) {
                 ArrayList<CountertopRecipe> contains;
                 if (j < checking.size()) {
-                    contains = recipesByItem.get(checking.get(j).getUnlocalizedName());
+                    contains = recipesByItem.get(
+                        checking.get(j)
+                            .getUnlocalizedName());
                 } else if (j < checking.size() + returnable.size()) {
-                    contains = recipesByItem.get(returnable.get(j - checking.size()).getCraftingResultList(checking).getUnlocalizedName());
+                    contains = recipesByItem.get(
+                        returnable.get(j - checking.size())
+                            .getCraftingResultList(checking)
+                            .getUnlocalizedName());
                 } else {
-                    contains = recipesByItem.get(potentialRecipes.get(j - checking.size() - returnable.size()).getCraftingResultList(checking).getUnlocalizedName());
+                    contains = recipesByItem.get(
+                        potentialRecipes.get(j - checking.size() - returnable.size())
+                            .getCraftingResultList(checking)
+                            .getUnlocalizedName());
                 }
-                if (contains == null)
-                {
+                if (contains == null) {
                     contains = new ArrayList<CountertopRecipe>();
                 }
                 int[] ODN;
                 if (j < checking.size()) {
                     ODN = OreDictionary.getOreIDs(checking.get(j));
                 } else if (j < checking.size() + returnable.size()) {
-                    ODN = OreDictionary.getOreIDs(returnable.get(j - checking.size()).getCraftingResultList(checking));
+                    ODN = OreDictionary.getOreIDs(
+                        returnable.get(j - checking.size())
+                            .getCraftingResultList(checking));
                 } else {
-                    ODN = OreDictionary.getOreIDs(potentialRecipes.get(j - checking.size() - returnable.size()).getCraftingResultList(checking));
+                    ODN = OreDictionary.getOreIDs(
+                        potentialRecipes.get(j - checking.size() - returnable.size())
+                            .getCraftingResultList(checking));
                 }
-                for (int w = 0; w < ODN.length; w++)
-                {
+                for (int w = 0; w < ODN.length; w++) {
                     String OD = OreDictionary.getOreName(ODN[w]);
                     ArrayList<CountertopRecipe> temp = recipesByItem.get(OD);
                     if (temp != null && !temp.isEmpty()) {
@@ -99,25 +109,24 @@ public class CraftingManagerCountertop implements Runnable {
                                 }
                             }
                             if (recipe.matchesLists(checking, returnable)) {
-                                //System.out.println("Adding new recipe we have everything for: " + recipe.getRecipeOutput().getDisplayName());
+                                // System.out.println("Adding new recipe we have everything for: " +
+                                // recipe.getRecipeOutput().getDisplayName());
                                 newItem = true;
                                 returnable.add(recipe);
                             } else {
-                                if (isNew)
-                                {
+                                if (isNew) {
                                     newItem = true;
                                     potentialRecipes.add(recipe);
                                 }
-                                //System.out.println("Adding new recipe we can't make yet");
+                                // System.out.println("Adding new recipe we can't make yet");
                             }
                         }
                     }
                 }
             }
         }
-        //System.out.println("Returning " + returnable.size() + " items");
-        for (CountertopRecipe recipe : potentialRecipes)
-        {
+        // System.out.println("Returning " + returnable.size() + " items");
+        for (CountertopRecipe recipe : potentialRecipes) {
             returnable.add(recipe);
         }
         return returnable;
@@ -126,28 +135,24 @@ public class CraftingManagerCountertop implements Runnable {
     /**
      * returns the List<> of all recipes
      */
-    public List getRecipeList()
-    {
+    public List getRecipeList() {
         return this.recipes;
     }
 
-    public void addRecipe(ItemStack result, Object... ingredients)
-    {
+    public void addRecipe(ItemStack result, Object... ingredients) {
         CountertopRecipe recipe = new CountertopRecipe(result, ingredients);
-        this.getRecipeList().add(recipe);
-        for (int q = 0; q < ingredients.length; q++)
-        {
+        this.getRecipeList()
+            .add(recipe);
+        for (int q = 0; q < ingredients.length; q++) {
             String key = "";
-            if (ingredients[q] instanceof ItemStack)
-            {
-                key = ((ItemStack)ingredients[q]).getUnlocalizedName();
-            } else if (ingredients[q] instanceof String)
-            {
-                key = (String)ingredients[q];
+            if (ingredients[q] instanceof ItemStack) {
+                key = ((ItemStack) ingredients[q]).getUnlocalizedName();
+            } else if (ingredients[q] instanceof String) {
+                key = (String) ingredients[q];
             }
-            if (recipesByItem.containsKey(key))
-            {
-                recipesByItem.get(key).add(recipe);
+            if (recipesByItem.containsKey(key)) {
+                recipesByItem.get(key)
+                    .add(recipe);
             } else {
                 ArrayList<CountertopRecipe> list = new ArrayList<CountertopRecipe>();
                 list.add(recipe);
@@ -233,7 +238,6 @@ public class CraftingManagerCountertop implements Runnable {
         FOOD.setDefaultQuantity(IL.Food_Bun_Sliced.get(1), FOOD.LUMP);
         FOOD.setDefaultQuantity(IL.Food_Buns_Sliced.get(1), FOOD.PORTION);
 
-
         addRecipe(IL.Food_Baguette_Raw.get(1), IL.Food_Dough.get(1), IL.Food_Dough.get(1), IL.Food_Dough.get(1));
         addRecipe(IL.Food_Bread_Raw.get(1), IL.Food_Dough.get(1), IL.Food_Dough.get(1));
         addRecipe(IL.Food_Bun_Raw.get(1), IL.Food_Dough.get(1));
@@ -242,8 +246,16 @@ public class CraftingManagerCountertop implements Runnable {
         addRecipe(IL.Food_Dough_Sugar.get(4), IL.Food_Dough.get(1), OP.gemChipped.mat(MT.Sugar, 4));
         addRecipe(IL.Food_Dough_Chocolate.get(2), IL.Food_Dough.get(1), OP.dust.mat(MT.Chocolate, 1));
         addRecipe(IL.Food_Dough_Chocolate.get(1), IL.Food_Dough.get(1), OP.dust.mat(MT.Cocoa, 1));
-        addRecipe(IL.Food_CakeBottom_Raw.get(1), IL.Food_Dough_Sugar.get(1), IL.Food_Dough_Sugar.get(1), IL.Food_Dough_Sugar.get(1), IL.Food_Dough_Sugar.get(1));
-        addRecipe(IL.Food_Dough_Sugar_Chocolate_Raisins.get(1), IL.Food_Dough_Sugar.get(1), IL.Food_Raisins_Chocolate.get(1));
+        addRecipe(
+            IL.Food_CakeBottom_Raw.get(1),
+            IL.Food_Dough_Sugar.get(1),
+            IL.Food_Dough_Sugar.get(1),
+            IL.Food_Dough_Sugar.get(1),
+            IL.Food_Dough_Sugar.get(1));
+        addRecipe(
+            IL.Food_Dough_Sugar_Chocolate_Raisins.get(1),
+            IL.Food_Dough_Sugar.get(1),
+            IL.Food_Raisins_Chocolate.get(1));
         addRecipe(IL.Food_Dough_Sugar_Raisins.get(1), IL.Food_Dough_Sugar.get(1), "foodRaisin");
         addRecipe(IL.Food_Cookie_Raw.get(4), IL.Food_Dough_Chocolate.get(1), "craftingToolKnife");
         addRecipe(IL.Food_Lemon_Sliced.get(4), "cropLemon", "craftingToolKnife");
@@ -261,41 +273,191 @@ public class CraftingManagerCountertop implements Runnable {
         addRecipe(IL.Food_Ham_Slice_Raw.get(4), IL.Food_Ham_Raw.get(1), "craftingToolKnife");
         addRecipe(IL.Food_Ham_Slice_Cooked.get(4), IL.Food_Ham_Cooked.get(1), "craftingToolKnife");
         addRecipe(IL.Food_Cookie_Raisins_Raw.get(4), IL.Food_Dough_Sugar_Raisins.get(1), "craftingToolKnife");
-        addRecipe(IL.Food_Cookie_Chocolate_Raisins_Raw.get(4), IL.Food_Dough_Sugar_Chocolate_Raisins.get(1), "craftingToolKnife");
+        addRecipe(
+            IL.Food_Cookie_Chocolate_Raisins_Raw.get(4),
+            IL.Food_Dough_Sugar_Chocolate_Raisins.get(1),
+            "craftingToolKnife");
         addRecipe(QTI.doughFlatSauce.get(1), IL.Food_Dough_Flat.get(1), QTI.tomatoSauce.get(1));
-        addRecipe(QTI.doughFlatSauce.get(5), IL.Food_Dough_Flat.get(1), IL.Food_Dough_Flat.get(1), IL.Food_Dough_Flat.get(1), IL.Food_Dough_Flat.get(1), IL.Food_Dough_Flat.get(1), QTI.tomatoSauce.get(1));
-        addRecipe(IL.Food_Pizza_Cheese_Raw.get(1), QTI.doughFlatSauce.get(1), QTI.mozzarella.get(1), QTI.mozzarella.get(1), QTI.mozzarella.get(1));
-        addRecipe(IL.Food_Pizza_Meat_Raw.get(1), QTI.doughFlatSauce.get(1), QTI.mozzarella.get(1), OP.dust.mat(MT.MeatCooked, 1));
-        addRecipe(IL.Food_Pizza_Veggie_Raw.get(1), QTI.doughFlatSauce.get(1), IL.Food_Tomato_Sliced.get(1), IL.Food_Onion_Sliced.get(1), IL.Food_Cucumber_Sliced.get(1), QTI.mozzarella.get(1));
-        addRecipe(IL.Food_Pizza_Ananas_Raw.get(1), QTI.doughFlatSauce.get(1), IL.Food_Ananas_Sliced.get(1), IL.Food_Ananas_Sliced.get(1), IL.Food_Ham_Slice_Cooked.get(1), QTI.mozzarella.get(1));
+        addRecipe(
+            QTI.doughFlatSauce.get(5),
+            IL.Food_Dough_Flat.get(1),
+            IL.Food_Dough_Flat.get(1),
+            IL.Food_Dough_Flat.get(1),
+            IL.Food_Dough_Flat.get(1),
+            IL.Food_Dough_Flat.get(1),
+            QTI.tomatoSauce.get(1));
+        addRecipe(
+            IL.Food_Pizza_Cheese_Raw.get(1),
+            QTI.doughFlatSauce.get(1),
+            QTI.mozzarella.get(1),
+            QTI.mozzarella.get(1),
+            QTI.mozzarella.get(1));
+        addRecipe(
+            IL.Food_Pizza_Meat_Raw.get(1),
+            QTI.doughFlatSauce.get(1),
+            QTI.mozzarella.get(1),
+            OP.dust.mat(MT.MeatCooked, 1));
+        addRecipe(
+            IL.Food_Pizza_Veggie_Raw.get(1),
+            QTI.doughFlatSauce.get(1),
+            IL.Food_Tomato_Sliced.get(1),
+            IL.Food_Onion_Sliced.get(1),
+            IL.Food_Cucumber_Sliced.get(1),
+            QTI.mozzarella.get(1));
+        addRecipe(
+            IL.Food_Pizza_Ananas_Raw.get(1),
+            QTI.doughFlatSauce.get(1),
+            IL.Food_Ananas_Sliced.get(1),
+            IL.Food_Ananas_Sliced.get(1),
+            IL.Food_Ham_Slice_Cooked.get(1),
+            QTI.mozzarella.get(1));
         addRecipe(IL.Food_Bun_Sliced.get(2), IL.Food_Bun.get(1), "craftingToolKnife");
         addRecipe(IL.Food_Buns_Sliced.get(1), IL.Food_Bun_Sliced.get(1), IL.Food_Bun_Sliced.get(1));
-        addRecipe(IL.Food_Burger_Veggie.get(1), IL.Food_Buns_Sliced.get(1), IL.Food_Tomato_Sliced.get(1), IL.Food_Cucumber_Sliced.get(1), IL.Food_Onion_Sliced.get(1));
-        addRecipe(IL.Food_Burger_Cheese.get(1), IL.Food_Buns_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1));
+        addRecipe(
+            IL.Food_Burger_Veggie.get(1),
+            IL.Food_Buns_Sliced.get(1),
+            IL.Food_Tomato_Sliced.get(1),
+            IL.Food_Cucumber_Sliced.get(1),
+            IL.Food_Onion_Sliced.get(1));
+        addRecipe(
+            IL.Food_Burger_Cheese.get(1),
+            IL.Food_Buns_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1));
         addRecipe(IL.Food_Burger_Meat.get(1), IL.Food_Buns_Sliced.get(1), OP.ingot.mat(MT.MeatCooked, 1));
         addRecipe(IL.Food_Burger_Chum.get(1), IL.Food_Buns_Sliced.get(1), IL.Food_Chum.get(1));
         addRecipe(IL.Food_Burger_Tofu.get(1), IL.Food_Buns_Sliced.get(1), OP.ingot.mat(MT.Tofu, 1));
         addRecipe(IL.Food_Burger_Fish.get(1), IL.Food_Buns_Sliced.get(1), OP.ingot.mat(MT.FishCooked, 1));
         addRecipe(IL.Food_Breads_Sliced.get(1), IL.Food_Bread_Sliced.get(1), IL.Food_Bread_Sliced.get(1));
         addRecipe(IL.Food_Bread_Sliced.get(2), IL.Food_Bread.get(1), "craftingToolKnife");
-        addRecipe(IL.Food_Sandwich_Veggie.get(1), IL.Food_Breads_Sliced.get(1), IL.Food_Cucumber_Sliced.get(1), IL.Food_Cucumber_Sliced.get(1), IL.Food_Tomato_Sliced.get(1), IL.Food_Tomato_Sliced.get(1), IL.Food_Onion_Sliced.get(1));
-        addRecipe(IL.Food_Sandwich_Veggie.get(1), IL.Food_Bread_Sliced.get(1), IL.Food_Bread_Sliced.get(1), IL.Food_Cucumber_Sliced.get(1), IL.Food_Cucumber_Sliced.get(1), IL.Food_Tomato_Sliced.get(1), IL.Food_Tomato_Sliced.get(1), IL.Food_Onion_Sliced.get(1));
-        addRecipe(IL.Food_Sandwich_Cheese.get(1), IL.Food_Breads_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1));
-        addRecipe(IL.Food_Sandwich_Cheese.get(1), IL.Food_Bread_Sliced.get(1), IL.Food_Bread_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1));
-        addRecipe(IL.Food_Sandwich_Bacon.get(1), IL.Food_Breads_Sliced.get(1), "foodBaconcooked", "foodBaconcooked", "foodBaconcooked");
-        addRecipe(IL.Food_Sandwich_Bacon.get(1), IL.Food_Bread_Sliced.get(1), IL.Food_Bread_Sliced.get(1), "foodBaconcooked", "foodBaconcooked", "foodBaconcooked");
+        addRecipe(
+            IL.Food_Sandwich_Veggie.get(1),
+            IL.Food_Breads_Sliced.get(1),
+            IL.Food_Cucumber_Sliced.get(1),
+            IL.Food_Cucumber_Sliced.get(1),
+            IL.Food_Tomato_Sliced.get(1),
+            IL.Food_Tomato_Sliced.get(1),
+            IL.Food_Onion_Sliced.get(1));
+        addRecipe(
+            IL.Food_Sandwich_Veggie.get(1),
+            IL.Food_Bread_Sliced.get(1),
+            IL.Food_Bread_Sliced.get(1),
+            IL.Food_Cucumber_Sliced.get(1),
+            IL.Food_Cucumber_Sliced.get(1),
+            IL.Food_Tomato_Sliced.get(1),
+            IL.Food_Tomato_Sliced.get(1),
+            IL.Food_Onion_Sliced.get(1));
+        addRecipe(
+            IL.Food_Sandwich_Cheese.get(1),
+            IL.Food_Breads_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1));
+        addRecipe(
+            IL.Food_Sandwich_Cheese.get(1),
+            IL.Food_Bread_Sliced.get(1),
+            IL.Food_Bread_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1));
+        addRecipe(
+            IL.Food_Sandwich_Bacon.get(1),
+            IL.Food_Breads_Sliced.get(1),
+            "foodBaconcooked",
+            "foodBaconcooked",
+            "foodBaconcooked");
+        addRecipe(
+            IL.Food_Sandwich_Bacon.get(1),
+            IL.Food_Bread_Sliced.get(1),
+            IL.Food_Bread_Sliced.get(1),
+            "foodBaconcooked",
+            "foodBaconcooked",
+            "foodBaconcooked");
         addRecipe(IL.Food_Sandwich_Steak.get(1), IL.Food_Breads_Sliced.get(1), ST.make(Items.cooked_beef, 1L, 32767L));
-        addRecipe(IL.Food_Sandwich_Steak.get(1), IL.Food_Bread_Sliced.get(1), IL.Food_Bread_Sliced.get(1), ST.make(Items.cooked_beef, 1L, 32767L));
+        addRecipe(
+            IL.Food_Sandwich_Steak.get(1),
+            IL.Food_Bread_Sliced.get(1),
+            IL.Food_Bread_Sliced.get(1),
+            ST.make(Items.cooked_beef, 1L, 32767L));
         addRecipe(IL.Food_Baguettes_Sliced.get(1), IL.Food_Baguette_Sliced.get(1), IL.Food_Baguette_Sliced.get(1));
         addRecipe(IL.Food_Baguette_Sliced.get(2), IL.Food_Baguette.get(1), "craftingToolKnife");
-        addRecipe(IL.Food_Large_Sandwich_Veggie.get(1), IL.Food_Baguettes_Sliced.get(1), IL.Food_Cucumber_Sliced.get(1), IL.Food_Cucumber_Sliced.get(1), IL.Food_Cucumber_Sliced.get(1), IL.Food_Tomato_Sliced.get(1), IL.Food_Tomato_Sliced.get(1), IL.Food_Tomato_Sliced.get(1), IL.Food_Onion_Sliced.get(1));
-        addRecipe(IL.Food_Large_Sandwich_Veggie.get(1), IL.Food_Baguette_Sliced.get(1), IL.Food_Baguette_Sliced.get(1), IL.Food_Cucumber_Sliced.get(1), IL.Food_Cucumber_Sliced.get(1), IL.Food_Cucumber_Sliced.get(1), IL.Food_Tomato_Sliced.get(1), IL.Food_Tomato_Sliced.get(1), IL.Food_Tomato_Sliced.get(1), IL.Food_Onion_Sliced.get(1));
-        addRecipe(IL.Food_Large_Sandwich_Bacon.get(1), IL.Food_Baguettes_Sliced.get(1), "foodBaconcooked", "foodBaconcooked", "foodBaconcooked", "foodBaconcooked", "foodBaconcooked", "foodBaconcooked");
-        addRecipe(IL.Food_Large_Sandwich_Bacon.get(1), IL.Food_Baguette_Sliced.get(1), IL.Food_Baguette_Sliced.get(1), "foodBaconcooked", "foodBaconcooked", "foodBaconcooked", "foodBaconcooked", "foodBaconcooked", "foodBaconcooked");
-        addRecipe(IL.Food_Large_Sandwich_Cheese.get(1),IL.Food_Baguettes_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1));
-        addRecipe(IL.Food_Large_Sandwich_Cheese.get(1),IL.Food_Baguette_Sliced.get(1), IL.Food_Baguette_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1), IL.Food_Cheese_Sliced.get(1));
-        addRecipe(IL.Food_Large_Sandwich_Steak.get(1), IL.Food_Baguettes_Sliced.get(1), ST.make(Items.cooked_beef, 1L, 32767L), ST.make(Items.cooked_beef, 1L, 32767L));
-        addRecipe(IL.Food_Large_Sandwich_Steak.get(1), IL.Food_Baguette_Sliced.get(1), IL.Food_Baguette_Sliced.get(1), ST.make(Items.cooked_beef, 1L, 32767L), ST.make(Items.cooked_beef, 1L, 32767L));
+        addRecipe(
+            IL.Food_Large_Sandwich_Veggie.get(1),
+            IL.Food_Baguettes_Sliced.get(1),
+            IL.Food_Cucumber_Sliced.get(1),
+            IL.Food_Cucumber_Sliced.get(1),
+            IL.Food_Cucumber_Sliced.get(1),
+            IL.Food_Tomato_Sliced.get(1),
+            IL.Food_Tomato_Sliced.get(1),
+            IL.Food_Tomato_Sliced.get(1),
+            IL.Food_Onion_Sliced.get(1));
+        addRecipe(
+            IL.Food_Large_Sandwich_Veggie.get(1),
+            IL.Food_Baguette_Sliced.get(1),
+            IL.Food_Baguette_Sliced.get(1),
+            IL.Food_Cucumber_Sliced.get(1),
+            IL.Food_Cucumber_Sliced.get(1),
+            IL.Food_Cucumber_Sliced.get(1),
+            IL.Food_Tomato_Sliced.get(1),
+            IL.Food_Tomato_Sliced.get(1),
+            IL.Food_Tomato_Sliced.get(1),
+            IL.Food_Onion_Sliced.get(1));
+        addRecipe(
+            IL.Food_Large_Sandwich_Bacon.get(1),
+            IL.Food_Baguettes_Sliced.get(1),
+            "foodBaconcooked",
+            "foodBaconcooked",
+            "foodBaconcooked",
+            "foodBaconcooked",
+            "foodBaconcooked",
+            "foodBaconcooked");
+        addRecipe(
+            IL.Food_Large_Sandwich_Bacon.get(1),
+            IL.Food_Baguette_Sliced.get(1),
+            IL.Food_Baguette_Sliced.get(1),
+            "foodBaconcooked",
+            "foodBaconcooked",
+            "foodBaconcooked",
+            "foodBaconcooked",
+            "foodBaconcooked",
+            "foodBaconcooked");
+        addRecipe(
+            IL.Food_Large_Sandwich_Cheese.get(1),
+            IL.Food_Baguettes_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1));
+        addRecipe(
+            IL.Food_Large_Sandwich_Cheese.get(1),
+            IL.Food_Baguette_Sliced.get(1),
+            IL.Food_Baguette_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1),
+            IL.Food_Cheese_Sliced.get(1));
+        addRecipe(
+            IL.Food_Large_Sandwich_Steak.get(1),
+            IL.Food_Baguettes_Sliced.get(1),
+            ST.make(Items.cooked_beef, 1L, 32767L),
+            ST.make(Items.cooked_beef, 1L, 32767L));
+        addRecipe(
+            IL.Food_Large_Sandwich_Steak.get(1),
+            IL.Food_Baguette_Sliced.get(1),
+            IL.Food_Baguette_Sliced.get(1),
+            ST.make(Items.cooked_beef, 1L, 32767L),
+            ST.make(Items.cooked_beef, 1L, 32767L));
         addRecipe(IL.Food_Fries_Raw.get(1), "craftingToolKnife", "cropPotato");
         addRecipe(IL.Food_Fries_Packaged.get(1), IL.Food_Fries.get(1), "plateDoublePaper");
         addRecipe(IL.Food_PotatoChips_Raw.get(1), "craftingToolKnife", "cropPotato");

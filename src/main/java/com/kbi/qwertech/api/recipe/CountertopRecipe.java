@@ -1,17 +1,19 @@
 package com.kbi.qwertech.api.recipe;
 
-import com.kbi.qwertech.api.data.FOOD;
-import gregapi.util.ST;
-import gregapi.util.UT;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import com.kbi.qwertech.api.data.FOOD;
+
+import gregapi.util.ST;
+import gregapi.util.UT;
 
 public class CountertopRecipe extends ShapelessOreRecipe implements IListRecipe {
 
@@ -22,13 +24,10 @@ public class CountertopRecipe extends ShapelessOreRecipe implements IListRecipe 
     @Override
     public ItemStack getCraftingResult(InventoryCrafting var1) {
         List<ItemStack> list = new ArrayList<ItemStack>();
-        for (int x = 0; x < var1.getSizeInventory(); x++)
-        {
+        for (int x = 0; x < var1.getSizeInventory(); x++) {
             ItemStack stack = var1.getStackInSlot(x);
-            if (ST.valid(stack))
-            {
-                for (int q = 0; q < stack.stackSize; q++)
-                {
+            if (ST.valid(stack)) {
+                for (int q = 0; q < stack.stackSize; q++) {
                     list.add(stack);
                 }
             }
@@ -43,13 +42,10 @@ public class CountertopRecipe extends ShapelessOreRecipe implements IListRecipe 
     @Override
     public boolean matches(InventoryCrafting var1, World world) {
         List<ItemStack> list = new ArrayList<ItemStack>();
-        for (int x = 0; x < var1.getSizeInventory(); x++)
-        {
+        for (int x = 0; x < var1.getSizeInventory(); x++) {
             ItemStack stack = var1.getStackInSlot(x);
-            if (ST.valid(stack))
-            {
-                for (int q = 0; q < stack.stackSize; q++)
-                {
+            if (ST.valid(stack)) {
+                for (int q = 0; q < stack.stackSize; q++) {
                     list.add(stack);
                 }
             }
@@ -59,29 +55,29 @@ public class CountertopRecipe extends ShapelessOreRecipe implements IListRecipe 
 
     @Override
     public ItemStack getCraftingResultList(List<ItemStack> input) {
-        int[] quality = new int[this.getInput().size()];
-        ArrayList<ItemStack> pruned = new ArrayList<ItemStack>(this.getInput().size());
-        ArrayList<ItemStack> results = (ArrayList<ItemStack>)tempResults.clone();
-        for (int q = 0; q < this.getInput().size(); q++)
-        {
-            Object examine = this.getInput().get(q);
-            if (examine instanceof ItemStack)
-            {
-                pruned.add((ItemStack)examine);
-            } else if (examine instanceof ArrayList && ((ArrayList)examine).size() > 0)
-            {
-                pruned.add(((ArrayList<ItemStack>)examine).get(0));
+        int[] quality = new int[this.getInput()
+            .size()];
+        ArrayList<ItemStack> pruned = new ArrayList<ItemStack>(
+            this.getInput()
+                .size());
+        ArrayList<ItemStack> results = (ArrayList<ItemStack>) tempResults.clone();
+        for (int q = 0; q < this.getInput()
+            .size(); q++) {
+            Object examine = this.getInput()
+                .get(q);
+            if (examine instanceof ItemStack) {
+                pruned.add((ItemStack) examine);
+            } else if (examine instanceof ArrayList && ((ArrayList) examine).size() > 0) {
+                pruned.add(((ArrayList<ItemStack>) examine).get(0));
             } else {
-                return this.getRecipeOutput().copy(); //this means we have an OreDict entry which has no match
+                return this.getRecipeOutput()
+                    .copy(); // this means we have an OreDict entry which has no match
             }
-            for (int w = 0; w < results.size(); w++)
-            {
+            for (int w = 0; w < results.size(); w++) {
                 ItemStack check = results.get(w);
-                if (ST.equal(pruned.get(q), check, true))
-                {
+                if (ST.equal(pruned.get(q), check, true)) {
                     int qual = FOOD.getQuality(check);
-                    if (qual > quality[q])
-                    {
+                    if (qual > quality[q]) {
                         pruned.set(q, check);
                         quality[q] = qual;
                         results.remove(w);
@@ -93,32 +89,31 @@ public class CountertopRecipe extends ShapelessOreRecipe implements IListRecipe 
 
         int totalquality = 0;
         int totalquantity = 0;
-        for (int e = 0; e < pruned.size(); e++)
-        {
+        for (int e = 0; e < pruned.size(); e++) {
             int quantity = FOOD.getQuantity(pruned.get(e));
             totalquality = totalquality + (quality[e] * quantity);
             totalquantity = totalquantity + quantity;
         }
-        totalquality = (int)Math.floor((double)totalquality / (double)totalquantity);
-        return FOOD.setQuality(this.getRecipeOutput().copy(), (byte)Math.min(255, totalquality));
-        //return super.getCraftingResult(var1);
+        totalquality = (int) Math.floor((double) totalquality / (double) totalquantity);
+        return FOOD.setQuality(
+            this.getRecipeOutput()
+                .copy(),
+            (byte) Math.min(255, totalquality));
+        // return super.getCraftingResult(var1);
     }
 
     @Override
     public ItemStack getRecipeOutput() {
         ItemStack returnable = super.getRecipeOutput();
-        if (returnable.stackSize <= 0)
-        {
+        if (returnable.stackSize <= 0) {
             returnable.stackSize = 1;
         }
         return returnable;
     }
 
-    public ArrayList<ItemStack> copyList(List<ItemStack> toCopy)
-    {
+    public ArrayList<ItemStack> copyList(List<ItemStack> toCopy) {
         ArrayList<ItemStack> returnable = new ArrayList<ItemStack>(0);
-        for (ItemStack is : toCopy)
-        {
+        for (ItemStack is : toCopy) {
             if (is != null) {
                 returnable.add(is.copy());
             } else {
@@ -139,47 +134,38 @@ public class CountertopRecipe extends ShapelessOreRecipe implements IListRecipe 
         matchingTwo = UT.Code.fill(0, new Integer[64]);
         tempResults = new ArrayList<ItemStack>();
 
-        for (int x = 0; x < tempInput.size(); x++)
-        {
+        for (int x = 0; x < tempInput.size(); x++) {
             ItemStack slot = tempInput.get(x);
-        //Iterator<ItemStack> irq = input.iterator();
-        //while (irq.hasNext())
-        //{
-            //ItemStack slot = irq.next();
+            // Iterator<ItemStack> irq = input.iterator();
+            // while (irq.hasNext())
+            // {
+            // ItemStack slot = irq.next();
 
-            if (ST.valid(slot))
-            {
-                //Iterator<Object> req = required.iterator();
+            if (ST.valid(slot)) {
+                // Iterator<Object> req = required.iterator();
 
-                //while (req.hasNext())
-                //{
-                for (int k = 0; k < required.size(); k++)
-                {
+                // while (req.hasNext())
+                // {
+                for (int k = 0; k < required.size(); k++) {
                     boolean match = false;
 
                     Object next = required.get(k);
 
-                    //Object next = req.next();
+                    // Object next = req.next();
 
-                    if (next instanceof ItemStack)
-                    {
-                        match = OreDictionary.itemMatches((ItemStack)next, slot, false);
-                    }
-                    else if (next instanceof ArrayList)
-                    {
-                        Iterator<ItemStack> itr = ((ArrayList<ItemStack>)next).iterator();
-                        while (itr.hasNext() && !match)
-                        {
+                    if (next instanceof ItemStack) {
+                        match = OreDictionary.itemMatches((ItemStack) next, slot, false);
+                    } else if (next instanceof ArrayList) {
+                        Iterator<ItemStack> itr = ((ArrayList<ItemStack>) next).iterator();
+                        while (itr.hasNext() && !match) {
                             match = OreDictionary.itemMatches(itr.next(), slot, false);
                         }
                     }
 
-                    if (match)
-                    {
+                    if (match) {
                         try {
                             matchingOne[x] = matchingOne[x] + 1;
-                            if(slot.stackSize > 1)
-                            {
+                            if (slot.stackSize > 1) {
                                 slot.stackSize = slot.stackSize - 1;
                                 tempInput.set(x, slot);
                                 tempResults.add(slot);
@@ -190,8 +176,7 @@ public class CountertopRecipe extends ShapelessOreRecipe implements IListRecipe 
                             }
                             required.remove(next);
                             k = k - 1;
-                        } catch (Throwable t)
-                        {
+                        } catch (Throwable t) {
                             System.out.println("ERROR");
                             t.printStackTrace();
                         }
@@ -200,59 +185,51 @@ public class CountertopRecipe extends ShapelessOreRecipe implements IListRecipe 
             }
         }
 
-        //don't check our secondary if we don't have to
+        // don't check our secondary if we don't have to
         if (required.isEmpty()) return true;
-        if (required.size() < input.size()) //System.out.println("Still checking " + required.size() + " items for " + getRecipeOutput().getDisplayName());
-        for (int x = 0; x < secondary.size(); x++)
-        {
-            CountertopRecipe intermediate = secondary.get(x);
-            ItemStack slot = intermediate.getCraftingResultList(tempInput);
+        if (required.size() < input.size()) // System.out.println("Still checking " + required.size() + " items for " +
+                                            // getRecipeOutput().getDisplayName());
+            for (int x = 0; x < secondary.size(); x++) {
+                CountertopRecipe intermediate = secondary.get(x);
+                ItemStack slot = intermediate.getCraftingResultList(tempInput);
 
-            if (ST.valid(slot))
-            {
-                //Iterator<Object> req = required.iterator();
+                if (ST.valid(slot)) {
+                    // Iterator<Object> req = required.iterator();
 
-                //while (req.hasNext())
-                //{
-                for (int k = 0; k < required.size(); k++)
-                {
-                    boolean match = false;
+                    // while (req.hasNext())
+                    // {
+                    for (int k = 0; k < required.size(); k++) {
+                        boolean match = false;
 
-                    Object next = required.get(k);
+                        Object next = required.get(k);
 
-                    //Object next = req.next();
+                        // Object next = req.next();
 
-                    if (next instanceof ItemStack)
-                    {
-                        match = OreDictionary.itemMatches((ItemStack)next, slot, false);
-                    }
-                    else if (next instanceof ArrayList)
-                    {
-                        Iterator<ItemStack> itr = ((ArrayList<ItemStack>)next).iterator();
-                        while (itr.hasNext() && !match)
-                        {
-                            match = OreDictionary.itemMatches(itr.next(), slot, false);
+                        if (next instanceof ItemStack) {
+                            match = OreDictionary.itemMatches((ItemStack) next, slot, false);
+                        } else if (next instanceof ArrayList) {
+                            Iterator<ItemStack> itr = ((ArrayList<ItemStack>) next).iterator();
+                            while (itr.hasNext() && !match) {
+                                match = OreDictionary.itemMatches(itr.next(), slot, false);
+                            }
                         }
-                    }
 
-                    if (match)
-                    {
-                        //System.out.println("Found matching possible recipe! Now comparing inputs");
-                        ArrayList<ItemStack> backup = new ArrayList<ItemStack>(tempInput);
-                        ArrayList<Object> results = new ArrayList<Object>(intermediate.getInputList());
-                        if (intermediate.matchesListsInternal(tempInput, secondary))
-                        {
-                            required.remove(next);
-                            k = k - 1;
-                            tempResults.add(slot);
-                            matchingTwo[x] = matchingTwo[x] + 1;
-                        } else {
-                            tempInput = backup;
+                        if (match) {
+                            // System.out.println("Found matching possible recipe! Now comparing inputs");
+                            ArrayList<ItemStack> backup = new ArrayList<ItemStack>(tempInput);
+                            ArrayList<Object> results = new ArrayList<Object>(intermediate.getInputList());
+                            if (intermediate.matchesListsInternal(tempInput, secondary)) {
+                                required.remove(next);
+                                k = k - 1;
+                                tempResults.add(slot);
+                                matchingTwo[x] = matchingTwo[x] + 1;
+                            } else {
+                                tempInput = backup;
+                            }
                         }
                     }
                 }
             }
-        }
         return required.isEmpty();
     }
 
@@ -261,36 +238,28 @@ public class CountertopRecipe extends ShapelessOreRecipe implements IListRecipe 
         ArrayList<Object> required = new ArrayList<Object>(this.getInput());
         tempResults = new ArrayList<ItemStack>();
 
-        for (int x = 0; x < input.size(); x++)
-        {
+        for (int x = 0; x < input.size(); x++) {
             ItemStack slot = input.get(x);
 
-            if (slot != null)
-            {
+            if (slot != null) {
                 boolean inRecipe = false;
                 Iterator<Object> req = required.iterator();
 
-                while (req.hasNext())
-                {
+                while (req.hasNext()) {
                     boolean match = false;
 
                     Object next = req.next();
 
-                    if (next instanceof ItemStack)
-                    {
-                        match = OreDictionary.itemMatches((ItemStack)next, slot, false);
-                    }
-                    else if (next instanceof ArrayList)
-                    {
-                        Iterator<ItemStack> itr = ((ArrayList<ItemStack>)next).iterator();
-                        while (itr.hasNext() && !match)
-                        {
+                    if (next instanceof ItemStack) {
+                        match = OreDictionary.itemMatches((ItemStack) next, slot, false);
+                    } else if (next instanceof ArrayList) {
+                        Iterator<ItemStack> itr = ((ArrayList<ItemStack>) next).iterator();
+                        while (itr.hasNext() && !match) {
                             match = OreDictionary.itemMatches(itr.next(), slot, false);
                         }
                     }
 
-                    if (match)
-                    {
+                    if (match) {
                         inRecipe = true;
                         required.remove(next);
                         tempResults.add(slot);
@@ -307,6 +276,12 @@ public class CountertopRecipe extends ShapelessOreRecipe implements IListRecipe 
     public List<Object> getInputList() {
         return this.getInput();
     }
-    public Integer[] getInputSlotsUsed() {return this.matchingOne;}
-    public Integer[] getRecipeSlotsUsed() {return this.matchingTwo;}
+
+    public Integer[] getInputSlotsUsed() {
+        return this.matchingOne;
+    }
+
+    public Integer[] getRecipeSlotsUsed() {
+        return this.matchingTwo;
+    }
 }

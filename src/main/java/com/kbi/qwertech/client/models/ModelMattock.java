@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
  * Created using Tabula 4.1.1
  */
 public class ModelMattock extends ModelBaseTool {
+
     public ModelRenderer handle;
     public ModelRenderer head;
     public ModelRenderer handle_1;
@@ -78,12 +79,12 @@ public class ModelMattock extends ModelBaseTool {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         applyColorSecondary();
-    	this.handle.render(f5);
-    	applyColorPrimary();
+        this.handle.render(f5);
+        applyColorPrimary();
         this.handle_1.render(f5);
-    	this.head.render(f5);
+        this.head.render(f5);
         this.bladeLRB.render(f5);
         this.bladeLRT.render(f5);
         this.bladeLRT_1.render(f5);

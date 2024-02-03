@@ -1,13 +1,15 @@
 package com.kbi.qwertech.api.entities;
 
-import com.kbi.qwertech.loaders.RegisterSpecies;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import net.minecraft.world.biome.BiomeGenBase;
+
+import com.kbi.qwertech.loaders.RegisterSpecies;
+
 public class Species implements Taggable {
+
     public Subtype[] subtypes = new Subtype[Short.MAX_VALUE];
     public HashMap<BiomeGenBase, List<Subtype>> spawnMap = new HashMap<BiomeGenBase, List<Subtype>>();
 
@@ -17,28 +19,24 @@ public class Species implements Taggable {
     public short[] maxLimits = new short[8];
     private Class<? extends IGeneticMob> mobType;
 
-    public Species(Class<? extends IGeneticMob> mob)
-    {
+    public Species(Class<? extends IGeneticMob> mob) {
         mobType = mob;
     }
 
-    public Class<? extends IGeneticMob> getMobType()
-    {
+    public Class<? extends IGeneticMob> getMobType() {
         return mobType;
     }
 
-    public List<Subtype> getSubtypesForBiome(BiomeGenBase biome)
-    {
+    public List<Subtype> getSubtypesForBiome(BiomeGenBase biome) {
         return spawnMap.get(biome);
     }
 
     @Override
     public String toString() {
-        return (String)this.getTag(RegisterSpecies.NAME_TRANSLATE);
+        return (String) this.getTag(RegisterSpecies.NAME_TRANSLATE);
     }
 
-    public Species setSubtype(int ID, Subtype type)
-    {
+    public Species setSubtype(int ID, Subtype type) {
         if (subtypes[ID] == null) {
             subtypes[ID] = type;
         } else {
@@ -47,210 +45,172 @@ public class Species implements Taggable {
         return this;
     }
 
-    public Subtype getSubtype(short ID)
-    {
-        if (subtypes[ID] != null)
-        {
+    public Subtype getSubtype(short ID) {
+        if (subtypes[ID] != null) {
             return subtypes[ID];
         } else {
             return subtypes[0];
         }
     }
 
-    public short getMinSize()
-    {
+    public short getMinSize() {
         return minLimits[0];
     }
 
-    public short getMinStrength()
-    {
+    public short getMinStrength() {
         return minLimits[1];
     }
 
-    public short getMinStamina()
-    {
+    public short getMinStamina() {
         return minLimits[2];
     }
 
-    public short getMinSmart()
-    {
+    public short getMinSmart() {
         return minLimits[3];
     }
 
-    public short getMinSnarl()
-    {
+    public short getMinSnarl() {
         return minLimits[4];
     }
 
-    public short getMinMutable()
-    {
+    public short getMinMutable() {
         return minLimits[5];
     }
 
-    public short getMinFertility()
-    {
+    public short getMinFertility() {
         return minLimits[6];
     }
 
-    public short getMinMaturity()
-    {
+    public short getMinMaturity() {
         return minLimits[7];
     }
-    
-    public Species setMinSize(int size)
-    {
-        minLimits[0] = (short)size;
+
+    public Species setMinSize(int size) {
+        minLimits[0] = (short) size;
         return this;
     }
 
-    public Species setMinStrength(int strength)
-    {
-        minLimits[1] = (short)strength;
+    public Species setMinStrength(int strength) {
+        minLimits[1] = (short) strength;
         return this;
     }
 
-    public Species setMinStamina(int stamina)
-    {
-        minLimits[2] = (short)stamina;
+    public Species setMinStamina(int stamina) {
+        minLimits[2] = (short) stamina;
         return this;
     }
 
-    public Species setMinSmart(int smart)
-    {
-        minLimits[3] = (short)smart;
+    public Species setMinSmart(int smart) {
+        minLimits[3] = (short) smart;
         return this;
     }
 
-    public Species setMinSnarl(int snarl)
-    {
-        minLimits[4] = (short)snarl;
+    public Species setMinSnarl(int snarl) {
+        minLimits[4] = (short) snarl;
         return this;
     }
 
-    public Species setMinMutable(int mutable)
-    {
-        minLimits[5] = (short)mutable;
+    public Species setMinMutable(int mutable) {
+        minLimits[5] = (short) mutable;
         return this;
     }
 
-    public Species setMinFertility(int fertility)
-    {
-        minLimits[6] = (short)fertility;
+    public Species setMinFertility(int fertility) {
+        minLimits[6] = (short) fertility;
         return this;
     }
 
-    public Species setMinMaturity(int maturity)
-    {
-        minLimits[7] = (short)maturity;
+    public Species setMinMaturity(int maturity) {
+        minLimits[7] = (short) maturity;
         return this;
     }
 
-    public short getMaxSize()
-    {
+    public short getMaxSize() {
         return maxLimits[0];
     }
 
-    public short getMaxStrength()
-    {
+    public short getMaxStrength() {
         return maxLimits[1];
     }
 
-    public short getMaxStamina()
-    {
+    public short getMaxStamina() {
         return maxLimits[2];
     }
 
-    public short getMaxSmart()
-    {
+    public short getMaxSmart() {
         return maxLimits[3];
     }
 
-    public short getMaxSnarl()
-    {
+    public short getMaxSnarl() {
         return maxLimits[4];
     }
 
-    public short getMaxMutable()
-    {
+    public short getMaxMutable() {
         return maxLimits[5];
     }
 
-    public short getMaxFertility()
-    {
+    public short getMaxFertility() {
         return maxLimits[6];
     }
 
-    public short getMaxMaturity()
-    {
+    public short getMaxMaturity() {
         return maxLimits[7];
     }
 
-    public Species setMaxSize(int size)
-    {
-        maxLimits[0] = (short)size;
+    public Species setMaxSize(int size) {
+        maxLimits[0] = (short) size;
         return this;
     }
 
-    public Species setMaxStrength(int strength)
-    {
-        maxLimits[1] = (short)strength;
+    public Species setMaxStrength(int strength) {
+        maxLimits[1] = (short) strength;
         return this;
     }
 
-    public Species setMaxStamina(int stamina)
-    {
-        maxLimits[2] = (short)stamina;
+    public Species setMaxStamina(int stamina) {
+        maxLimits[2] = (short) stamina;
         return this;
     }
 
-    public Species setMaxSmart(int smart)
-    {
-        maxLimits[3] = (short)smart;
+    public Species setMaxSmart(int smart) {
+        maxLimits[3] = (short) smart;
         return this;
     }
 
-    public Species setMaxSnarl(int snarl)
-    {
-        maxLimits[4] = (short)snarl;
+    public Species setMaxSnarl(int snarl) {
+        maxLimits[4] = (short) snarl;
         return this;
     }
 
-    public Species setMaxMutable(int mutable)
-    {
-        maxLimits[5] = (short)mutable;
+    public Species setMaxMutable(int mutable) {
+        maxLimits[5] = (short) mutable;
         return this;
     }
 
-    public Species setMaxFertility(int fertility)
-    {
-        maxLimits[6] = (short)fertility;
+    public Species setMaxFertility(int fertility) {
+        maxLimits[6] = (short) fertility;
         return this;
     }
 
-    public Species setMaxMaturity(int maturity)
-    {
-        maxLimits[7] = (short)maturity;
+    public Species setMaxMaturity(int maturity) {
+        maxLimits[7] = (short) maturity;
         return this;
     }
 
     @Override
-    public boolean hasTag(String tag)
-    {
+    public boolean hasTag(String tag) {
         return extraTags.containsKey(tag);
     }
 
     @Override
-    public Species addTag(String tag, Object obby)
-    {
+    public Species addTag(String tag, Object obby) {
         extraTags.put(tag, obby);
         return this;
     }
 
     @Override
-    public Object getTag(String tag)
-    {
-        if (extraTags.containsKey(tag))
-        {
+    public Object getTag(String tag) {
+        if (extraTags.containsKey(tag)) {
             return extraTags.get(tag);
         }
         return null;
@@ -258,11 +218,9 @@ public class Species implements Taggable {
 
     @Override
     public <T> T getTag(Class<T> type, String tag) {
-        if (extraTags.containsKey(tag))
-        {
+        if (extraTags.containsKey(tag)) {
             Object tagger = extraTags.get(tag);
-            if (type.isInstance(tagger))
-            {
+            if (type.isInstance(tagger)) {
                 return type.cast(tagger);
             }
         }
@@ -274,8 +232,7 @@ public class Species implements Taggable {
     }
 
     @Override
-    public List<String> getTags()
-    {
+    public List<String> getTags() {
         return new ArrayList<String>(extraTags.keySet());
     }
 }

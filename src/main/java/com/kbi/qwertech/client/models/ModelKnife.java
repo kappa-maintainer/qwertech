@@ -2,6 +2,7 @@ package com.kbi.qwertech.client.models;
 
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -9,7 +10,7 @@ import org.lwjgl.opengl.GL11;
  * Created using Tabula 4.1.1
  */
 public class ModelKnife extends ModelBaseTool {
-	
+
     public double[] modelScale = new double[] { 0.8D, 0.8D, 0.8D };
     public ModelRenderer shape28;
     public ModelRenderer blade;
@@ -70,66 +71,108 @@ public class ModelKnife extends ModelBaseTool {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
-    	this.handle.render(f5);
-    	
-    	applyColorPrimary();
-    	GL11.glPushMatrix();
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+        this.handle.render(f5);
+
+        applyColorPrimary();
+        GL11.glPushMatrix();
         GL11.glScaled(modelScale[0] / 1D, modelScale[1] / 1D, modelScale[2] / 1D);
         GL11.glPushMatrix();
         GL11.glTranslatef(this.blade_2.offsetX, this.blade_2.offsetY, this.blade_2.offsetZ);
-        GL11.glTranslatef(this.blade_2.rotationPointX * f5, this.blade_2.rotationPointY * f5, this.blade_2.rotationPointZ * f5);
+        GL11.glTranslatef(
+            this.blade_2.rotationPointX * f5,
+            this.blade_2.rotationPointY * f5,
+            this.blade_2.rotationPointZ * f5);
         GL11.glScaled(1D, 1.3D, 0.35D);
         GL11.glTranslatef(-this.blade_2.offsetX, -this.blade_2.offsetY, -this.blade_2.offsetZ);
-        GL11.glTranslatef(-this.blade_2.rotationPointX * f5, -this.blade_2.rotationPointY * f5, -this.blade_2.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -this.blade_2.rotationPointX * f5,
+            -this.blade_2.rotationPointY * f5,
+            -this.blade_2.rotationPointZ * f5);
         this.blade_2.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(this.blade.offsetX, this.blade.offsetY, this.blade.offsetZ);
-        GL11.glTranslatef(this.blade.rotationPointX * f5, this.blade.rotationPointY * f5, this.blade.rotationPointZ * f5);
+        GL11.glTranslatef(
+            this.blade.rotationPointX * f5,
+            this.blade.rotationPointY * f5,
+            this.blade.rotationPointZ * f5);
         GL11.glScaled(1.0D, 1.0D, 0.5D);
         GL11.glTranslatef(-this.blade.offsetX, -this.blade.offsetY, -this.blade.offsetZ);
-        GL11.glTranslatef(-this.blade.rotationPointX * f5, -this.blade.rotationPointY * f5, -this.blade.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -this.blade.rotationPointX * f5,
+            -this.blade.rotationPointY * f5,
+            -this.blade.rotationPointZ * f5);
         this.blade.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(this.shape28_2.offsetX, this.shape28_2.offsetY, this.shape28_2.offsetZ);
-        GL11.glTranslatef(this.shape28_2.rotationPointX * f5, this.shape28_2.rotationPointY * f5, this.shape28_2.rotationPointZ * f5);
+        GL11.glTranslatef(
+            this.shape28_2.rotationPointX * f5,
+            this.shape28_2.rotationPointY * f5,
+            this.shape28_2.rotationPointZ * f5);
         GL11.glScaled(1.1D, 1.7D, 0.45D);
         GL11.glTranslatef(-this.shape28_2.offsetX, -this.shape28_2.offsetY, -this.shape28_2.offsetZ);
-        GL11.glTranslatef(-this.shape28_2.rotationPointX * f5, -this.shape28_2.rotationPointY * f5, -this.shape28_2.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -this.shape28_2.rotationPointX * f5,
+            -this.shape28_2.rotationPointY * f5,
+            -this.shape28_2.rotationPointZ * f5);
         this.shape28_2.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(this.shape28.offsetX, this.shape28.offsetY, this.shape28.offsetZ);
-        GL11.glTranslatef(this.shape28.rotationPointX * f5, this.shape28.rotationPointY * f5, this.shape28.rotationPointZ * f5);
+        GL11.glTranslatef(
+            this.shape28.rotationPointX * f5,
+            this.shape28.rotationPointY * f5,
+            this.shape28.rotationPointZ * f5);
         GL11.glScaled(1.1D, 1.7D, 0.45D);
         GL11.glTranslatef(-this.shape28.offsetX, -this.shape28.offsetY, -this.shape28.offsetZ);
-        GL11.glTranslatef(-this.shape28.rotationPointX * f5, -this.shape28.rotationPointY * f5, -this.shape28.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -this.shape28.rotationPointX * f5,
+            -this.shape28.rotationPointY * f5,
+            -this.shape28.rotationPointZ * f5);
         this.shape28.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(this.shape28_1.offsetX, this.shape28_1.offsetY, this.shape28_1.offsetZ);
-        GL11.glTranslatef(this.shape28_1.rotationPointX * f5, this.shape28_1.rotationPointY * f5, this.shape28_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            this.shape28_1.rotationPointX * f5,
+            this.shape28_1.rotationPointY * f5,
+            this.shape28_1.rotationPointZ * f5);
         GL11.glScaled(1.1D, 1.7D, 0.45D);
         GL11.glTranslatef(-this.shape28_1.offsetX, -this.shape28_1.offsetY, -this.shape28_1.offsetZ);
-        GL11.glTranslatef(-this.shape28_1.rotationPointX * f5, -this.shape28_1.rotationPointY * f5, -this.shape28_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -this.shape28_1.rotationPointX * f5,
+            -this.shape28_1.rotationPointY * f5,
+            -this.shape28_1.rotationPointZ * f5);
         this.shape28_1.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(this.blade_3.offsetX, this.blade_3.offsetY, this.blade_3.offsetZ);
-        GL11.glTranslatef(this.blade_3.rotationPointX * f5, this.blade_3.rotationPointY * f5, this.blade_3.rotationPointZ * f5);
+        GL11.glTranslatef(
+            this.blade_3.rotationPointX * f5,
+            this.blade_3.rotationPointY * f5,
+            this.blade_3.rotationPointZ * f5);
         GL11.glScaled(1.0D, 1.0D, 0.5D);
         GL11.glTranslatef(-this.blade_3.offsetX, -this.blade_3.offsetY, -this.blade_3.offsetZ);
-        GL11.glTranslatef(-this.blade_3.rotationPointX * f5, -this.blade_3.rotationPointY * f5, -this.blade_3.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -this.blade_3.rotationPointX * f5,
+            -this.blade_3.rotationPointY * f5,
+            -this.blade_3.rotationPointZ * f5);
         this.blade_3.render(f5);
         GL11.glPopMatrix();
         GL11.glPushMatrix();
         GL11.glTranslatef(this.blade_1.offsetX, this.blade_1.offsetY, this.blade_1.offsetZ);
-        GL11.glTranslatef(this.blade_1.rotationPointX * f5, this.blade_1.rotationPointY * f5, this.blade_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            this.blade_1.rotationPointX * f5,
+            this.blade_1.rotationPointY * f5,
+            this.blade_1.rotationPointZ * f5);
         GL11.glScaled(1.0D, 1.0D, 0.5D);
         GL11.glTranslatef(-this.blade_1.offsetX, -this.blade_1.offsetY, -this.blade_1.offsetZ);
-        GL11.glTranslatef(-this.blade_1.rotationPointX * f5, -this.blade_1.rotationPointY * f5, -this.blade_1.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -this.blade_1.rotationPointX * f5,
+            -this.blade_1.rotationPointY * f5,
+            -this.blade_1.rotationPointZ * f5);
         this.blade_1.render(f5);
         GL11.glPopMatrix();
         GL11.glPopMatrix();

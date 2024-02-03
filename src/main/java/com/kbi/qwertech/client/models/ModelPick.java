@@ -2,6 +2,7 @@ package com.kbi.qwertech.client.models;
 
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -9,6 +10,7 @@ import org.lwjgl.opengl.GL11;
  * Created using Tabula 4.1.1
  */
 public class ModelPick extends ModelBaseTool {
+
     public ModelRenderer handle;
     public ModelRenderer topmetal;
     public ModelRenderer mainBar;
@@ -52,26 +54,35 @@ public class ModelPick extends ModelBaseTool {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         applyColorSecondary();
-    	this.handle.render(f5);
-    	applyColorPrimary();
-    	this.topmetal.render(f5);
+        this.handle.render(f5);
+        applyColorPrimary();
+        this.topmetal.render(f5);
         GL11.glPushMatrix();
         GL11.glTranslatef(this.back.offsetX, this.back.offsetY, this.back.offsetZ);
         GL11.glTranslatef(this.back.rotationPointX * f5, this.back.rotationPointY * f5, this.back.rotationPointZ * f5);
         GL11.glScaled(0.75D, 0.75D, 1.0D);
         GL11.glTranslatef(-this.back.offsetX, -this.back.offsetY, -this.back.offsetZ);
-        GL11.glTranslatef(-this.back.rotationPointX * f5, -this.back.rotationPointY * f5, -this.back.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -this.back.rotationPointX * f5,
+            -this.back.rotationPointY * f5,
+            -this.back.rotationPointZ * f5);
         this.back.render(f5);
         GL11.glPopMatrix();
         this.mainBar.render(f5);
         GL11.glPushMatrix();
         GL11.glTranslatef(this.front.offsetX, this.front.offsetY, this.front.offsetZ);
-        GL11.glTranslatef(this.front.rotationPointX * f5, this.front.rotationPointY * f5, this.front.rotationPointZ * f5);
+        GL11.glTranslatef(
+            this.front.rotationPointX * f5,
+            this.front.rotationPointY * f5,
+            this.front.rotationPointZ * f5);
         GL11.glScaled(0.75D, 0.75D, 1.0D);
         GL11.glTranslatef(-this.front.offsetX, -this.front.offsetY, -this.front.offsetZ);
-        GL11.glTranslatef(-this.front.rotationPointX * f5, -this.front.rotationPointY * f5, -this.front.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -this.front.rotationPointX * f5,
+            -this.front.rotationPointY * f5,
+            -this.front.rotationPointZ * f5);
         this.front.render(f5);
         GL11.glPopMatrix();
     }

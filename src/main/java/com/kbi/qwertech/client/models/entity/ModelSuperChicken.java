@@ -1,17 +1,20 @@
 package com.kbi.qwertech.client.models.entity;
 
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
+
+import org.lwjgl.opengl.GL11;
+
 import com.kbi.qwertech.api.client.models.ModelRendererDefaults;
 import com.kbi.qwertech.api.client.registry.AnimationHelper;
 import com.kbi.qwertech.api.client.registry.AnimationsRegistry;
-import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
-import org.lwjgl.opengl.GL11;
 
 /**
  * ModelSuperChicken - Qwertygiy
  * Created using Tabula 4.1.1
  */
 public class ModelSuperChicken extends ModelChicken {
+
     public ModelRenderer cape;
     public ModelRenderer cape2;
 
@@ -56,16 +59,16 @@ public class ModelSuperChicken extends ModelChicken {
         this.cape.addBox(-3.0F, 0.0F, -0.5F, 6, 8, 1, 0.0F);
         this.setRotateAngle(cape, 1.3962634015954636F, 0.0F, 0.0F);
         this.cape.addChild(this.cape2);
-        addBox((ModelRendererDefaults)this.cape, "cape");
-        addBox((ModelRendererDefaults)this.cape2, "cape1-2");
-        addBox((ModelRendererDefaults)this.body, "body");
-        addBox((ModelRendererDefaults)this.leftLeg, "leftLeg");
-        addBox((ModelRendererDefaults)this.rightLeg, "rightLeg");
-        addBox((ModelRendererDefaults)this.leftWing, "leftWing");
-        addBox((ModelRendererDefaults)this.rightWing, "rightWing");
-        addBox((ModelRendererDefaults)this.head, "head");
-        addBox((ModelRendererDefaults)this.bill, "bill");
-        addBox((ModelRendererDefaults)this.chin, "chin");
+        addBox((ModelRendererDefaults) this.cape, "cape");
+        addBox((ModelRendererDefaults) this.cape2, "cape1-2");
+        addBox((ModelRendererDefaults) this.body, "body");
+        addBox((ModelRendererDefaults) this.leftLeg, "leftLeg");
+        addBox((ModelRendererDefaults) this.rightLeg, "rightLeg");
+        addBox((ModelRendererDefaults) this.leftWing, "leftWing");
+        addBox((ModelRendererDefaults) this.rightWing, "rightWing");
+        addBox((ModelRendererDefaults) this.head, "head");
+        addBox((ModelRendererDefaults) this.bill, "bill");
+        addBox((ModelRendererDefaults) this.chin, "chin");
         AnimationHelper.setAsDefault(this);
     }
 
@@ -75,8 +78,7 @@ public class ModelSuperChicken extends ModelChicken {
         this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         AnimationsRegistry.setAnimations(entity);
 
-        if (this.isChild)
-        {
+        if (this.isChild) {
             float f6 = 2.0F;
             GL11.glPushMatrix();
             GL11.glTranslatef(0.0F, 5.0F * f5, 2.0F * f5);
@@ -94,8 +96,7 @@ public class ModelSuperChicken extends ModelChicken {
             this.rightWing.render(f5);
             this.leftWing.render(f5);
             GL11.glPopMatrix();
-        }
-        else {
+        } else {
             this.rightWing.render(f5);
             this.bill.render(f5);
             this.chin.render(f5);

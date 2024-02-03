@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
  * Created using Tabula 4.1.1
  */
 public class ModelArmorBasic extends ModelBiped {
+
     public ModelRenderer bipedLeftFoot;
     public ModelRenderer bipedRightFoot;
     public ModelRenderer bipedLeftHand;
@@ -16,9 +17,9 @@ public class ModelArmorBasic extends ModelBiped {
     public ModelRenderer bipedRightHand;
     public ModelRenderer bipedRightShoulder;
     public ModelRenderer bipedBelt;
-    
+
     public ModelArmorBasic() {
-    	this(0.0F);
+        this(0.0F);
     }
 
     public ModelArmorBasic(float scale) {
@@ -77,17 +78,17 @@ public class ModelArmorBasic extends ModelBiped {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
-    	this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-    	
-    	this.bipedRightArm.render(f5);
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+        this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+
+        this.bipedRightArm.render(f5);
         this.bipedLeftArm.render(f5);
         this.bipedLeftLeg.render(f5);
         this.bipedBody.render(f5);
         this.bipedRightLeg.render(f5);
         this.bipedHeadwear.render(f5);
         this.bipedHead.render(f5);
-        
+
         copyAngleTo(bipedBody, bipedBelt);
         copyAngleTo(bipedLeftLeg, bipedLeftFoot);
         copyAngleTo(bipedLeftArm, bipedLeftShoulder);
@@ -95,7 +96,7 @@ public class ModelArmorBasic extends ModelBiped {
         copyAngleTo(bipedRightLeg, bipedRightFoot);
         copyAngleTo(bipedRightArm, bipedRightHand);
         copyAngleTo(bipedRightArm, bipedRightShoulder);
-        
+
         this.bipedBelt.render(f5);
         this.bipedLeftFoot.render(f5);
         this.bipedLeftShoulder.render(f5);
@@ -113,9 +114,8 @@ public class ModelArmorBasic extends ModelBiped {
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;
     }
-    
-    public void copyAngleTo(ModelRenderer hasAngles, ModelRenderer needsAngles)
-    {
-    	setRotateAngle(needsAngles, hasAngles.rotateAngleX, hasAngles.rotateAngleY, hasAngles.rotateAngleZ);
+
+    public void copyAngleTo(ModelRenderer hasAngles, ModelRenderer needsAngles) {
+        setRotateAngle(needsAngles, hasAngles.rotateAngleX, hasAngles.rotateAngleY, hasAngles.rotateAngleZ);
     }
 }

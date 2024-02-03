@@ -1,17 +1,20 @@
 package com.kbi.qwertech.client.models.entity;
 
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
+
+import org.lwjgl.opengl.GL11;
+
 import com.kbi.qwertech.api.client.models.ModelRendererDefaults;
 import com.kbi.qwertech.api.client.registry.AnimationHelper;
 import com.kbi.qwertech.api.client.registry.AnimationsRegistry;
-import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
-import org.lwjgl.opengl.GL11;
 
 /**
  * ModelRhodeIslandRed - Qwertygiy
  * Created using Tabula 4.1.1
  */
 public class ModelChickenCrested extends ModelChicken {
+
     public ModelRendererDefaults crest;
     public ModelRendererDefaults tail;
 
@@ -52,16 +55,16 @@ public class ModelChickenCrested extends ModelChicken {
         this.chin = new ModelRendererDefaults(this, 18, 8);
         this.chin.setRotationPoint(0.0F, 15.0F, -4.0F);
         this.chin.addBox(-1.0F, -5.01F, -3.0F, 2, 5, 2, 0.0F);
-        addBox((ModelRendererDefaults)this.tail, "tail");
-        addBox((ModelRendererDefaults)this.crest, "crest");
-        addBox((ModelRendererDefaults)this.body, "body");
-        addBox((ModelRendererDefaults)this.chin, "chin");
-        addBox((ModelRendererDefaults)this.leftLeg, "leftLeg");
-        addBox((ModelRendererDefaults)this.rightLeg, "rightLeg");
-        addBox((ModelRendererDefaults)this.head, "head");
-        addBox((ModelRendererDefaults)this.leftWing, "leftWing");
-        addBox((ModelRendererDefaults)this.rightWing, "rightWing");
-        addBox((ModelRendererDefaults)this.bill, "bill");
+        addBox((ModelRendererDefaults) this.tail, "tail");
+        addBox((ModelRendererDefaults) this.crest, "crest");
+        addBox((ModelRendererDefaults) this.body, "body");
+        addBox((ModelRendererDefaults) this.chin, "chin");
+        addBox((ModelRendererDefaults) this.leftLeg, "leftLeg");
+        addBox((ModelRendererDefaults) this.rightLeg, "rightLeg");
+        addBox((ModelRendererDefaults) this.head, "head");
+        addBox((ModelRendererDefaults) this.leftWing, "leftWing");
+        addBox((ModelRendererDefaults) this.rightWing, "rightWing");
+        addBox((ModelRendererDefaults) this.bill, "bill");
         AnimationHelper.setAsDefault(this);
     }
 
@@ -71,8 +74,7 @@ public class ModelChickenCrested extends ModelChicken {
         this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         AnimationsRegistry.setAnimations(entity);
 
-        if (this.isChild)
-        {
+        if (this.isChild) {
             float f6 = 2.0F;
             GL11.glPushMatrix();
             GL11.glTranslatef(0.0F, 5.0F * f5, 2.0F * f5);
@@ -90,8 +92,7 @@ public class ModelChickenCrested extends ModelChicken {
             this.leftWing.render(f5);
             this.tail.render(f5);
             GL11.glPopMatrix();
-        }
-        else {
+        } else {
             this.bill.render(f5);
             this.tail.render(f5);
             this.rightWing.render(f5);
@@ -106,8 +107,7 @@ public class ModelChickenCrested extends ModelChicken {
     }
 
     @Override
-    public void setRotationAngles(float f1, float f2, float f3, float f4, float f5, float f6, Entity entity)
-    {
+    public void setRotationAngles(float f1, float f2, float f3, float f4, float f5, float f6, Entity entity) {
         super.setRotationAngles(f1, f2, f3, f4, f5, f6, entity);
         this.crest.rotateAngleX = this.head.rotateAngleX;
         this.crest.rotateAngleY = this.head.rotateAngleY;

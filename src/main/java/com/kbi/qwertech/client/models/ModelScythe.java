@@ -2,6 +2,7 @@ package com.kbi.qwertech.client.models;
 
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -45,16 +46,22 @@ public class ModelScythe extends ModelBaseTool {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
-    	applyColorSecondary();
-    	this.handle.render(f5);
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+        applyColorSecondary();
+        this.handle.render(f5);
         GL11.glPushMatrix();
         GL11.glTranslatef(this.blade.offsetX, this.blade.offsetY, this.blade.offsetZ);
-        GL11.glTranslatef(this.blade.rotationPointX * f5, this.blade.rotationPointY * f5, this.blade.rotationPointZ * f5);
+        GL11.glTranslatef(
+            this.blade.rotationPointX * f5,
+            this.blade.rotationPointY * f5,
+            this.blade.rotationPointZ * f5);
         GL11.glScaled(1.1D, 0.5D, 1.0D);
         GL11.glTranslatef(-this.blade.offsetX, -this.blade.offsetY, -this.blade.offsetZ);
-        GL11.glTranslatef(-this.blade.rotationPointX * f5, -this.blade.rotationPointY * f5, -this.blade.rotationPointZ * f5);
-        
+        GL11.glTranslatef(
+            -this.blade.rotationPointX * f5,
+            -this.blade.rotationPointY * f5,
+            -this.blade.rotationPointZ * f5);
+
         applyColorPrimary();
         this.blade.render(f5);
         GL11.glPopMatrix();

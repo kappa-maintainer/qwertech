@@ -2,6 +2,7 @@ package com.kbi.qwertech.client.models;
 
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -9,6 +10,7 @@ import org.lwjgl.opengl.GL11;
  * Created using Tabula 4.1.1
  */
 public class ModelWrench extends ModelBaseTool {
+
     public double[] modelScale = new double[] { 0.9D, 0.9D, 0.9D };
     public ModelRenderer mainbody;
     public ModelRenderer bottomcurvetop;
@@ -21,7 +23,7 @@ public class ModelWrench extends ModelBaseTool {
     public ModelRenderer right3;
 
     public ModelWrench() {
-    	this.textureWidth = 16;
+        this.textureWidth = 16;
         this.textureHeight = 16;
         this.left3 = new ModelRenderer(this, 0, 0);
         this.left3.setRotationPoint(0.0F, -1.9F, 0.08F);
@@ -72,13 +74,13 @@ public class ModelWrench extends ModelBaseTool {
         GL11.glPushMatrix();
         GL11.glScaled(1D / modelScale[0], 1D / modelScale[1], 1D / modelScale[2]);
         if (duration < 1) {
-            //we're good
+            // we're good
         } else if (duration < 71975) {
             GL11.glRotatef((duration - 71960) * (f1 == 1 ? -4 : 4), -0.5F, -0.2F, -0.1F);
         } else if (duration < 71995) {
             GL11.glRotatef((58F + (duration % 3)) * (f1 == 1 ? -1 : 1), -0.5F, -0.2F, -0.1F);
         } else {
-            //System.out.println(duration);
+            // System.out.println(duration);
             GL11.glRotatef((72000 - duration) * (f1 == 1 ? -12 : 12), -0.5F, -0.2F, -0.1F);
         }
         applyColorPrimary();

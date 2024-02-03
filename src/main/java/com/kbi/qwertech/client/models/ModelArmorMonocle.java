@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
  * Created using Tabula 4.1.1
  */
 public class ModelArmorMonocle extends ModelBiped {
+
     public ModelRenderer bipedMonocle;
     public ModelRenderer bipedMonocle2;
 
@@ -24,12 +25,20 @@ public class ModelArmorMonocle extends ModelBiped {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
-    	this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-    	setRotateAngle(this.bipedMonocle, this.bipedHead.rotateAngleX, this.bipedHead.rotateAngleY, this.bipedHead.rotateAngleZ);
-    	setRotateAngle(this.bipedMonocle2, this.bipedHead.rotateAngleX, this.bipedHead.rotateAngleY, this.bipedHead.rotateAngleZ);
-    	this.bipedMonocle.render(f5);
-    	this.bipedMonocle2.render(f5);
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+        this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+        setRotateAngle(
+            this.bipedMonocle,
+            this.bipedHead.rotateAngleX,
+            this.bipedHead.rotateAngleY,
+            this.bipedHead.rotateAngleZ);
+        setRotateAngle(
+            this.bipedMonocle2,
+            this.bipedHead.rotateAngleX,
+            this.bipedHead.rotateAngleY,
+            this.bipedHead.rotateAngleZ);
+        this.bipedMonocle.render(f5);
+        this.bipedMonocle2.render(f5);
     }
 
     /**

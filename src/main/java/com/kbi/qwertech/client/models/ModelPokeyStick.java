@@ -2,6 +2,7 @@ package com.kbi.qwertech.client.models;
 
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -9,6 +10,7 @@ import org.lwjgl.opengl.GL11;
  * Created using Tabula 4.1.1
  */
 public class ModelPokeyStick extends ModelBaseTool {
+
     public ModelRenderer spike;
     public ModelRenderer handle;
 
@@ -25,14 +27,20 @@ public class ModelPokeyStick extends ModelBaseTool {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         applyColorPrimary();
-    	GL11.glPushMatrix();
+        GL11.glPushMatrix();
         GL11.glTranslatef(this.spike.offsetX, this.spike.offsetY, this.spike.offsetZ);
-        GL11.glTranslatef(this.spike.rotationPointX * f5, this.spike.rotationPointY * f5, this.spike.rotationPointZ * f5);
+        GL11.glTranslatef(
+            this.spike.rotationPointX * f5,
+            this.spike.rotationPointY * f5,
+            this.spike.rotationPointZ * f5);
         GL11.glScaled(1D, 1D, 0.35D);
         GL11.glTranslatef(-this.spike.offsetX, -this.spike.offsetY, -this.spike.offsetZ);
-        GL11.glTranslatef(-this.spike.rotationPointX * f5, -this.spike.rotationPointY * f5, -this.spike.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -this.spike.rotationPointX * f5,
+            -this.spike.rotationPointY * f5,
+            -this.spike.rotationPointZ * f5);
         this.spike.render(f5);
         GL11.glPopMatrix();
         this.handle.render(f5);

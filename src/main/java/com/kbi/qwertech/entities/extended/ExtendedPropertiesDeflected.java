@@ -7,24 +7,23 @@ import net.minecraftforge.common.IExtendedEntityProperties;
 
 public class ExtendedPropertiesDeflected implements IExtendedEntityProperties {
 
-	public ExtendedPropertiesDeflected()
-	{
-		
-	}
-	
-	@Override
-	public void saveNBTData(NBTTagCompound compound) {
-		compound.setBoolean("isDeflected", true);
-	}
+    public ExtendedPropertiesDeflected() {
 
-	@Override
-	public void loadNBTData(NBTTagCompound compound) {
-		//do nothing lol
-	}
+    }
 
-	@Override
-	public void init(Entity entity, World world) {
-		//not required, just need to mark entity as deflected
-	}
+    @Override
+    public void saveNBTData(NBTTagCompound compound) {
+        compound.setBoolean("isDeflected", true);
+    }
+
+    @Override
+    public void loadNBTData(NBTTagCompound compound) {
+        // do nothing lol
+    }
+
+    @Override
+    public void init(Entity entity, World world) {
+        // not required, just need to mark entity as deflected
+    }
 
 }

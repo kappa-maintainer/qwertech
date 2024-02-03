@@ -1,28 +1,63 @@
 package com.kbi.qwertech.api.data;
 
 public enum NOTE {
-    A2, A3, A4, A5,
-    A$2, A$3, A$4, A$5,
-    B2, B3, B4,B5,
-    C2, C3, C4, C5,
-    C$2, C$3, C$4, C$5,
-    D2, D3, D4, D5,
-    D$2, D$3, D$4, D$5,
-    E2, E3, E4, E5,
-    F2, F3, F4, F5,
-    F$2, F$3, F$4, F$5,
-    G2, G3, G4, G5,
-    G$2, G$3, G$4, G$5;
+
+    A2,
+    A3,
+    A4,
+    A5,
+    A$2,
+    A$3,
+    A$4,
+    A$5,
+    B2,
+    B3,
+    B4,
+    B5,
+    C2,
+    C3,
+    C4,
+    C5,
+    C$2,
+    C$3,
+    C$4,
+    C$5,
+    D2,
+    D3,
+    D4,
+    D5,
+    D$2,
+    D$3,
+    D$4,
+    D$5,
+    E2,
+    E3,
+    E4,
+    E5,
+    F2,
+    F3,
+    F4,
+    F5,
+    F$2,
+    F$3,
+    F$4,
+    F$5,
+    G2,
+    G3,
+    G4,
+    G5,
+    G$2,
+    G$3,
+    G$4,
+    G$5;
 
     private float note;
 
-    public float get()
-    {
+    public float get() {
         return note;
     }
 
-    public void set(float notum)
-    {
+    public void set(float notum) {
         note = notum;
     }
 

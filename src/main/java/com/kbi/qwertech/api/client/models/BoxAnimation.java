@@ -1,6 +1,10 @@
 package com.kbi.qwertech.api.client.models;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class BoxAnimation {
 
@@ -19,8 +23,7 @@ public class BoxAnimation {
 
     private boolean cleanedUp = false;
 
-    public BoxAnimation()
-    {
+    public BoxAnimation() {
         originX = new HashMap<>();
         originY = new HashMap<>();
         originZ = new HashMap<>();
@@ -45,36 +48,34 @@ public class BoxAnimation {
 
     /**
      * Not necessary, but if you intend to lock this animation to a specific instance of a model, this will do so.
+     * 
      * @param aBox The box to be locked in.
      */
-    public void setBox(ModelRendererDefaults aBox)
-    {
+    public void setBox(ModelRendererDefaults aBox) {
         box = aBox;
     }
 
     /**
      * If this animation has been locked to a model, it will return the box attached.
+     * 
      * @return the box this animation is locked to, if it exists
      */
-    public ModelRendererDefaults getBox()
-    {
+    public ModelRendererDefaults getBox() {
         return box;
     }
 
     /**
      * The backbone of the whole system. Returns interpolated values for any time value.
+     * 
      * @param time From 0.0F at "start" to 1.0F at "end".
-     * @param map The map containing values which is to be queried.
+     * @param map  The map containing values which is to be queried.
      * @return The value interpolated between the values of the map closest to the given time.
      */
-    protected final Object get(float time, Map map)
-    {
+    protected final Object get(float time, Map map) {
         if (map.size() < 2) return 0.0F;
-        if (time < 0.0F || time > 1.0F)
-        {
+        if (time < 0.0F || time > 1.0F) {
             time = time % 1.0F;
-            if (time < 0.0F)
-            {
+            if (time < 0.0F) {
                 time = 1.0F - time;
             }
         }
@@ -89,10 +90,8 @@ public class BoxAnimation {
                 if (activeTimes.contains(time)) {
                     spot = activeTimes.indexOf(time);
                 } else {
-                    for (int q = 0; q < activeTimes.size(); q++)
-                    {
-                        if (activeTimes.get(q) > time)
-                        {
+                    for (int q = 0; q < activeTimes.size(); q++) {
+                        if (activeTimes.get(q) > time) {
                             if (map.containsKey(activeTimes.get(q - 1))) {
                                 previous = q - 1;
                             }
@@ -102,23 +101,19 @@ public class BoxAnimation {
                         }
                     }
                 }
-                while (previous == -1 && spot > -1)
-                {
+                while (previous == -1 && spot > -1) {
                     spot = spot - 1;
                     float lastCheck = activeTimes.get(spot);
-                    if (map.containsKey(lastCheck))
-                    {
+                    if (map.containsKey(lastCheck)) {
                         previous = spot;
                         break;
                     }
                 }
                 spot = closest;
-                while (spot < activeTimes.size())
-                {
+                while (spot < activeTimes.size()) {
                     spot = spot + 1;
                     float lastCheck = activeTimes.get(spot);
-                    if (map.containsKey(lastCheck))
-                    {
+                    if (map.containsKey(lastCheck)) {
                         next = spot;
                         break;
                     }
@@ -128,19 +123,17 @@ public class BoxAnimation {
                 Object pastValue = map.get(pastTime);
                 Object futureValue = map.get(futureTime);
                 float percentagePassed = (time - pastTime) / (futureTime - pastTime);
-                //System.out.println("Past time of " + pastTime + ", future time of " + futureTime + ", current time of " + time + ", percentage " + percentagePassed);
-                if (pastValue instanceof Boolean)
-                {
+                // System.out.println("Past time of " + pastTime + ", future time of " + futureTime + ", current time of
+                // " + time + ", percentage " + percentagePassed);
+                if (pastValue instanceof Boolean) {
                     return pastValue;
-                } else if (pastValue instanceof Float)
-                {
-                    float futuref = (float)futureValue;
-                    float pastf = (float)pastValue;
+                } else if (pastValue instanceof Float) {
+                    float futuref = (float) futureValue;
+                    float pastf = (float) pastValue;
                     return pastf + ((futuref - pastf) * percentagePassed);
                 }
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Error in accessing animation");
             e.printStackTrace();
         }
@@ -148,16 +141,16 @@ public class BoxAnimation {
     }
 
     /**
-     * Adds the given value to the given map at the set time, and also adds the time to the list of frames, if it doesn't already exist.
-     * @param time 0.0F at "start", 1.0F at "end".
-     * @param map The map containing the value type to use.
+     * Adds the given value to the given map at the set time, and also adds the time to the list of frames, if it
+     * doesn't already exist.
+     * 
+     * @param time  0.0F at "start", 1.0F at "end".
+     * @param map   The map containing the value type to use.
      * @param value The value to be added at the given time.
      * @return True if successful.
      */
-    protected final boolean set(float time, Map map, Object value)
-    {
-        if (time < 0.0F || time > 1.0F)
-        {
+    protected final boolean set(float time, Map map, Object value) {
+        if (time < 0.0F || time > 1.0F) {
             return false;
         }
         try {
@@ -167,8 +160,7 @@ public class BoxAnimation {
                 Collections.sort(activeTimes);
             }
             return true;
-        } catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("Error in setting animation;");
             e.printStackTrace();
             return false;
@@ -177,17 +169,15 @@ public class BoxAnimation {
 
     /**
      * Removes any unchanged parameters. If one never changes, there is no need to calculate it.
+     * 
      * @param map The map of values to clean up, if the values contained are all identical.
      */
-    protected void cleanUp(Map<Float, ?> map)
-    {
+    protected void cleanUp(Map<Float, ?> map) {
         Object firstly = map.get(0.0F);
-        for (float key : map.keySet())
-        {
+        for (float key : map.keySet()) {
             Object blob = map.get(key);
-            if (!blob.equals(firstly))
-            {
-                return; //there's a different value, we won't remove anything
+            if (!blob.equals(firstly)) {
+                return; // there's a different value, we won't remove anything
             }
         }
         map.clear();
@@ -196,8 +186,7 @@ public class BoxAnimation {
     /**
      * Clean ALL the things!
      */
-    protected void cleanUp()
-    {
+    protected void cleanUp() {
         cleanUp(rotateX);
         cleanUp(rotateY);
         cleanUp(rotateZ);
@@ -211,141 +200,117 @@ public class BoxAnimation {
 
     /**
      * Checks whether we should bother calculating this stat or not.
+     * 
      * @param map The map containing the stat to check.
      * @return True if we should, false if it's empty.
      */
-    protected boolean should(Map<Float, ?> map)
-    {
-        if (!cleanedUp)
-        {
+    protected boolean should(Map<Float, ?> map) {
+        if (!cleanedUp) {
             cleanUp();
             cleanedUp = true;
         }
         return !(map.size() < 2);
     }
 
-    public boolean getVisible(float time)
-    {
-        return (boolean)get(time, visible);
+    public boolean getVisible(float time) {
+        return (boolean) get(time, visible);
     }
 
-    public float getOriginX(float time)
-    {
-        return (float)get(time, originX);
+    public float getOriginX(float time) {
+        return (float) get(time, originX);
     }
 
-    public float getOriginY(float time)
-    {
-        return (float)get(time, originY);
+    public float getOriginY(float time) {
+        return (float) get(time, originY);
     }
 
-    public float getOriginZ(float time)
-    {
-        return (float)get(time, originZ);
+    public float getOriginZ(float time) {
+        return (float) get(time, originZ);
     }
 
-    public float getOffsetX(float time)
-    {
-        return (float)get(time, offsetX);
+    public float getOffsetX(float time) {
+        return (float) get(time, offsetX);
     }
 
-    public float getOffsetY(float time)
-    {
-        return (float)get(time, offsetY);
+    public float getOffsetY(float time) {
+        return (float) get(time, offsetY);
     }
 
-    public float getOffsetZ(float time)
-    {
-        return (float)get(time, offsetZ);
+    public float getOffsetZ(float time) {
+        return (float) get(time, offsetZ);
     }
 
-    public float getRotateX(float time)
-    {
-        return (float)get(time, rotateX);
+    public float getRotateX(float time) {
+        return (float) get(time, rotateX);
     }
 
-    public float getRotateY(float time)
-    {
-        return (float)get(time, rotateY);
+    public float getRotateY(float time) {
+        return (float) get(time, rotateY);
     }
 
-    public float getRotateZ(float time)
-    {
-        return (float)get(time, rotateZ);
+    public float getRotateZ(float time) {
+        return (float) get(time, rotateZ);
     }
 
-    public boolean setVisible(float time, boolean visibility)
-    {
+    public boolean setVisible(float time, boolean visibility) {
         return set(time, visible, visibility);
     }
 
-    public boolean setOriginX(float time, float amount)
-    {
+    public boolean setOriginX(float time, float amount) {
         return set(time, originX, amount);
     }
 
-    public boolean setOriginY(float time, float amount)
-    {
+    public boolean setOriginY(float time, float amount) {
         return set(time, originY, amount);
     }
 
-    public boolean setOriginZ(float time, float amount)
-    {
+    public boolean setOriginZ(float time, float amount) {
         return set(time, originZ, amount);
     }
 
-    public boolean setOrigin(float time, float x, float y, float z)
-    {
+    public boolean setOrigin(float time, float x, float y, float z) {
         return setOriginX(time, x) && setOriginY(time, y) && setOriginZ(time, z);
     }
 
-    public boolean setOffsetX(float time, float amount)
-    {
+    public boolean setOffsetX(float time, float amount) {
         return set(time, offsetX, amount);
     }
 
-    public boolean setOffsetY(float time, float amount)
-    {
+    public boolean setOffsetY(float time, float amount) {
         return set(time, offsetY, amount);
     }
 
-    public boolean setOffsetZ(float time, float amount)
-    {
+    public boolean setOffsetZ(float time, float amount) {
         return set(time, offsetZ, amount);
     }
 
-    public boolean setOffset(float time, float x, float y, float z)
-    {
+    public boolean setOffset(float time, float x, float y, float z) {
         return setOffsetX(time, x) && setOffsetY(time, y) && setOffsetZ(time, z);
     }
 
-    public boolean setRotateX(float time, float amount)
-    {
+    public boolean setRotateX(float time, float amount) {
         return set(time, rotateX, amount);
     }
 
-    public boolean setRotateY(float time, float amount)
-    {
+    public boolean setRotateY(float time, float amount) {
         return set(time, rotateY, amount);
     }
 
-    public boolean setRotateZ(float time, float amount)
-    {
+    public boolean setRotateZ(float time, float amount) {
         return set(time, rotateZ, amount);
     }
 
-    public boolean setRotate(float time, float x, float y, float z)
-    {
+    public boolean setRotate(float time, float x, float y, float z) {
         return setRotateX(time, x) && setRotateY(time, y) && setRotateZ(time, z);
     }
 
     /**
      * Calculates and applies the rotation and positioning for the given time upon the given box.
-     * @param box The model box to animate.
+     * 
+     * @param box  The model box to animate.
      * @param time The time of the animation, from 0.0F at start to 1.0F at end.
      */
-    public void apply(ModelRendererDefaults box, float time)
-    {
+    public void apply(ModelRendererDefaults box, float time) {
         if (should(originX)) box.rotationPointX = box.defaultOriginX + getOriginX(time);
         if (should(originY)) box.rotationPointY = box.defaultOriginY + getOriginY(time);
         if (should(originZ)) box.rotationPointZ = box.defaultOriginZ + getOriginZ(time);
@@ -358,18 +323,17 @@ public class BoxAnimation {
         if (should(visible)) box.isHidden = !getVisible(time);
     }
 
-    public void apply(ModelRendererDefaults box, float time, float variable)
-    {
+    public void apply(ModelRendererDefaults box, float time, float variable) {
         apply(box, time);
     }
 
     /**
      * If this animation has been locked to a model, animate that model for the given time.
+     * 
      * @param time The time of the animation, from 0.0F at start to 1.0F at end.
      * @return True if successful, false if unlocked.
      */
-    public boolean apply(float time)
-    {
+    public boolean apply(float time) {
         if (box == null) return false;
         if (should(originX)) box.rotationPointX = box.defaultOriginX + getOriginX(time);
         if (should(originY)) box.rotationPointY = box.defaultOriginY + getOriginY(time);
@@ -384,17 +348,16 @@ public class BoxAnimation {
         return true;
     }
 
-    public boolean apply(float time, float variable)
-    {
+    public boolean apply(float time, float variable) {
         return apply(time);
     }
 
     /**
      * Restore the box to defaults, if we could have changed anything there
+     * 
      * @param box The box to restore
      */
-    public void restore(ModelRendererDefaults box)
-    {
+    public void restore(ModelRendererDefaults box) {
         if (should(originX)) box.rotationPointX = box.defaultOriginX;
         if (should(originY)) box.rotationPointY = box.defaultOriginY;
         if (should(originZ)) box.rotationPointZ = box.defaultOriginZ;
@@ -409,10 +372,10 @@ public class BoxAnimation {
 
     /**
      * If locked to a box, restore anything we changed about that box.
+     * 
      * @return true if locked to a box.
      */
-    public boolean restore()
-    {
+    public boolean restore() {
         if (box == null) return false;
         if (should(originX)) box.rotationPointX = box.defaultOriginX;
         if (should(originY)) box.rotationPointY = box.defaultOriginY;

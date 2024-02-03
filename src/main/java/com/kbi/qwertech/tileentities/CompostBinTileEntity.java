@@ -1,7 +1,21 @@
 package com.kbi.qwertech.tileentities;
 
+import static gregapi.data.CS.SHOW_HIDDEN_MATERIALS;
+
+import java.util.List;
+
+import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
 import com.kbi.qwertech.QwerTech;
 import com.kbi.qwertech.api.data.QTMT;
+
 import gregapi.block.multitileentity.IMultiTileEntity;
 import gregapi.block.multitileentity.MultiTileEntityBlockInternal;
 import gregapi.data.CS;
@@ -15,18 +29,6 @@ import gregapi.render.ITexture;
 import gregapi.tileentity.base.TileEntityBase09FacingSingle;
 import gregapi.util.OM;
 import gregapi.util.ST;
-import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-
-import java.util.List;
-
-import static gregapi.data.CS.SHOW_HIDDEN_MATERIALS;
 
 public class CompostBinTileEntity extends TileEntityBase09FacingSingle implements IMultiTileEntity.IMTE_GetSubItems {
 
@@ -34,56 +36,49 @@ public class CompostBinTileEntity extends TileEntityBase09FacingSingle implement
     protected byte lastFillLevel = -127;
 
     @Override
-    public boolean getSubItems(MultiTileEntityBlockInternal aBlock, Item aItem,
-                               CreativeTabs aTab, List aList, short aID) {
+    public boolean getSubItems(MultiTileEntityBlockInternal aBlock, Item aItem, CreativeTabs aTab, List aList,
+        short aID) {
         return SHOW_HIDDEN_MATERIALS || !mMaterial.mHidden;
     }
 
     @Override
     public void onTick2(long aTimer, boolean aIsServerSide) {
         super.onTick2(aTimer, aIsServerSide);
-        if (aIsServerSide)
-        {
-            if (worldObj.rand.nextFloat() > 0.995F)
-            {
+        if (aIsServerSide) {
+            if (worldObj.rand.nextFloat() > 0.995F) {
                 int randy = worldObj.rand.nextInt(6) + 4;
                 ItemStack compCheck = getStackInSlot(randy);
-                if (ST.valid(compCheck) && fillLevel < 127)
-                {
+                if (ST.valid(compCheck) && fillLevel < 127) {
                     if (compCheck.stackSize < 2) {
-                        //System.out.println("Found an " + compCheck);
+                        // System.out.println("Found an " + compCheck);
                         slot(randy, null);
                     } else {
                         compCheck.stackSize = compCheck.stackSize - 1;
                         slot(randy, compCheck);
                     }
-                    //System.out.println("WE SHOULD BE GETTING RID OF SLOT " + randy);
+                    // System.out.println("WE SHOULD BE GETTING RID OF SLOT " + randy);
                     ItemStack dust = getStackInSlot(1);
-                    if (ST.invalid(dust))
-                    {
+                    if (ST.invalid(dust)) {
                         setInventorySlotContents(1, OP.dust.mat(QTMT.CompostRaw, 1));
                     } else {
                         dust.stackSize = dust.stackSize + 1;
                         setInventorySlotContents(1, dust);
-                        if (dust.stackSize >= 9)
-                        {
+                        if (dust.stackSize >= 9) {
                             dust.stackSize = dust.stackSize - 9;
                             ItemStack block = getStackInSlot(0);
-                            if (ST.invalid(block))
-                            {
+                            if (ST.invalid(block)) {
                                 setInventorySlotContents(0, OP.blockDust.mat(QTMT.CompostRaw, 1));
                             } else {
                                 block.stackSize = block.stackSize + 1;
                                 setInventorySlotContents(0, block);
                             }
-                            if (dust.stackSize < 1)
-                            {
+                            if (dust.stackSize < 1) {
                                 setInventorySlotContents(1, null);
                             }
                         }
                     }
                 }
-                //calculateFill();
+                // calculateFill();
             }
         }
     }
@@ -100,14 +95,12 @@ public class CompostBinTileEntity extends TileEntityBase09FacingSingle implement
         calculateFill();
     }
 
-    public void calculateFill()
-    {
+    public void calculateFill() {
         if (this.isClientSide()) return;
         fillLevel = -127;
         ItemStack block = getStackInSlot(0);
-        if (ST.valid(block))
-        {
-            fillLevel =( byte)(fillLevel + 255);
+        if (ST.valid(block)) {
+            fillLevel = (byte) (fillLevel + 255);
         }
         ItemStack dust = getStackInSlot(1);
         if (ST.valid(dust)) {
@@ -121,7 +114,7 @@ public class CompostBinTileEntity extends TileEntityBase09FacingSingle implement
         if (ST.valid(tinyDust)) {
             fillLevel = (byte) (fillLevel + (dust.stackSize * 3));
         }
-        //System.out.println(fillLevel);
+        // System.out.println(fillLevel);
     }
 
     @Override
@@ -141,8 +134,22 @@ public class CompostBinTileEntity extends TileEntityBase09FacingSingle implement
     }
 
     @Override
-    public long onToolClick2(String aTool, long aRemainingDurability, long aQuality, Entity aPlayer, List<String> aChatReturn, IInventory aPlayerInventory, boolean aSneaking, ItemStack aStack, byte aSide, float aHitX, float aHitY, float aHitZ) {
-        if (aSide != CS.SIDE_Y_POS && aSide != this.getFacing()) return super.onToolClick2(aTool, aRemainingDurability, aQuality, aPlayer, aChatReturn, aPlayerInventory, aSneaking, aStack, aSide, aHitX, aHitY, aHitZ);
+    public long onToolClick2(String aTool, long aRemainingDurability, long aQuality, Entity aPlayer,
+        List<String> aChatReturn, IInventory aPlayerInventory, boolean aSneaking, ItemStack aStack, byte aSide,
+        float aHitX, float aHitY, float aHitZ) {
+        if (aSide != CS.SIDE_Y_POS && aSide != this.getFacing()) return super.onToolClick2(
+            aTool,
+            aRemainingDurability,
+            aQuality,
+            aPlayer,
+            aChatReturn,
+            aPlayerInventory,
+            aSneaking,
+            aStack,
+            aSide,
+            aHitX,
+            aHitY,
+            aHitZ);
         if (aTool == "shovel") {
             if (aPlayer instanceof EntityPlayer) {
                 ((EntityPlayer) aPlayer).inventory.addItemStackToInventory(getStackInSlot(0));
@@ -162,16 +169,30 @@ public class CompostBinTileEntity extends TileEntityBase09FacingSingle implement
             return 1000;
         }
 
-        return super.onToolClick2(aTool, aRemainingDurability, aQuality, aPlayer, aChatReturn, aPlayerInventory, aSneaking, aStack, aSide, aHitX, aHitY, aHitZ);
+        return super.onToolClick2(
+            aTool,
+            aRemainingDurability,
+            aQuality,
+            aPlayer,
+            aChatReturn,
+            aPlayerInventory,
+            aSneaking,
+            aStack,
+            aSide,
+            aHitX,
+            aHitY,
+            aHitZ);
     }
 
     @Override
     public boolean onBlockActivated3(EntityPlayer aPlayer, byte aSide, float aHitX, float aHitY, float aHitZ) {
         if (aSide != CS.SIDE_FRONT && aSide != CS.SIDE_TOP) return false;
         ItemStack stack = aPlayer.getHeldItem();
-        if (ST.valid(stack))
-        {
-            if (OP.tree.contains(stack) || OP.plant.contains(stack) || OM.materialcontained(stack, MT.Wheat, MT.Rice, MT.Barley, MT.Oat, MT.Cocoa, MT.Potato, MT.Tofu) || OM.is( "itemPlantRemains", stack) || stack.getItemUseAction() == EnumAction.eat) {
+        if (ST.valid(stack)) {
+            if (OP.tree.contains(stack) || OP.plant.contains(stack)
+                || OM.materialcontained(stack, MT.Wheat, MT.Rice, MT.Barley, MT.Oat, MT.Cocoa, MT.Potato, MT.Tofu)
+                || OM.is("itemPlantRemains", stack)
+                || stack.getItemUseAction() == EnumAction.eat) {
                 for (int q = 4; q < 12; q++) {
                     ItemStack stackel = getStackInSlot(q);
                     if (ST.invalid(stackel)) {
@@ -183,26 +204,22 @@ public class CompostBinTileEntity extends TileEntityBase09FacingSingle implement
             }
         } else {
             ItemStack block = getStackInSlot(0);
-            if (block != null && block.stackSize > 1)
-            {
+            if (block != null && block.stackSize > 1) {
                 aPlayer.setCurrentItemOrArmor(0, block);
                 this.setInventorySlotContents(0, null);
             } else {
                 ItemStack dust = getStackInSlot(1);
-                if (dust != null && dust.stackSize > 1)
-                {
+                if (dust != null && dust.stackSize > 1) {
                     aPlayer.setCurrentItemOrArmor(0, dust);
                     this.setInventorySlotContents(1, null);
                 } else {
                     ItemStack smallDust = getStackInSlot(2);
-                    if (smallDust != null && smallDust.stackSize > 1)
-                    {
+                    if (smallDust != null && smallDust.stackSize > 1) {
                         aPlayer.setCurrentItemOrArmor(0, smallDust);
                         this.setInventorySlotContents(2, null);
                     } else {
                         ItemStack tinyDust = getStackInSlot(3);
-                        if (tinyDust != null && tinyDust.stackSize > 1)
-                        {
+                        if (tinyDust != null && tinyDust.stackSize > 1) {
                             aPlayer.setCurrentItemOrArmor(0, tinyDust);
                             this.setInventorySlotContents(3, null);
                         }
@@ -213,38 +230,32 @@ public class CompostBinTileEntity extends TileEntityBase09FacingSingle implement
         return true;
     }
 
-
-    public static String texture_Dir(){
+    public static String texture_Dir() {
         return "qwertech:compostbin/";
     }
 
     public static IIconContainer sColoreds[] = new IIconContainer[] {
-            new Textures.BlockIcons.CustomIcon(texture_Dir() + "top"),
-            new Textures.BlockIcons.CustomIcon(texture_Dir() + "bottom"),
-            new Textures.BlockIcons.CustomIcon(texture_Dir() + "side"),
-            new Textures.BlockIcons.CustomIcon(texture_Dir() + "large"),
-            new Textures.BlockIcons.CustomIcon(texture_Dir() + "small"),
-            new Textures.BlockIcons.CustomIcon(texture_Dir() + "side2")
-    };
+        new Textures.BlockIcons.CustomIcon(texture_Dir() + "top"),
+        new Textures.BlockIcons.CustomIcon(texture_Dir() + "bottom"),
+        new Textures.BlockIcons.CustomIcon(texture_Dir() + "side"),
+        new Textures.BlockIcons.CustomIcon(texture_Dir() + "large"),
+        new Textures.BlockIcons.CustomIcon(texture_Dir() + "small"),
+        new Textures.BlockIcons.CustomIcon(texture_Dir() + "side2") };
 
     @Override
     public ITexture getTexture2(Block aBlock, int aRenderPass, byte aSide, boolean[] aShouldSideBeRendered) {
-        if (aRenderPass == 11)
-        {
+        if (aRenderPass == 11) {
             return BlockTextureCopied.get(QwerTech.soilBlock, 0, 3);
         }
         short aIndex;
-        if(aRenderPass != 3)
-        {
+        if (aRenderPass != 3) {
             aIndex = 0;
         } else {
             aIndex = 4;
         }
-        if (aSide == CS.SIDE_Y_POS)
-        {
+        if (aSide == CS.SIDE_Y_POS) {
             aIndex = 0;
-        } else if (aSide == CS.SIDE_Y_NEG)
-        {
+        } else if (aSide == CS.SIDE_Y_NEG) {
             aIndex = 1;
         } else if (aSide == CS.SIDE_X_POS) {
             if (mFacing == CS.SIDE_Z_NEG) {
@@ -291,12 +302,9 @@ public class CompostBinTileEntity extends TileEntityBase09FacingSingle implement
         return 12;
     }
 
-
-
-    public boolean setBlockBoundsOnRotation(Block aBlock, float minX, float minY, float minZ, float maxX, float maxY, float maxZ)
-    {
-        switch (this.getFacing())
-        {
+    public boolean setBlockBoundsOnRotation(Block aBlock, float minX, float minY, float minZ, float maxX, float maxY,
+        float maxZ) {
+        switch (this.getFacing()) {
             case CS.SIDE_Z_POS:
                 aBlock.setBlockBounds(minX, minY, minZ, maxX, maxY, maxZ);
                 return true;
@@ -324,17 +332,14 @@ public class CompostBinTileEntity extends TileEntityBase09FacingSingle implement
         }
     }
 
-
-
     @Override
     public boolean setBlockBounds2(Block aBlock, int aRenderPass, boolean[] aShouldSideBeRendered) {
-        switch (aRenderPass)
-        {
+        switch (aRenderPass) {
             case 0:
                 setBlockBoundsOnRotation(aBlock, CS.PX_P[1], 0F, CS.PX_P[1], CS.PX_N[1], CS.PX_P[2], CS.PX_N[1]);
                 break;
             case 1:
-                setBlockBoundsOnRotation(aBlock,0F, 0F, CS.PX_P[1], CS.PX_P[1], CS.PX_P[5], CS.PX_N[1]);
+                setBlockBoundsOnRotation(aBlock, 0F, 0F, CS.PX_P[1], CS.PX_P[1], CS.PX_P[5], CS.PX_N[1]);
                 break;
             case 2:
                 setBlockBoundsOnRotation(aBlock, CS.PX_N[1], 0F, CS.PX_P[1], 1F, CS.PX_P[5], CS.PX_N[1]);
@@ -364,7 +369,14 @@ public class CompostBinTileEntity extends TileEntityBase09FacingSingle implement
                 setBlockBoundsOnRotation(aBlock, CS.PX_N[1], CS.PX_P[13], CS.PX_P[1], 1F, 1F, CS.PX_P[4]);
                 break;
             case 11:
-                setBlockBoundsOnRotation(aBlock, CS.PX_P[1], CS.PX_P[2], CS.PX_P[1], CS.PX_N[1], (fillLevel + 128)/255F, CS.PX_N[1]);
+                setBlockBoundsOnRotation(
+                    aBlock,
+                    CS.PX_P[1],
+                    CS.PX_P[2],
+                    CS.PX_P[1],
+                    CS.PX_N[1],
+                    (fillLevel + 128) / 255F,
+                    CS.PX_N[1]);
                 break;
         }
         return true;

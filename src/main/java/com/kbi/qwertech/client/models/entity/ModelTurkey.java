@@ -1,17 +1,20 @@
 package com.kbi.qwertech.client.models.entity;
 
-import com.kbi.qwertech.entities.neutral.EntityTurkey;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
+
 import org.lwjgl.opengl.GL11;
+
+import com.kbi.qwertech.entities.neutral.EntityTurkey;
 
 /**
  * ModelTurkey - Qwertygiy
  * Created using Tabula 4.1.1
  */
 public class ModelTurkey extends ModelBase {
+
     public ModelRenderer Body;
     public ModelRenderer Head;
     public ModelRenderer RightLeg;
@@ -26,7 +29,7 @@ public class ModelTurkey extends ModelBase {
     public ModelRenderer Chest;
 
     public ModelTurkey() {
-    	this.textureWidth = 64;
+        this.textureWidth = 64;
         this.textureHeight = 64;
         this.LeftTail = new ModelRenderer(this, 0, 34);
         this.LeftTail.setRotationPoint(3.33F, 0.0F, 0.0F);
@@ -88,27 +91,26 @@ public class ModelTurkey extends ModelBase {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-    	if (this.isChild) 
-    	{
-    		GL11.glPushMatrix();
-    		GL11.glTranslatef(0.0F, 4.5F * f5, 2.0F * f5);
-    		this.Snood.isHidden = true;
-	        this.Head.render(f5);
-	        GL11.glTranslatef(0.0F, 7.5F * f5, -1.0F * f5);
-	        GL11.glScalef(0.5F, 0.5F, 0.5F);
-	        this.LeftLeg.render(f5);
-	        this.RightLeg.render(f5);
-	    	this.Body.render(f5);
-	    	GL11.glPopMatrix();
-    	} else {
-    		this.Snood.isHidden = false;
-    		this.Head.render(f5);
-    		this.LeftLeg.render(f5);
-	        this.RightLeg.render(f5);
-	    	this.Body.render(f5);
-    	}
+        if (this.isChild) {
+            GL11.glPushMatrix();
+            GL11.glTranslatef(0.0F, 4.5F * f5, 2.0F * f5);
+            this.Snood.isHidden = true;
+            this.Head.render(f5);
+            GL11.glTranslatef(0.0F, 7.5F * f5, -1.0F * f5);
+            GL11.glScalef(0.5F, 0.5F, 0.5F);
+            this.LeftLeg.render(f5);
+            this.RightLeg.render(f5);
+            this.Body.render(f5);
+            GL11.glPopMatrix();
+        } else {
+            this.Snood.isHidden = false;
+            this.Head.render(f5);
+            this.LeftLeg.render(f5);
+            this.RightLeg.render(f5);
+            this.Body.render(f5);
+        }
     }
 
     /**
@@ -119,27 +121,26 @@ public class ModelTurkey extends ModelBase {
         modelRenderer.rotateAngleY = y;
         modelRenderer.rotateAngleZ = z;
     }
-    
-    public void setRotationAngles(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_, float p_78087_5_, float p_78087_6_, Entity p_78087_7_)
-    {
-    	float headangle = -0.175F;
-    	if (((EntityTurkey)p_78087_7_).isAngry()) headangle = 0.175F;
-        this.Head.rotateAngleX = (p_78087_5_ / (180F / (float)Math.PI)) + headangle;
-        this.Head.rotateAngleY = p_78087_4_ / (180F / (float)Math.PI);
-        //this.Body.rotateAngleX = ((float)Math.PI / 2F);
+
+    public void setRotationAngles(float p_78087_1_, float p_78087_2_, float p_78087_3_, float p_78087_4_,
+        float p_78087_5_, float p_78087_6_, Entity p_78087_7_) {
+        float headangle = -0.175F;
+        if (((EntityTurkey) p_78087_7_).isAngry()) headangle = 0.175F;
+        this.Head.rotateAngleX = (p_78087_5_ / (180F / (float) Math.PI)) + headangle;
+        this.Head.rotateAngleY = p_78087_4_ / (180F / (float) Math.PI);
+        // this.Body.rotateAngleX = ((float)Math.PI / 2F);
         this.RightLeg.rotateAngleX = MathHelper.cos(p_78087_1_ * 0.6662F) * 1.4F * p_78087_2_;
-        this.LeftLeg.rotateAngleX = MathHelper.cos(p_78087_1_ * 0.6662F + (float)Math.PI) * 1.4F * p_78087_2_;
-        if (((EntityTurkey)p_78087_7_).isAngry())
-        {
-        	this.RightWing.rotateAngleY = p_78087_3_;
-        	this.LeftWing.rotateAngleY = -p_78087_3_;
-        	this.Tail.rotateAngleX = -0.33F;
-		} else {
-			this.Tail.rotateAngleX = -1.396F;
-			this.RightWing.rotateAngleY = -1.047F;
-			this.LeftWing.rotateAngleY = 1.047F;
-		}
-        //this.RightWing.rotateAngleZ = p_78087_3_;
-        //this.LeftWing.rotateAngleZ = -p_78087_3_;
+        this.LeftLeg.rotateAngleX = MathHelper.cos(p_78087_1_ * 0.6662F + (float) Math.PI) * 1.4F * p_78087_2_;
+        if (((EntityTurkey) p_78087_7_).isAngry()) {
+            this.RightWing.rotateAngleY = p_78087_3_;
+            this.LeftWing.rotateAngleY = -p_78087_3_;
+            this.Tail.rotateAngleX = -0.33F;
+        } else {
+            this.Tail.rotateAngleX = -1.396F;
+            this.RightWing.rotateAngleY = -1.047F;
+            this.LeftWing.rotateAngleY = 1.047F;
+        }
+        // this.RightWing.rotateAngleZ = p_78087_3_;
+        // this.LeftWing.rotateAngleZ = -p_78087_3_;
     }
 }

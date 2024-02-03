@@ -2,6 +2,7 @@ package com.kbi.qwertech.client.models;
 
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -9,6 +10,7 @@ import org.lwjgl.opengl.GL11;
  * Created using Tabula 4.1.1
  */
 public class ModelScrewdriver extends ModelBaseTool {
+
     public ModelRenderer handle1;
     public ModelRenderer blade;
     public ModelRenderer blade2;
@@ -41,23 +43,35 @@ public class ModelScrewdriver extends ModelBaseTool {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         applyColorPrimary();
-    	GL11.glPushMatrix();
+        GL11.glPushMatrix();
         GL11.glTranslatef(this.blade2.offsetX, this.blade2.offsetY, this.blade2.offsetZ);
-        GL11.glTranslatef(this.blade2.rotationPointX * f5, this.blade2.rotationPointY * f5, this.blade2.rotationPointZ * f5);
+        GL11.glTranslatef(
+            this.blade2.rotationPointX * f5,
+            this.blade2.rotationPointY * f5,
+            this.blade2.rotationPointZ * f5);
         GL11.glScaled(0.8D, 3.0D, 0.25D);
         GL11.glTranslatef(-this.blade2.offsetX, -this.blade2.offsetY, -this.blade2.offsetZ);
-        GL11.glTranslatef(-this.blade2.rotationPointX * f5, -this.blade2.rotationPointY * f5, -this.blade2.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -this.blade2.rotationPointX * f5,
+            -this.blade2.rotationPointY * f5,
+            -this.blade2.rotationPointZ * f5);
         this.blade2.render(f5);
         GL11.glPopMatrix();
         this.blade.render(f5);
         GL11.glPushMatrix();
         GL11.glTranslatef(this.blade3.offsetX, this.blade3.offsetY, this.blade3.offsetZ);
-        GL11.glTranslatef(this.blade3.rotationPointX * f5, this.blade3.rotationPointY * f5, this.blade3.rotationPointZ * f5);
+        GL11.glTranslatef(
+            this.blade3.rotationPointX * f5,
+            this.blade3.rotationPointY * f5,
+            this.blade3.rotationPointZ * f5);
         GL11.glScaled(0.25D, 3.0D, 0.8D);
         GL11.glTranslatef(-this.blade3.offsetX, -this.blade3.offsetY, -this.blade3.offsetZ);
-        GL11.glTranslatef(-this.blade3.rotationPointX * f5, -this.blade3.rotationPointY * f5, -this.blade3.rotationPointZ * f5);
+        GL11.glTranslatef(
+            -this.blade3.rotationPointX * f5,
+            -this.blade3.rotationPointY * f5,
+            -this.blade3.rotationPointZ * f5);
         this.blade3.render(f5);
         GL11.glPopMatrix();
         applyColorSecondary();

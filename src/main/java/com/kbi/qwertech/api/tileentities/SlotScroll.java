@@ -11,7 +11,8 @@ public class SlotScroll extends Slot {
     boolean canStackItem;
     int stackLimit;
 
-    public SlotScroll(IInventory inventory, int index, int x, int y, boolean aCanInsertItem, boolean aCanStackItem, int aMaxStacksize) {
+    public SlotScroll(IInventory inventory, int index, int x, int y, boolean aCanInsertItem, boolean aCanStackItem,
+        int aMaxStacksize) {
         super(inventory, index, x, y);
         canInsertItem = aCanInsertItem;
         canStackItem = aCanStackItem;
@@ -84,7 +85,6 @@ public class SlotScroll extends Slot {
     public boolean canTakeStack(EntityPlayer p_82869_1_) {
         return false;
     }
-
 
     @Override
     public int getSlotIndex() {

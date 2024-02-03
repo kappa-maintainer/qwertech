@@ -1,7 +1,5 @@
 package com.kbi.qwertech.client;
 
-import com.kbi.qwertech.client.tileentity.UpgradeDeskRenderer;
-import gregapi.block.multitileentity.MultiTileEntityRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -12,43 +10,46 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-public class QT_Machine_Renderer implements IItemRenderer {
-	
-	private float transparency = 0.5F;
-	private MultiTileEntityRegistry Q;
-	
-	public QT_Machine_Renderer()
-	{
-		Q = MultiTileEntityRegistry.getRegistry("qwertech.machines");
-	}
+import com.kbi.qwertech.client.tileentity.UpgradeDeskRenderer;
 
-	@Override
-	public boolean handleRenderType(ItemStack item, ItemRenderType type) {
+import gregapi.block.multitileentity.MultiTileEntityRegistry;
+
+public class QT_Machine_Renderer implements IItemRenderer {
+
+    private float transparency = 0.5F;
+    private MultiTileEntityRegistry Q;
+
+    public QT_Machine_Renderer() {
+        Q = MultiTileEntityRegistry.getRegistry("qwertech.machines");
+    }
+
+    @Override
+    public boolean handleRenderType(ItemStack item, ItemRenderType type) {
         return item.getItemDamage() > 400 && item.getItemDamage() < 410;
     }
 
-	@Override
-	public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item,
-			ItemRendererHelper helper) {
-		// TODO Auto-generated method stub
-		return true;
-	}
-	
-	public void renderPlainItem(EntityLivingBase p_78443_1_, ItemStack p_78443_2_, int p_78443_3_, ItemRenderType type)
-	{
-		GL11.glPushMatrix();
-		IIcon iicon = p_78443_1_.getItemIcon(p_78443_2_, p_78443_3_);
+    @Override
+    public boolean shouldUseRenderHelper(ItemRenderType type, ItemStack item, ItemRendererHelper helper) {
+        // TODO Auto-generated method stub
+        return true;
+    }
 
-        if (iicon == null)
-        {
+    public void renderPlainItem(EntityLivingBase p_78443_1_, ItemStack p_78443_2_, int p_78443_3_,
+        ItemRenderType type) {
+        GL11.glPushMatrix();
+        IIcon iicon = p_78443_1_.getItemIcon(p_78443_2_, p_78443_3_);
+
+        if (iicon == null) {
             GL11.glPopMatrix();
             return;
         }
 
-        Minecraft.getMinecraft().renderEngine.bindTexture(Minecraft.getMinecraft().renderEngine.getResourceLocation(p_78443_2_.getItemSpriteNumber()));
+        Minecraft.getMinecraft().renderEngine
+            .bindTexture(Minecraft.getMinecraft().renderEngine.getResourceLocation(p_78443_2_.getItemSpriteNumber()));
         TextureUtil.func_152777_a(false, false, 1.0F);
         Tessellator tessellator = Tessellator.instance;
         float f = iicon.getMinU();
@@ -61,11 +62,11 @@ public class QT_Machine_Renderer implements IItemRenderer {
         float f6 = 1.5F;
         ItemRenderer.renderItemIn2D(tessellator, f1, f2, f, f3, iicon.getIconWidth(), iicon.getIconHeight(), 0.0625F);
 
-        if (p_78443_2_.hasEffect(p_78443_3_))
-        {
+        if (p_78443_2_.hasEffect(p_78443_3_)) {
             GL11.glDepthFunc(GL11.GL_EQUAL);
             GL11.glDisable(GL11.GL_LIGHTING);
-            Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("textures/misc/enchanted_item_glint.png"));
+            Minecraft.getMinecraft().renderEngine
+                .bindTexture(new ResourceLocation("textures/misc/enchanted_item_glint.png"));
             GL11.glEnable(GL11.GL_BLEND);
             OpenGlHelper.glBlendFunc(768, 1, 1, 0);
             float f7 = 0.76F;
@@ -93,22 +94,22 @@ public class QT_Machine_Renderer implements IItemRenderer {
         }
 
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-        Minecraft.getMinecraft().renderEngine.bindTexture(Minecraft.getMinecraft().renderEngine.getResourceLocation(p_78443_2_.getItemSpriteNumber()));
+        Minecraft.getMinecraft().renderEngine
+            .bindTexture(Minecraft.getMinecraft().renderEngine.getResourceLocation(p_78443_2_.getItemSpriteNumber()));
         TextureUtil.func_147945_b();
         GL11.glPopMatrix();
-	}
+    }
 
-	@Override
-	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-		GL11.glPushMatrix();
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		boolean isFirst = false;
-		if (type == ItemRenderType.EQUIPPED_FIRST_PERSON)
-		{
-			isFirst = true;
-		}
-		UpgradeDeskRenderer.instance.renderTileEntityAt(Q.getNewTileEntity(item), 0, 0.2, 0, 0);
-		GL11.glPopMatrix();
-	}
+    @Override
+    public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
+        GL11.glPushMatrix();
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        boolean isFirst = false;
+        if (type == ItemRenderType.EQUIPPED_FIRST_PERSON) {
+            isFirst = true;
+        }
+        UpgradeDeskRenderer.instance.renderTileEntityAt(Q.getNewTileEntity(item), 0, 0.2, 0, 0);
+        GL11.glPopMatrix();
+    }
 
 }

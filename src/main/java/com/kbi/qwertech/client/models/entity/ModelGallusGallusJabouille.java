@@ -1,8 +1,9 @@
 package com.kbi.qwertech.client.models.entity;
 
+import net.minecraft.entity.Entity;
+
 import com.kbi.qwertech.api.client.models.ModelRendererDefaults;
 import com.kbi.qwertech.api.client.registry.AnimationHelper;
-import net.minecraft.entity.Entity;
 
 /**
  * ModelGallusGallusJabouille - Qwertygiy
@@ -37,10 +38,9 @@ public class ModelGallusGallusJabouille extends ModelWildChicken {
     }
 
     @Override
-    public void setRotationAngles(float f1, float f2, float f3, float f4, float f5, float f6, Entity entity)
-    {
+    public void setRotationAngles(float f1, float f2, float f3, float f4, float f5, float f6, Entity entity) {
         super.setRotationAngles(f1, f2, f3, f4, f5, f6, entity);
-        this.neck.rotateAngleX = (f5 / (180F / (float)Math.PI)) + 0.175F;
-        this.neck.rotateAngleY = f4 / (180F / (float)Math.PI);
+        this.neck.rotateAngleX = (f5 / (180F / (float) Math.PI)) + 0.175F;
+        this.neck.rotateAngleY = f4 / (180F / (float) Math.PI);
     }
 }

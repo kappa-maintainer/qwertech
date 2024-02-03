@@ -1,6 +1,5 @@
 package com.kbi.qwertech.client;
 
-import gregapi.item.multiitem.MultiItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -13,7 +12,10 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer.ItemRenderType;
 import net.minecraftforge.fluids.FluidStack;
+
 import org.lwjgl.opengl.GL11;
+
+import gregapi.item.multiitem.MultiItem;
 
 /**
  * @author Team COFH + Qwertygiy
@@ -107,22 +109,23 @@ public class RenderShortcuts {
         OpenGlHelper.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
     }
 
-    public static void renderPlainItem(EntityLivingBase entity, ItemStack p_78443_2_, int p_78443_3_, ItemRenderType type)
-    {
+    public static void renderPlainItem(EntityLivingBase entity, ItemStack p_78443_2_, int p_78443_3_,
+        ItemRenderType type) {
         GL11.glPushMatrix();
 
-        IIcon iicon = p_78443_2_.getItem().getIcon(p_78443_2_, p_78443_3_);
+        IIcon iicon = p_78443_2_.getItem()
+            .getIcon(p_78443_2_, p_78443_3_);
         if (entity != null) {
             iicon = entity.getItemIcon(p_78443_2_, p_78443_3_);
         }
 
-        if (iicon == null)
-        {
+        if (iicon == null) {
             GL11.glPopMatrix();
             return;
         }
 
-        Minecraft.getMinecraft().renderEngine.bindTexture(Minecraft.getMinecraft().renderEngine.getResourceLocation(p_78443_2_.getItemSpriteNumber()));
+        Minecraft.getMinecraft().renderEngine
+            .bindTexture(Minecraft.getMinecraft().renderEngine.getResourceLocation(p_78443_2_.getItemSpriteNumber()));
         TextureUtil.func_152777_a(false, false, 1.0F);
         Tessellator tessellator = Tessellator.instance;
         float f = iicon.getMinU();
@@ -131,15 +134,15 @@ public class RenderShortcuts {
         float f3 = iicon.getMaxV();
         float f4 = 0.0F;
         float f5 = 0.3F;
-        //GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+        // GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         float f6 = 1.5F;
         ItemRenderer.renderItemIn2D(tessellator, f1, f2, f, f3, iicon.getIconWidth(), iicon.getIconHeight(), 0.0625F);
 
-        if (p_78443_2_.hasEffect(p_78443_3_))
-        {
+        if (p_78443_2_.hasEffect(p_78443_3_)) {
             GL11.glDepthFunc(GL11.GL_EQUAL);
             GL11.glDisable(GL11.GL_LIGHTING);
-            Minecraft.getMinecraft().renderEngine.bindTexture(new ResourceLocation("textures/misc/enchanted_item_glint.png"));
+            Minecraft.getMinecraft().renderEngine
+                .bindTexture(new ResourceLocation("textures/misc/enchanted_item_glint.png"));
             GL11.glEnable(GL11.GL_BLEND);
             OpenGlHelper.glBlendFunc(768, 1, 1, 0);
             float f7 = 0.76F;
@@ -166,8 +169,9 @@ public class RenderShortcuts {
             GL11.glDepthFunc(GL11.GL_LEQUAL);
         }
 
-        //GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-        Minecraft.getMinecraft().renderEngine.bindTexture(Minecraft.getMinecraft().renderEngine.getResourceLocation(p_78443_2_.getItemSpriteNumber()));
+        // GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+        Minecraft.getMinecraft().renderEngine
+            .bindTexture(Minecraft.getMinecraft().renderEngine.getResourceLocation(p_78443_2_.getItemSpriteNumber()));
         TextureUtil.func_147945_b();
         GL11.glPopMatrix();
     }
@@ -189,38 +193,46 @@ public class RenderShortcuts {
             GL11.glTranslated(-1, -1, 0);
         }
 
-        FluidStack fluid = ((MultiItem)item.getItem()).getFluid(item);
+        FluidStack fluid = ((MultiItem) item.getItem()).getFluid(item);
 
         if (fluid != null) {
             Minecraft.getMinecraft().renderEngine.bindTexture(ITEM);
-                //System.out.println("l");
-            int color = fluid.getFluid().getColor();
+            // System.out.println("l");
+            int color = fluid.getFluid()
+                .getColor();
             GL11.glColor3ub((byte) (color >> 16 & 0xFF), (byte) (color >> 8 & 0xFF), (byte) (color & 0xFF));
-            renderMask(item.getItem().getIcon(item, 1), fluid.getFluid().getIcon(), type);
+            renderMask(
+                item.getItem()
+                    .getIcon(item, 1),
+                fluid.getFluid()
+                    .getIcon(),
+                type);
         }
         Minecraft.getMinecraft().renderEngine.bindTexture(ITEM);
 
         /*
-        if (!type.equals(ItemRenderType.INVENTORY)) {
-            if (item.getItemDamage() == 1) {
-                RenderHelper.renderItemIn2D(florbs[1]);
-            } else {
-                RenderHelper.renderItemIn2D(florbs[0]);
-            }
-        } else {
-            if (item.getItemDamage() == 1) {
-                RenderHelper.renderIcon(florbs[1], 4);
-            } else {
-                RenderHelper.renderIcon(florbs[0], 4);
-            }
-        }*/
+         * if (!type.equals(ItemRenderType.INVENTORY)) {
+         * if (item.getItemDamage() == 1) {
+         * RenderHelper.renderItemIn2D(florbs[1]);
+         * } else {
+         * RenderHelper.renderItemIn2D(florbs[0]);
+         * }
+         * } else {
+         * if (item.getItemDamage() == 1) {
+         * RenderHelper.renderIcon(florbs[1], 4);
+         * } else {
+         * RenderHelper.renderIcon(florbs[0], 4);
+         * }
+         * }
+         */
 
-        //for (int i = 0; i < item.getItem().getRenderPasses(item.getItemDamage()); i++)
-        //{
-        //}
+        // for (int i = 0; i < item.getItem().getRenderPasses(item.getItemDamage()); i++)
+        // {
+        // }
         postItemRender();
         GL11.glPopMatrix();
-        int j = item.getItem().getColorFromItemStack(item, 0);
+        int j = item.getItem()
+            .getColorFromItemStack(item, 0);
         float f5 = (j >> 16 & 255) / 255.0F;
         float f2 = (j >> 8 & 255) / 255.0F;
         float f3 = (j & 255) / 255.0F;
@@ -228,7 +240,14 @@ public class RenderShortcuts {
         if (type != ItemRenderType.INVENTORY) {
             renderPlainItem((EntityLivingBase) data[1], item, 0, type);
         } else {
-            RenderItem.getInstance().renderIcon(0, 0, item.getItem().getIcon(item, 0), 16, 16);
+            RenderItem.getInstance()
+                .renderIcon(
+                    0,
+                    0,
+                    item.getItem()
+                        .getIcon(item, 0),
+                    16,
+                    16);
         }
     }
 }

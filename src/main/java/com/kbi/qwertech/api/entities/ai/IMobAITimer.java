@@ -4,26 +4,28 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
 
 public interface IMobAITimer {
+
     void setStartTime(boolean isResetting);
+
     long getStartTime();
+
     void setMaxTime(int ticksToWait);
+
     int getMaxTime();
 
     abstract class EntityAITimed extends EntityAIBase implements IMobAITimer {
+
         public EntityLiving livingEntity;
         public long startTime = -1;
         public int maxTime = -1;
 
-        public EntityAITimed(EntityLiving entity)
-        {
+        public EntityAITimed(EntityLiving entity) {
             livingEntity = entity;
         }
 
         @Override
-        public void setStartTime(boolean isResetting)
-        {
-            if (isResetting)
-            {
+        public void setStartTime(boolean isResetting) {
+            if (isResetting) {
                 startTime = -1;
             } else {
                 startTime = livingEntity.worldObj.getTotalWorldTime();
@@ -31,8 +33,7 @@ public interface IMobAITimer {
         }
 
         @Override
-        public long getStartTime()
-        {
+        public long getStartTime() {
             return startTime;
         }
 
@@ -60,8 +61,8 @@ public interface IMobAITimer {
 
         @Override
         public boolean continueExecuting() {
-            if (livingEntity.worldObj == null || (livingEntity.worldObj.getTotalWorldTime() - getStartTime() > getMaxTime() && getMaxTime() > 0))
-            {
+            if (livingEntity.worldObj == null
+                || (livingEntity.worldObj.getTotalWorldTime() - getStartTime() > getMaxTime() && getMaxTime() > 0)) {
                 return false;
             }
             return super.continueExecuting();

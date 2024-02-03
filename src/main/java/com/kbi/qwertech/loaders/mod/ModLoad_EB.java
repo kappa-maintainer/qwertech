@@ -1,12 +1,14 @@
 package com.kbi.qwertech.loaders.mod;
 
-import gregapi.code.ModData;
-import gregapi.data.MD;
-import gregapi.util.ST;
 import net.minecraft.block.Block;
 import net.minecraftforge.oredict.OreDictionary;
 
+import gregapi.code.ModData;
+import gregapi.data.MD;
+import gregapi.util.ST;
+
 public class ModLoad_EB extends ModLoadBase {
+
     @Override
     public ModData getMod() {
         return MD.EB;
@@ -15,8 +17,7 @@ public class ModLoad_EB extends ModLoadBase {
     @Override
     public void addOreDict() {
         Block tPlank = ST.block(MD.EB, "enhancedbiomes.tile.planksEB");
-        if (tPlank != null)
-        {
+        if (tPlank != null) {
             OreDictionary.registerOre("plankWoodGreatwood", ST.make(tPlank, 1, 0));
             OreDictionary.registerOre("plankWoodThorntree", ST.make(tPlank, 1, 1));
             OreDictionary.registerOre("plankWoodPoplar", ST.make(tPlank, 1, 2));

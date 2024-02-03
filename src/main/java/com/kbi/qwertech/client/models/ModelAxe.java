@@ -2,6 +2,7 @@ package com.kbi.qwertech.client.models;
 
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -9,6 +10,7 @@ import org.lwjgl.opengl.GL11;
  * Created using Tabula 4.1.1
  */
 public class ModelAxe extends ModelBaseTool {
+
     public ModelRenderer handle;
     public ModelRenderer head;
     public ModelRenderer handle_1;
@@ -73,16 +75,16 @@ public class ModelAxe extends ModelBaseTool {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         applyColorSecondary();
-    	this.handle.render(f5);
-    	GL11.glColor4f(0.75F, 0.0F, 0.0F, 1.0F);
+        this.handle.render(f5);
+        GL11.glColor4f(0.75F, 0.0F, 0.0F, 1.0F);
         this.head.render(f5);
         this.handle_1.render(f5);
         applyColorPrimary();
         this.bladeURB.render(f5);
         this.bladeLRB.render(f5);
-    	this.bladeLRB_1.render(f5);
+        this.bladeLRB_1.render(f5);
         this.bladeLRT.render(f5);
         this.bladeLRT_1.render(f5);
         this.bladeURT.render(f5);

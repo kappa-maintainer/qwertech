@@ -13,18 +13,15 @@ public class DefaultAnimations {
     private BoxAnimationVariable l2;
     private BoxAnimationVariable r2;
 
-    public DefaultAnimations()
-    {
-        if (instance == null)
-        {
+    public DefaultAnimations() {
+        if (instance == null) {
             instance = this;
             initialize();
         }
     }
 
-    private void initialize()
-    {
-        //walky
+    private void initialize() {
+        // walky
         left = new BoxAnimationVariable();
         left.setRotateX(0.25F, 0.0F, 1F);
         left.setRotateX(0.50F, 0.0F, 0.0F);
@@ -38,7 +35,7 @@ public class DefaultAnimations {
         walk.addPart("rightLeg", right);
         AnimationsRegistry.registerAnimation(walk, 0, "walk");
 
-        //fly
+        // fly
         left = new BoxAnimationVariable();
         left.setRotateZ(0.0F, -0.1F, -0.5F);
         left.setRotateZ(0.25F, -0.25F, -1F);
@@ -56,7 +53,7 @@ public class DefaultAnimations {
         fly.addPart("rightWing", right);
         AnimationsRegistry.registerAnimation(fly, 1, "fly");
 
-        //idle
+        // idle
         body = new BoxAnimationVariable();
         body.setOriginY(0.5F, -0.2F);
         head = new BoxAnimationVariable();
@@ -79,7 +76,7 @@ public class DefaultAnimations {
         breathe.addPart("rightArm", right);
         AnimationsRegistry.registerAnimation(breathe, 2, "breathe");
 
-        //chickenbop
+        // chickenbop
         head = new BoxAnimationVariable();
         head.setOriginZ(0.35F, 1.5F);
         head.setOriginZ(0.5F, 0F);
@@ -91,7 +88,7 @@ public class DefaultAnimations {
         chickenBop.addPart("crest", head);
         AnimationsRegistry.registerAnimation(chickenBop, 3, "chickenheadbop");
 
-        //chickenhurt
+        // chickenhurt
         body = new BoxAnimationVariable();
         body.setRotateX(0.25F, -0.175F);
         body.setRotateX(0.75F, -0.175F);

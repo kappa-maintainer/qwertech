@@ -5,8 +5,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 
 public interface IThaumcraftUpgrade {
+
     /**
      * If the upgrade should provide a vis discount like certain ThaumCraft armor.
+     * 
      * @param var1 The armor stack.
      * @param var2 The player.
      * @param var3 The aspect that is being checked for a discount.
@@ -16,6 +18,7 @@ public interface IThaumcraftUpgrade {
 
     /**
      * Whether the upgrade should unveil the aspects that make up in-world items.
+     * 
      * @param var1 The armor stack.
      * @param var2 The player wearing the armor.
      * @return True or false.
@@ -24,6 +27,7 @@ public interface IThaumcraftUpgrade {
 
     /**
      * Whether the upgrade should make nodes much more visible to the wearer.
+     * 
      * @param var1 The armor stack.
      * @param var2 The player wearing the armor.
      * @return True or false.

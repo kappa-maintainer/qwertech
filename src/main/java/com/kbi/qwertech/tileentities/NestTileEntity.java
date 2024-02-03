@@ -1,7 +1,27 @@
 package com.kbi.qwertech.tileentities;
 
+import static gregapi.data.CS.F;
+import static gregapi.data.CS.PX_P;
+import static gregapi.data.CS.T;
+
+import java.awt.Color;
+import java.util.List;
+import java.util.UUID;
+
+import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.AxisAlignedBB;
+
 import com.kbi.qwertech.api.data.QTI;
 import com.kbi.qwertech.network.packets.PacketInventorySync;
+
 import gregapi.block.multitileentity.IMultiTileEntity;
 import gregapi.code.ArrayListNoNulls;
 import gregapi.data.CS;
@@ -15,24 +35,11 @@ import gregapi.render.ITexture;
 import gregapi.tileentity.base.TileEntityBase05Inventories;
 import gregapi.util.ST;
 import gregapi.util.UT;
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
 
-import java.awt.*;
-import java.util.List;
-import java.util.UUID;
-
-import static gregapi.data.CS.*;
-
-public class NestTileEntity extends TileEntityBase05Inventories implements IMultiTileEntity.IMTE_GetBlocksMovement, IMultiTileEntity.IMTE_AddCollisionBoxesToList, IMultiTileEntity.IMTE_SetBlockBoundsBasedOnState, IMultiTileEntity.IMTE_GetSelectedBoundingBoxFromPool, IMultiTileEntity.IMTE_GetCollisionBoundingBoxFromPool, ISidedInventory, IMultiTileEntity.IMTE_OnToolClick {
+public class NestTileEntity extends TileEntityBase05Inventories
+    implements IMultiTileEntity.IMTE_GetBlocksMovement, IMultiTileEntity.IMTE_AddCollisionBoxesToList,
+    IMultiTileEntity.IMTE_SetBlockBoundsBasedOnState, IMultiTileEntity.IMTE_GetSelectedBoundingBoxFromPool,
+    IMultiTileEntity.IMTE_GetCollisionBoundingBoxFromPool, ISidedInventory, IMultiTileEntity.IMTE_OnToolClick {
 
     protected boolean mUpdatedGrid = true;
 
@@ -44,39 +51,58 @@ public class NestTileEntity extends TileEntityBase05Inventories implements IMult
             if (mUpdatedGrid) {
                 sendDisplays();
                 mUpdatedGrid = F;
-            } else if (aTimer % (200 + (xCoord % 10) + (zCoord % 10)) == 0)
-            {
+            } else if (aTimer % (200 + (xCoord % 10) + (zCoord % 10)) == 0) {
                 sendDisplays();
-                for (int q = 0; q < this.invsize(); q++)
-                {
-                    if (slotHas(q))
-                    {
+                for (int q = 0; q < this.invsize(); q++) {
+                    if (slotHas(q)) {
                         ItemStack stack = slot(q);
                         NBTTagCompound tagCompound = UT.NBT.getOrCreate(stack);
                         long timer = tagCompound.getLong("Timer");
-                        if (timer > 0 && worldObj.getTotalWorldTime() > timer)
-                        {
-                            worldObj.spawnEntityInWorld(new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, stack));
+                        if (timer > 0 && worldObj.getTotalWorldTime() > timer) {
+                            worldObj.spawnEntityInWorld(
+                                new EntityItem(worldObj, xCoord + 0.5, yCoord + 1.5, zCoord + 0.5, stack));
                             slot(q, null);
                         }
                     }
                 }
             }
         } else {
-            if (mUpdatedGrid)
-            {
+            if (mUpdatedGrid) {
                 this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 mUpdatedGrid = false;
             }
         }
     }
 
-    @Override public void setInventorySlotContents(int aSlot, ItemStack aStack)		{if (!ST.equal(aStack, slot(aSlot), F)) mUpdatedGrid = T; super.setInventorySlotContents(aSlot, aStack);}
-    @Override public void setInventorySlotContentsGUI(int aSlot, ItemStack aStack)	{if (!ST.equal(aStack, slot(aSlot), F)) mUpdatedGrid = T; super.setInventorySlotContentsGUI(aSlot, aStack);}
-    @Override public ItemStack decrStackSize(int aSlot, int aDecrement)				{if (aDecrement > 0) mUpdatedGrid = T; return super.decrStackSize(aSlot, aDecrement);}
-    @Override public ItemStack decrStackSizeGUI(int aSlot, int aDecrement)			{if (aDecrement > 0) mUpdatedGrid = T; return super.decrStackSizeGUI(aSlot, aDecrement);}
+    @Override
+    public void setInventorySlotContents(int aSlot, ItemStack aStack) {
+        if (!ST.equal(aStack, slot(aSlot), F)) mUpdatedGrid = T;
+        super.setInventorySlotContents(aSlot, aStack);
+    }
 
-    @Override public boolean addStackToSlot(int aSlot, ItemStack aStack) {if (!ST.equal(aStack, slot(aSlot), F)) mUpdatedGrid = T; return super.addStackToSlot(aSlot, aStack); }
+    @Override
+    public void setInventorySlotContentsGUI(int aSlot, ItemStack aStack) {
+        if (!ST.equal(aStack, slot(aSlot), F)) mUpdatedGrid = T;
+        super.setInventorySlotContentsGUI(aSlot, aStack);
+    }
+
+    @Override
+    public ItemStack decrStackSize(int aSlot, int aDecrement) {
+        if (aDecrement > 0) mUpdatedGrid = T;
+        return super.decrStackSize(aSlot, aDecrement);
+    }
+
+    @Override
+    public ItemStack decrStackSizeGUI(int aSlot, int aDecrement) {
+        if (aDecrement > 0) mUpdatedGrid = T;
+        return super.decrStackSizeGUI(aSlot, aDecrement);
+    }
+
+    @Override
+    public boolean addStackToSlot(int aSlot, ItemStack aStack) {
+        if (!ST.equal(aStack, slot(aSlot), F)) mUpdatedGrid = T;
+        return super.addStackToSlot(aSlot, aStack);
+    }
 
     @Override
     public int getInventoryStackLimit() {
@@ -88,19 +114,20 @@ public class NestTileEntity extends TileEntityBase05Inventories implements IMult
         return 1;
     }
 
-    public void sendDisplays()
-    {
-        for (int q = 0; q < this.invsize(); q++)
-        {
-            QTI.NW_API.sendToAllPlayersInRange(new PacketInventorySync(slot(q), this.xCoord, this.yCoord, this.zCoord, q), this.worldObj, this.xCoord, this.zCoord);
+    public void sendDisplays() {
+        for (int q = 0; q < this.invsize(); q++) {
+            QTI.NW_API.sendToAllPlayersInRange(
+                new PacketInventorySync(slot(q), this.xCoord, this.yCoord, this.zCoord, q),
+                this.worldObj,
+                this.xCoord,
+                this.zCoord);
         }
         this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override
     public ArrayListNoNulls<ItemStack> getDrops(int aFortune, boolean aSilkTouch) {
-        if (this.getClass() != NestTileEntity.class)
-        {
+        if (this.getClass() != NestTileEntity.class) {
             return super.getDrops(aFortune, aSilkTouch);
         }
         if (aSilkTouch) return super.getDrops(aFortune, aSilkTouch);
@@ -127,17 +154,17 @@ public class NestTileEntity extends TileEntityBase05Inventories implements IMult
     public void readFromNBT2(NBTTagCompound aNBT) {
         super.readFromNBT2(aNBT);
         String entityID = aNBT.getString("ENT");
-        if (worldObj != null && entityID != null && entityID.length() > 0)
-        {
+        if (worldObj != null && entityID != null && entityID.length() > 0) {
             UUID uuid = UUID.fromString(entityID);
-            if (chosenEntity == null || chosenEntity.getUniqueID() != uuid)
-            {
+            if (chosenEntity == null || chosenEntity.getUniqueID() != uuid) {
                 chosenEntity = null;
-                List entities = worldObj.getEntitiesWithinAABB(EntityLiving.class, this.box().expand(32, 16, 32));
+                List entities = worldObj.getEntitiesWithinAABB(
+                    EntityLiving.class,
+                    this.box()
+                        .expand(32, 16, 32));
                 for (Object entity : entities) {
-                    EntityLiving eL = (EntityLiving)entity;
-                    if (eL.getUniqueID() == uuid)
-                    {
+                    EntityLiving eL = (EntityLiving) entity;
+                    if (eL.getUniqueID() == uuid) {
                         chosenEntity = eL;
                         break;
                     }
@@ -149,9 +176,11 @@ public class NestTileEntity extends TileEntityBase05Inventories implements IMult
     @Override
     public void writeToNBT2(NBTTagCompound aNBT) {
         super.writeToNBT2(aNBT);
-        if (chosenEntity != null)
-        {
-            aNBT.setString("ENT", chosenEntity.getPersistentID().toString());
+        if (chosenEntity != null) {
+            aNBT.setString(
+                "ENT",
+                chosenEntity.getPersistentID()
+                    .toString());
         } else {
             aNBT.setString("ENT", "");
         }
@@ -159,32 +188,27 @@ public class NestTileEntity extends TileEntityBase05Inventories implements IMult
 
     /**
      * Attempts to set the passed entity as the owner of the nest.
+     * 
      * @param entityLiving The entity to nest here.
      * @return true if the nest is unoccupied by a living nearby creature and the passed entity is an adult.
      */
-    public boolean setNestingEntity(EntityLiving entityLiving)
-    {
-        if (entityLiving == chosenEntity)
-        {
+    public boolean setNestingEntity(EntityLiving entityLiving) {
+        if (entityLiving == chosenEntity) {
             return true;
         }
-        if (chosenEntity != null && !chosenEntity.isDead && chosenEntity.getDistance(xCoord, yCoord, zCoord) < 32)
-        {
+        if (chosenEntity != null && !chosenEntity.isDead && chosenEntity.getDistance(xCoord, yCoord, zCoord) < 32) {
             return false;
         }
-        if (entityLiving.isChild())
-        {
+        if (entityLiving.isChild()) {
             return false;
         }
         chosenEntity = entityLiving;
         return true;
     }
 
-    public EntityLiving getNestingEntity()
-    {
-        if (chosenEntity.isDead || chosenEntity.getDistance(xCoord, yCoord, zCoord) > 32)
-        {
-            //System.out.println("Too far away: " + chosenEntity.getDistance(xCoord, yCoord, zCoord));
+    public EntityLiving getNestingEntity() {
+        if (chosenEntity.isDead || chosenEntity.getDistance(xCoord, yCoord, zCoord) > 32) {
+            // System.out.println("Too far away: " + chosenEntity.getDistance(xCoord, yCoord, zCoord));
             chosenEntity = null;
         }
         return chosenEntity;
@@ -199,31 +223,24 @@ public class NestTileEntity extends TileEntityBase05Inventories implements IMult
     @Override
     public boolean onBlockActivated2(EntityPlayer aPlayer, byte aSide, float aHitX, float aHitY, float aHitZ) {
         ItemStack stack = aPlayer.getHeldItem();
-        //System.out.println("x:" + aHitX + " y:" + aHitY + " z:" + aHitZ);
-        if (aHitX > 0.2F && aHitX < 0.8F && aHitZ > 0.2F && aHitZ < 0.8F && aHitY > 0.2F)
-        {
-            for (int q = 0; q < this.invsize(); q++)
-            {
-                if (slotHas(q))
-                {
+        // System.out.println("x:" + aHitX + " y:" + aHitY + " z:" + aHitZ);
+        if (aHitX > 0.2F && aHitX < 0.8F && aHitZ > 0.2F && aHitZ < 0.8F && aHitY > 0.2F) {
+            for (int q = 0; q < this.invsize(); q++) {
+                if (slotHas(q)) {
                     ItemStack stacker = slot(q);
-                    if (stack == null)
-                    {
+                    if (stack == null) {
                         aPlayer.setCurrentItemOrArmor(0, stacker);
                         setInventorySlotContents(q, null);
-                    } else if (ST.equal(stack, stacker, false))
-                    {
+                    } else if (ST.equal(stack, stacker, false)) {
                         stack.stackSize = stack.stackSize + stacker.stackSize;
                         aPlayer.setCurrentItemOrArmor(0, stack);
                         setInventorySlotContents(q, null);
                     }
                     return true;
-                } else if (stack != null){
+                } else if (stack != null) {
                     NBTTagCompound tag = UT.NBT.getOrCreate(stack);
-                    if (tag.hasKey("Timer") && tag.hasKey("QTgenes"))
-                    {
-                        if (stack.stackSize == 1)
-                        {
+                    if (tag.hasKey("Timer") && tag.hasKey("QTgenes")) {
+                        if (stack.stackSize == 1) {
                             setInventorySlotContents(q, stack);
                             aPlayer.setCurrentItemOrArmor(0, null);
                         } else {
@@ -243,52 +260,51 @@ public class NestTileEntity extends TileEntityBase05Inventories implements IMult
 
     @Override
     public ITexture getTexture(Block aBlock, int aRenderPass, byte aSide, boolean[] aShouldSideBeRendered) {
-        if (aRenderPass > 4)
-        {
+        if (aRenderPass > 4) {
             ItemStack stack = slot(aRenderPass - 5);
             short[] colors = new short[4];
-            if (stack != null)
-            {
+            if (stack != null) {
                 NBTTagCompound nbt = UT.NBT.getOrCreate(stack);
                 int color = nbt.getInteger("itemColor");
                 Color oColor = Color.getColor(null, color);
-                colors[0] = (short)oColor.getRed();
-                colors[1] = (short)oColor.getBlue();
-                colors[2] = (short)oColor.getGreen();
-                colors[3] = (short)oColor.getAlpha();
+                colors[0] = (short) oColor.getRed();
+                colors[1] = (short) oColor.getBlue();
+                colors[2] = (short) oColor.getGreen();
+                colors[3] = (short) oColor.getAlpha();
                 return BlockTextureDefault.get(MT.Bone.mTextureSetsBlock.get(OP.blockDust.mIconIndexBlock), colors);
-                //return BlockTextureDefault.get(nest, colors);
+                // return BlockTextureDefault.get(nest, colors);
             }
             return null;
         }
-        if (ourcolor == null)
-        {
-            ourcolor = new short[]{(short)(210 + Math.abs(this.xCoord % 16)), (short)(245 + Math.abs(this.zCoord % 8)), (short)(200 + Math.abs(this.zCoord % 16) - Math.abs(this.xCoord % 12)), 255};
+        if (ourcolor == null) {
+            ourcolor = new short[] { (short) (210 + Math.abs(this.xCoord % 16)),
+                (short) (245 + Math.abs(this.zCoord % 8)),
+                (short) (200 + Math.abs(this.zCoord % 16) - Math.abs(this.xCoord % 12)), 255 };
         }
         return BlockTextureDefault.get(nest, ourcolor);
     }
 
     @Override
     public boolean setBlockBounds(Block aBlock, int aRenderPass, boolean[] aShouldSideBeRendered) {
-        switch(aRenderPass) {
+        switch (aRenderPass) {
             case 9:
-                //egg
+                // egg
                 aBlock.setBlockBounds(PX_P[10], PX_P[2], PX_P[9], PX_P[13], PX_P[6], PX_P[12]);
                 break;
             case 8:
-                //egg
+                // egg
                 aBlock.setBlockBounds(PX_P[9], PX_P[2], PX_P[4], PX_P[12], PX_P[6], PX_P[7]);
                 break;
             case 7:
-                //egg
+                // egg
                 aBlock.setBlockBounds(PX_P[4], PX_P[2], PX_P[9], PX_P[7], PX_P[6], PX_P[12]);
                 break;
             case 6:
-                //egg
+                // egg
                 aBlock.setBlockBounds(PX_P[4], PX_P[2], PX_P[6], PX_P[7], PX_P[6], PX_P[9]);
                 break;
             case 5:
-                //egg
+                // egg
                 aBlock.setBlockBounds(PX_P[7], PX_P[2], PX_P[7], PX_P[10], PX_P[6], PX_P[10]);
                 break;
             case 4:
@@ -311,12 +327,10 @@ public class NestTileEntity extends TileEntityBase05Inventories implements IMult
 
     @Override
     public int getRenderPasses(Block aBlock, boolean[] aShouldSideBeRendered) {
-        if (xCoord == 0 && yCoord == 0 && zCoord == 0) return 5; //skip check altogether in inventory
+        if (xCoord == 0 && yCoord == 0 && zCoord == 0) return 5; // skip check altogether in inventory
         boolean empty = true;
-        for (int q = 0; q < this.getSizeInventory(); q++)
-        {
-            if (slotHas(q))
-            {
+        for (int q = 0; q < this.getSizeInventory(); q++) {
+            if (slotHas(q)) {
                 empty = false;
                 break;
             }
@@ -333,8 +347,6 @@ public class NestTileEntity extends TileEntityBase05Inventories implements IMult
         return true;
     }
 
-
-
     @Override
     public void addCollisionBoxesToList(AxisAlignedBB aAABB, List<AxisAlignedBB> aList, Entity aEntity) {
         this.box(aAABB, aList, PX_P[0], PX_P[0], PX_P[0], PX_P[16], PX_P[1], PX_P[16]);
@@ -343,10 +355,8 @@ public class NestTileEntity extends TileEntityBase05Inventories implements IMult
     @Override
     public void setBlockBoundsBasedOnState(Block aBlock) {
         boolean empty = true;
-        for (int q = 0; q < this.getSizeInventory(); q++)
-        {
-            if (slotHas(q))
-            {
+        for (int q = 0; q < this.getSizeInventory(); q++) {
+            if (slotHas(q)) {
                 empty = false;
                 break;
             }
@@ -366,10 +376,8 @@ public class NestTileEntity extends TileEntityBase05Inventories implements IMult
     @Override
     public AxisAlignedBB getSelectedBoundingBoxFromPool() {
         boolean empty = true;
-        for (int q = 0; q < this.getSizeInventory(); q++)
-        {
-            if (slotHas(q))
-            {
+        for (int q = 0; q < this.getSizeInventory(); q++) {
+            if (slotHas(q)) {
                 empty = false;
                 break;
             }
@@ -397,7 +405,9 @@ public class NestTileEntity extends TileEntityBase05Inventories implements IMult
     }
 
     @Override
-    public long onToolClick(String aTool, long aRemainingDurability, long aQuality, Entity aPlayer, List<String> aChatReturn, IInventory aPlayerInventory, boolean aSneaking, ItemStack aStack, byte aSide, float aHitX, float aHitY, float aHitZ) {
+    public long onToolClick(String aTool, long aRemainingDurability, long aQuality, Entity aPlayer,
+        List<String> aChatReturn, IInventory aPlayerInventory, boolean aSneaking, ItemStack aStack, byte aSide,
+        float aHitX, float aHitY, float aHitZ) {
         if (aTool.equals("magnifyingglass")) {
             if (getNestingEntity() == null) {
                 aChatReturn.add("It seems this nest has been abandoned by its owner.");
@@ -406,20 +416,16 @@ public class NestTileEntity extends TileEntityBase05Inventories implements IMult
             }
             int eggs = 0;
             int fert = 0;
-            for (int q = 0; q < this.invsize(); q++)
-            {
-                if (slotHas(q))
-                {
+            for (int q = 0; q < this.invsize(); q++) {
+                if (slotHas(q)) {
                     eggs = eggs + 1;
                     NBTTagCompound tag = UT.NBT.getOrCreate(slot(q));
-                    if (tag.hasKey("Timer"))
-                    {
+                    if (tag.hasKey("Timer")) {
                         fert = fert + 1;
                     }
                 }
             }
-            if (eggs > 0)
-            {
+            if (eggs > 0) {
                 aChatReturn.add("It has " + eggs + " eggs, " + fert + " of which is fertilized.");
             }
         }

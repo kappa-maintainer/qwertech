@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
  * Created using Tabula 4.1.1
  */
 public class ModelArmorSpurs extends ModelBiped {
+
     public ModelRenderer bipedSpikeLeft;
     public ModelRenderer bipedSpikeRight;
     public ModelRenderer bipedSpikeLeft_1;
@@ -40,10 +41,14 @@ public class ModelArmorSpurs extends ModelBiped {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
-    	this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-    	setRotateAngle(bipedSpikeRight, bipedRightLeg.rotateAngleX, bipedRightLeg.rotateAngleY, bipedRightLeg.rotateAngleZ);
-    	setRotateAngle(bipedSpikeLeft, bipedLeftLeg.rotateAngleX, bipedLeftLeg.rotateAngleY, bipedLeftLeg.rotateAngleZ);
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+        this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+        setRotateAngle(
+            bipedSpikeRight,
+            bipedRightLeg.rotateAngleX,
+            bipedRightLeg.rotateAngleY,
+            bipedRightLeg.rotateAngleZ);
+        setRotateAngle(bipedSpikeLeft, bipedLeftLeg.rotateAngleX, bipedLeftLeg.rotateAngleY, bipedLeftLeg.rotateAngleZ);
         this.bipedSpikeRight.render(f5);
         this.bipedSpikeLeft.render(f5);
     }

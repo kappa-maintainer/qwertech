@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
  * Created using Tabula 4.1.1
  */
 public class ModelRock extends ModelBase {
+
     public ModelRenderer rocky;
 
     public ModelRock() {
@@ -21,7 +22,7 @@ public class ModelRock extends ModelBase {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         this.rocky.render(f5);
     }
 

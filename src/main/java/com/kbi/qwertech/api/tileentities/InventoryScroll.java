@@ -1,11 +1,11 @@
 package com.kbi.qwertech.api.tileentities;
 
+import java.util.ArrayList;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-
-import java.util.ArrayList;
 
 public class InventoryScroll implements IInventory {
 
@@ -16,65 +16,55 @@ public class InventoryScroll implements IInventory {
     private int height;
     private int width;
 
-    public InventoryScroll(Container one)
-    {
+    public InventoryScroll(Container one) {
         this(one, 8);
     }
 
-    public InventoryScroll(Container one, int size)
-    {
+    public InventoryScroll(Container one, int size) {
         this(one, size, 2);
     }
 
-    public InventoryScroll(Container one, int size, int wide)
-    {
+    public InventoryScroll(Container one, int size, int wide) {
         contents = new ArrayList<ItemStack>(size);
         eventHandler = one;
         height = size;
         width = wide;
     }
 
-    public boolean setList(ArrayList<ItemStack> newContents)
-    {
+    public boolean setList(ArrayList<ItemStack> newContents) {
         try {
             contents = newContents;
-            if (contents.size() <= height)
-            {
+            if (contents.size() <= height) {
                 starting = 0;
             }
-            //this.eventHandler.onCraftMatrixChanged(this);
-        } catch (Exception e)
-        {
+            // this.eventHandler.onCraftMatrixChanged(this);
+        } catch (Exception e) {
             return false;
         }
         return true;
     }
 
-    public int scrollUp(int amount)
-    {
+    public int scrollUp(int amount) {
         starting = Math.max(0, Math.min(contents.size() - height, starting + (amount * width)));
-        starting = (int)Math.ceil((float)starting / (float)width) * width;
+        starting = (int) Math.ceil((float) starting / (float) width) * width;
         return starting;
     }
 
-    public int scrollDown(int amount)
-    {
+    public int scrollDown(int amount) {
         starting = Math.max(0, starting - (amount * width));
         return starting;
     }
 
-    public int scroll(float percentage)
-    {
+    public int scroll(float percentage) {
         int amount = Math.round(contents.size() * percentage);
         amount = Math.round(amount / width) * width;
         amount = Math.max(0, Math.min(contents.size() - this.getSizeInventory(), amount));
         return amount;
     }
 
-    public float getScroll()
-    {
+    public float getScroll() {
         if (contents.size() <= this.getSizeInventory()) return 0;
-        float returnable = (float)starting / ( (float)contents.size() - (float)getSizeInventory() );
+        float returnable = (float) starting / ((float) contents.size() - (float) getSizeInventory());
         if (returnable > 1) return 1;
         if (returnable < 0) return 0;
         return returnable;
@@ -104,8 +94,7 @@ public class InventoryScroll implements IInventory {
     @Override
     public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
         int adjusted = starting + p_70299_1_;
-        if (adjusted < contents.size())
-        {
+        if (adjusted < contents.size()) {
             contents.set(adjusted, p_70299_2_);
         } else {
             contents.add(p_70299_2_);

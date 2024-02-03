@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
  * Created using Tabula 4.1.1
  */
 public class ModelEgg extends ModelBaseTool {
+
     public ModelRenderer rocky;
     public ModelRenderer rockyX;
     public ModelRenderer rockyY;
@@ -38,7 +39,7 @@ public class ModelEgg extends ModelBaseTool {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         this.rockyY.render(f5);
         this.rocky.render(f5);
         this.rockyZ.render(f5);

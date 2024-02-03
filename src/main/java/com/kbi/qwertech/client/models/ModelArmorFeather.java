@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
  * Created using Tabula 4.1.1
  */
 public class ModelArmorFeather extends ModelBiped {
+
     public ModelRenderer bipedFeathermount;
     public ModelRenderer bipedFeatherStem;
     public ModelRenderer bipedFeatherStem2;
@@ -66,14 +67,14 @@ public class ModelArmorFeather extends ModelBiped {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         setRotateAngle(bipedFeathermount, bipedHead.rotateAngleX, bipedHead.rotateAngleY, bipedHead.rotateAngleZ);
         setRotateAngle(bipedFeatherStem, bipedHead.rotateAngleX, bipedHead.rotateAngleY, bipedHead.rotateAngleZ);
-        bipedFeatherStem2.rotateAngleX = -0.35F + (float)entity.motionY/10;
-        bipedFeatherStem3.rotateAngleX = -0.262F + (float)entity.motionY/15;
-        bipedFeatherStem4.rotateAngleX = -0.175F + (float)entity.motionY/20;
-    	this.bipedFeathermount.render(f5);
+        bipedFeatherStem2.rotateAngleX = -0.35F + (float) entity.motionY / 10;
+        bipedFeatherStem3.rotateAngleX = -0.262F + (float) entity.motionY / 15;
+        bipedFeatherStem4.rotateAngleX = -0.175F + (float) entity.motionY / 20;
+        this.bipedFeathermount.render(f5);
         this.bipedFeatherStem.render(f5);
     }
 

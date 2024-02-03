@@ -1,5 +1,20 @@
 package com.kbi.qwertech.tileentities;
 
+import static gregapi.data.CS.NBT_MATERIAL;
+import static gregapi.data.CS.PX_P;
+import static gregapi.data.CS.SHOW_HIDDEN_MATERIALS;
+
+import java.awt.Color;
+import java.util.List;
+
+import net.minecraft.block.Block;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.AxisAlignedBB;
+
 import gregapi.block.multitileentity.IMultiTileEntity;
 import gregapi.block.multitileentity.MultiTileEntityBlockInternal;
 import gregapi.data.CS;
@@ -11,18 +26,6 @@ import gregapi.render.BlockTextureDefault;
 import gregapi.render.IIconContainer;
 import gregapi.render.ITexture;
 import gregapi.util.UT;
-import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.AxisAlignedBB;
-
-import java.awt.*;
-import java.util.List;
-
-import static gregapi.data.CS.*;
 
 public class NestBoxTileEntity extends NestTileEntity implements IMultiTileEntity.IMTE_GetSubItems {
 
@@ -34,8 +37,8 @@ public class NestBoxTileEntity extends NestTileEntity implements IMultiTileEntit
     }
 
     @Override
-    public boolean getSubItems(MultiTileEntityBlockInternal aBlock, Item aItem,
-                               CreativeTabs aTab, List aList, short aID) {
+    public boolean getSubItems(MultiTileEntityBlockInternal aBlock, Item aItem, CreativeTabs aTab, List aList,
+        short aID) {
         return SHOW_HIDDEN_MATERIALS || !mMaterial.mHidden;
     }
 
@@ -46,28 +49,29 @@ public class NestBoxTileEntity extends NestTileEntity implements IMultiTileEntit
     }
 
     public static IIconContainer wood = new Textures.BlockIcons.CustomIcon("qwertech:nestbox/wood");
+
     @Override
     public ITexture getTexture(Block aBlock, int aRenderPass, byte aSide, boolean[] aShouldSideBeRendered) {
-        if (aRenderPass > 9)
-        {
+        if (aRenderPass > 9) {
             ItemStack stack = slot(aRenderPass - 10);
             short[] colors = new short[4];
-            if (stack != null)
-            {
+            if (stack != null) {
                 NBTTagCompound nbt = UT.NBT.getOrCreate(stack);
                 int color = nbt.getInteger("itemColor");
                 Color oColor = Color.getColor(null, color);
-                colors[0] = (short)oColor.getRed();
-                colors[1] = (short)oColor.getBlue();
-                colors[2] = (short)oColor.getGreen();
-                colors[3] = (short)oColor.getAlpha();
+                colors[0] = (short) oColor.getRed();
+                colors[1] = (short) oColor.getBlue();
+                colors[2] = (short) oColor.getGreen();
+                colors[3] = (short) oColor.getAlpha();
                 return BlockTextureDefault.get(MT.Bone.mTextureSetsBlock.get(OP.blockDust.mIconIndexBlock), colors);
-                //return BlockTextureDefault.get(nest, colors);
+                // return BlockTextureDefault.get(nest, colors);
             }
             return null;
         } else if (aRenderPass < 5) {
             if (ourcolor == null) {
-                ourcolor = new short[]{(short) (210 + Math.abs(this.xCoord % 16)), (short) (245 + Math.abs(this.zCoord % 8)), (short) (200 + Math.abs(this.zCoord % 16) - Math.abs(this.xCoord % 12)), 255};
+                ourcolor = new short[] { (short) (210 + Math.abs(this.xCoord % 16)),
+                    (short) (245 + Math.abs(this.zCoord % 8)),
+                    (short) (200 + Math.abs(this.zCoord % 16) - Math.abs(this.xCoord % 12)), 255 };
             }
             return BlockTextureDefault.get(nest, ourcolor);
         } else {
@@ -106,25 +110,25 @@ public class NestBoxTileEntity extends NestTileEntity implements IMultiTileEntit
 
     @Override
     public boolean setBlockBounds(Block aBlock, int aRenderPass, boolean[] aShouldSideBeRendered) {
-        switch(aRenderPass) {
+        switch (aRenderPass) {
             case 14:
-                //egg
+                // egg
                 aBlock.setBlockBounds(PX_P[10], PX_P[2], PX_P[9], PX_P[13], PX_P[6], PX_P[12]);
                 break;
             case 13:
-                //egg
+                // egg
                 aBlock.setBlockBounds(PX_P[9], PX_P[2], PX_P[4], PX_P[12], PX_P[6], PX_P[7]);
                 break;
             case 12:
-                //egg
+                // egg
                 aBlock.setBlockBounds(PX_P[4], PX_P[2], PX_P[9], PX_P[7], PX_P[6], PX_P[12]);
                 break;
             case 11:
-                //egg
+                // egg
                 aBlock.setBlockBounds(PX_P[4], PX_P[2], PX_P[6], PX_P[7], PX_P[6], PX_P[9]);
                 break;
             case 10:
-                //egg
+                // egg
                 aBlock.setBlockBounds(PX_P[7], PX_P[2], PX_P[7], PX_P[10], PX_P[6], PX_P[10]);
                 break;
             case 9:
@@ -162,9 +166,8 @@ public class NestBoxTileEntity extends NestTileEntity implements IMultiTileEntit
 
     @Override
     public int[] getAccessibleSlotsFromSide(int side) {
-        if (side == CS.SIDE_TOP || side == CS.SIDE_BOTTOM)
-        {
-            return new int[]{0, 1, 2, 3, 4};
+        if (side == CS.SIDE_TOP || side == CS.SIDE_BOTTOM) {
+            return new int[] { 0, 1, 2, 3, 4 };
         }
         return new int[0];
     }

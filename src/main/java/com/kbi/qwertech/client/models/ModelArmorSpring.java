@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
  * Created using Tabula 4.1.1
  */
 public class ModelArmorSpring extends ModelBiped {
+
     public ModelRenderer bipedSpringLeft;
     public ModelRenderer bipedSpringRight;
 
@@ -26,14 +27,21 @@ public class ModelArmorSpring extends ModelBiped {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
-        if (!entity.onGround)
-        {
-        	this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
-        	setRotateAngle(bipedSpringRight, bipedRightLeg.rotateAngleX, bipedRightLeg.rotateAngleY, bipedRightLeg.rotateAngleZ);
-        	setRotateAngle(bipedSpringLeft, bipedLeftLeg.rotateAngleX, bipedLeftLeg.rotateAngleY, bipedLeftLeg.rotateAngleZ);
-        	this.bipedSpringRight.render(f5);
-        	this.bipedSpringLeft.render(f5);
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+        if (!entity.onGround) {
+            this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+            setRotateAngle(
+                bipedSpringRight,
+                bipedRightLeg.rotateAngleX,
+                bipedRightLeg.rotateAngleY,
+                bipedRightLeg.rotateAngleZ);
+            setRotateAngle(
+                bipedSpringLeft,
+                bipedLeftLeg.rotateAngleX,
+                bipedLeftLeg.rotateAngleY,
+                bipedLeftLeg.rotateAngleZ);
+            this.bipedSpringRight.render(f5);
+            this.bipedSpringLeft.render(f5);
         }
     }
 

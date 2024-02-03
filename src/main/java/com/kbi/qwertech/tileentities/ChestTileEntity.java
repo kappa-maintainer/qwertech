@@ -1,5 +1,22 @@
 package com.kbi.qwertech.tileentities;
 
+import static gregapi.data.CS.COMPASS_FROM_SIDE;
+import static gregapi.data.CS.F;
+import static gregapi.data.CS.RES_PATH_GUI;
+import static gregapi.data.CS.TEX_DIR_MODEL;
+import static org.lwjgl.opengl.GL11.glColor4f;
+import static org.lwjgl.opengl.GL11.glPopMatrix;
+import static org.lwjgl.opengl.GL11.glPushMatrix;
+import static org.lwjgl.opengl.GL11.glRotatef;
+import static org.lwjgl.opengl.GL11.glScalef;
+import static org.lwjgl.opengl.GL11.glTranslated;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
+
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -10,23 +27,18 @@ import gregapi.gui.ContainerClient;
 import gregapi.gui.ContainerCommonChest;
 import gregapi.tileentity.ITileEntityInventoryGUI;
 import gregapi.util.UT;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
-import org.lwjgl.opengl.GL11;
-
-import static gregapi.data.CS.*;
-import static org.lwjgl.opengl.GL11.*;
 
 public class ChestTileEntity extends MultiTileEntityChest {
+
     @Override
     public String getTileEntityName() {
         return "qt." + super.getTileEntityName();
     }
 
-    @Override public Object getGUIClient(int aGUIID, EntityPlayer aPlayer) {return new ContainerClientChest2(aPlayer.inventory, this);}
+    @Override
+    public Object getGUIClient(int aGUIID, EntityPlayer aPlayer) {
+        return new ContainerClientChest2(aPlayer.inventory, this);
+    }
 
     @SideOnly(Side.CLIENT)
     private static MultiTileEntityChest.MultiTileEntityRendererChest RENDERER;
@@ -34,23 +46,37 @@ public class ChestTileEntity extends MultiTileEntityChest {
     @Override
     @SideOnly(Side.CLIENT)
     public void onRegistrationFirstClient(MultiTileEntityRegistry aRegistry, short aID) {
-        ClientRegistry.bindTileEntitySpecialRenderer(getClass(), RENDERER = new MultiTileEntityChest.MultiTileEntityRendererChest());
+        ClientRegistry.bindTileEntitySpecialRenderer(
+            getClass(),
+            RENDERER = new MultiTileEntityChest.MultiTileEntityRendererChest());
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void onRegistrationClient(MultiTileEntityRegistry aRegistry, short aID) {
-        RENDERER.mResources.put(mTextureName, new ResourceLocation[] {new ResourceLocation(MD.GT.mID, TEX_DIR_MODEL + aRegistry.mNameInternal + "/" + mTextureName + ".colored.png"), new ResourceLocation(MD.GT.mID, TEX_DIR_MODEL + aRegistry.mNameInternal + "/" + mTextureName + ".plain.png")});
+        RENDERER.mResources.put(
+            mTextureName,
+            new ResourceLocation[] {
+                new ResourceLocation(
+                    MD.GT.mID,
+                    TEX_DIR_MODEL + aRegistry.mNameInternal + "/" + mTextureName + ".colored.png"),
+                new ResourceLocation(
+                    MD.GT.mID,
+                    TEX_DIR_MODEL + aRegistry.mNameInternal + "/" + mTextureName + ".plain.png") });
     }
 
     @SideOnly(Side.CLIENT)
     public static class MultiTileEntityRendererQTChest extends MultiTileEntityRendererChest {
+
         protected static final MultiTileEntityModelChest sModel = new MultiTileEntityModelChest();
+
         @Override
         public void renderTileEntityAt(TileEntity bTileEntity, double aX, double aY, double aZ, float aPartialTick) {
             if (bTileEntity instanceof ChestTileEntity) {
-                ChestTileEntity aTileEntity = (ChestTileEntity)bTileEntity;
-                double tLidAngle = 1 - (aTileEntity.oLidAngle + (aTileEntity.mLidAngle - aTileEntity.oLidAngle) * aPartialTick); tLidAngle = -(((1 - tLidAngle*tLidAngle*tLidAngle) * Math.PI) / 2);
+                ChestTileEntity aTileEntity = (ChestTileEntity) bTileEntity;
+                double tLidAngle = 1
+                    - (aTileEntity.oLidAngle + (aTileEntity.mLidAngle - aTileEntity.oLidAngle) * aPartialTick);
+                tLidAngle = -(((1 - tLidAngle * tLidAngle * tLidAngle) * Math.PI) / 2);
                 ResourceLocation[] tLocation = mResources.get(aTileEntity.mTextureName);
                 bindTexture(tLocation[0]);
                 glColor4f(1, 1, 1, 1);
@@ -81,6 +107,7 @@ public class ChestTileEntity extends MultiTileEntityChest {
 
     @SideOnly(Side.CLIENT)
     public class ContainerClientChest2 extends ContainerClient {
+
         private int mRows;
 
         public ContainerClientChest2(InventoryPlayer aInventoryPlayer, ITileEntityInventoryGUI aTileEntity) {
@@ -102,7 +129,7 @@ public class ChestTileEntity extends MultiTileEntityChest {
 
         @Override
         protected void drawGuiContainerBackgroundLayer2(float par1, int par2, int par3) {
-            GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+            glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             int k = (width - xSize) / 2;
             int l = (height - ySize) / 2;
             drawTexturedModalRect(k, l + 1, 0, 0, xSize, mRows * 18 + 17);

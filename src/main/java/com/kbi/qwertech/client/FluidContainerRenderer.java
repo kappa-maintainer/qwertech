@@ -5,8 +5,7 @@ import net.minecraftforge.client.IItemRenderer;
 
 public class FluidContainerRenderer implements IItemRenderer {
 
-    public FluidContainerRenderer()
-    {
+    public FluidContainerRenderer() {
         System.out.println("Registered fluid container");
     }
 
@@ -22,7 +21,7 @@ public class FluidContainerRenderer implements IItemRenderer {
 
     @Override
     public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
-        //System.out.println("AAAAA");
+        // System.out.println("AAAAA");
         RenderShortcuts.renderItemFluid(type, item, data);
     }
 }

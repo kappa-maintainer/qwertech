@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
  * Created using Tabula 4.1.1
  */
 public class ModelHammer extends ModelBaseTool {
+
     public ModelRenderer handle;
     public ModelRenderer smasher;
 
@@ -25,9 +26,9 @@ public class ModelHammer extends ModelBaseTool {
     }
 
     @Override
-    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) { 
-    	applyColorSecondary();
-    	this.handle.render(f5);
+    public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+        applyColorSecondary();
+        this.handle.render(f5);
         applyColorPrimary();
         this.smasher.render(f5);
     }

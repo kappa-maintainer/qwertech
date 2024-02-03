@@ -1,18 +1,20 @@
 package com.kbi.qwertech.client.models.entity;
 
-import com.kbi.qwertech.api.client.models.IModelAnimateable;
-import com.kbi.qwertech.api.client.models.ModelRendererDefaults;
-import com.kbi.qwertech.api.client.registry.AnimationHelper;
-import com.kbi.qwertech.api.client.registry.AnimationsRegistry;
+import java.util.HashMap;
+import java.util.Map;
+
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
+
 import org.lwjgl.opengl.GL11;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.kbi.qwertech.api.client.models.IModelAnimateable;
+import com.kbi.qwertech.api.client.models.ModelRendererDefaults;
+import com.kbi.qwertech.api.client.registry.AnimationHelper;
+import com.kbi.qwertech.api.client.registry.AnimationsRegistry;
 
 /**
  * ModelGallusGallusMurghi - Qwertygiy
@@ -109,8 +111,7 @@ public class ModelWildChicken extends ModelBase implements IModelAnimateable {
         this.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
         AnimationsRegistry.setAnimations(entity);
 
-        if (this.isChild)
-        {
+        if (this.isChild) {
             float f6 = 2.0F;
             GL11.glPushMatrix();
             GL11.glTranslatef(0.0F, 5.0F * f5, 2.0F * f5);
@@ -125,9 +126,7 @@ public class ModelWildChicken extends ModelBase implements IModelAnimateable {
             this.rightWing.render(f5);
             this.leftWing.render(f5);
             GL11.glPopMatrix();
-        }
-        else
-        {
+        } else {
             this.tail.render(f5);
             this.rightWing.render(f5);
             this.leftLeg.render(f5);
@@ -148,42 +147,38 @@ public class ModelWildChicken extends ModelBase implements IModelAnimateable {
     }
 
     @Override
-    public void setRotationAngles(float f1, float f2, float f3, float f4, float f5, float f6, Entity entity)
-    {
-        EntityLiving elb = (EntityLiving)entity;
+    public void setRotationAngles(float f1, float f2, float f3, float f4, float f5, float f6, Entity entity) {
+        EntityLiving elb = (EntityLiving) entity;
 
-        this.neck.rotateAngleX = (f5 / (180F / (float)Math.PI)) + 0.35F;
-        this.neck.rotateAngleY = f4 / (180F / (float)Math.PI);
+        this.neck.rotateAngleX = (f5 / (180F / (float) Math.PI)) + 0.35F;
+        this.neck.rotateAngleY = f4 / (180F / (float) Math.PI);
         this.setRotateAngle(this.head, -0.35F, 0, 0);
 
-        if (!AnimationsRegistry.hasAnimation(entity, "breathe"))
-        {
-            AnimationsRegistry.addAnimation(entity, this, "breathe", 0, (short)50, true, false);
+        if (!AnimationsRegistry.hasAnimation(entity, "breathe")) {
+            AnimationsRegistry.addAnimation(entity, this, "breathe", 0, (short) 50, true, false);
         }
 
-        if (entity.onGround && (elb.limbSwingAmount > 0.1F))
-        {
-            //System.out.println("Trying to add walking");
-            double speed = elb.getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue() - 0.25;
+        if (entity.onGround && (elb.limbSwingAmount > 0.1F)) {
+            // System.out.println("Trying to add walking");
+            double speed = elb.getEntityAttribute(SharedMonsterAttributes.movementSpeed)
+                .getAttributeValue() - 0.25;
             speed = speed * 20;
-            AnimationsRegistry.addAnimation(entity, this, "walk", 1, (short)(10 - Math.floor(speed)), true, false);
-            AnimationsRegistry.addAnimation(entity, this, "chickenheadbop", 1, (short)(10 - Math.floor(speed)), true, false);
-        } else if (entity.prevPosX == entity.posX && entity.prevPosZ == entity.posZ)
-        {
+            AnimationsRegistry.addAnimation(entity, this, "walk", 1, (short) (10 - Math.floor(speed)), true, false);
+            AnimationsRegistry
+                .addAnimation(entity, this, "chickenheadbop", 1, (short) (10 - Math.floor(speed)), true, false);
+        } else if (entity.prevPosX == entity.posX && entity.prevPosZ == entity.posZ) {
             AnimationsRegistry.removeAnimation(entity, "walk", true);
             AnimationsRegistry.removeAnimation(entity, "chickenheadbop", true);
         }
 
-        if (!entity.onGround && entity.fallDistance != 0)
-        {
-            AnimationsRegistry.addAnimation(entity, this, "fly", 1, (short)5, true, false);
+        if (!entity.onGround && entity.fallDistance != 0) {
+            AnimationsRegistry.addAnimation(entity, this, "fly", 1, (short) 5, true, false);
         } else {
             AnimationsRegistry.removeAnimation(entity, "fly", true);
         }
 
-        if (elb.hurtTime > 0)
-        {
-            AnimationsRegistry.addAnimation(entity, this, "chickenhurt", 10, (short)10, false, false);
+        if (elb.hurtTime > 0) {
+            AnimationsRegistry.addAnimation(entity, this, "chickenhurt", 10, (short) 10, false, false);
         }
     }
 
@@ -204,11 +199,13 @@ public class ModelWildChicken extends ModelBase implements IModelAnimateable {
 
     @Override
     public float getVariable(Entity entity, String ID) {
-        switch(ID)
-        {
-            case "walk": return ((EntityLiving)entity).limbSwingAmount;
-            case "fly": return Math.min(2.0F, entity.fallDistance);
-            default: return 1F;
+        switch (ID) {
+            case "walk":
+                return ((EntityLiving) entity).limbSwingAmount;
+            case "fly":
+                return Math.min(2.0F, entity.fallDistance);
+            default:
+                return 1F;
         }
     }
 }
