@@ -14,7 +14,7 @@
 		"screenshots": [],
 		"parent": "",
 		"requiredMods": [],
-		"dependencies": ["gregtech@[6.17.00,)"],
+		"dependencies": ["gregtech"],
 		"dependants": [],
 		"useDependencyInformation": true
 	}]

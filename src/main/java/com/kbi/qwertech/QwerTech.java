@@ -157,7 +157,7 @@ public final class QwerTech extends Abstract_Mod {
 
     public static final String MODID = "qwertech";
     public static final String MODNAME = "QwerTech";
-    public static final String VERSION = "${version}";
+    public static final String VERSION = Tags.VERSION;
     public static ModData MOD_DATA = new ModData(MODID, MODNAME);
     public static QwerTech instance;
 
@@ -1339,6 +1339,9 @@ public final class QwerTech extends Abstract_Mod {
         CR.shaped(ST.make(soilBlock, 2, 8), CR.DEF, "AA", "AA", 'A', "treeLeaves");
         CR.shaped(ST.make(soilBlock, 1, 5), CR.DEF, "AA", 'A', ST.make(Blocks.leaves, 1, 1));
         CR.shaped(ST.make(soilBlock, 1, 1), CR.DEF, "AAA", "A A", "AAA", 'A', OP.scrapGt.mat(MT.Wood, 1));
+
+        RM.generify(QTI.chickenEgg.get(1), new ItemStack(Items.egg));
+        RM.generify(QTI.junglefowlEgg.get(1), new ItemStack(Items.egg));
 
         RM.Mixer.addRecipe2(
             true,

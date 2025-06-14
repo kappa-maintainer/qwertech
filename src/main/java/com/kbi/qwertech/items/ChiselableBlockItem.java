@@ -22,7 +22,7 @@ import gregapi.util.UT;
 
 public class ChiselableBlockItem extends PrefixBlockItem {
 
-    ArrayList names = new ArrayList();
+    List<String> names = new ArrayList<>();
 
     public ChiselableBlockItem(Block aBlock) {
         super(aBlock);

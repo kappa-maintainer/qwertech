@@ -9,7 +9,6 @@ import org.lwjgl.opengl.GL12;
 
 import com.kbi.qwertech.QwerTech;
 import com.kbi.qwertech.client.models.ModelEgg;
-import com.kbi.qwertech.entities.projectile.EntityEgg;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -23,7 +22,7 @@ public class RenderEntityEgg extends RenderEntity {
         renderer = new ModelEgg();
     }
 
-    public void renderEgg(EntityEgg entity, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_,
+    private void renderEgg(Entity entity, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_,
         float p_76986_9_) {
         GL11.glPushMatrix();
 
@@ -54,7 +53,8 @@ public class RenderEntityEgg extends RenderEntity {
     @Override
     public void doRender(Entity entity, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_,
         float p_76986_9_) {
-        renderEgg((EntityEgg) entity, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
+        renderEgg(entity, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
+
     }
 
     @Override

@@ -62,6 +62,7 @@ import gregapi.data.OP;
 import gregapi.data.RM;
 import gregapi.data.TD;
 import gregapi.item.multiitem.MultiItemRandom;
+import gregapi.item.multiitem.MultiItemRandomWithCompat;
 import gregapi.item.multiitem.food.FoodStat;
 import gregapi.item.multiitem.food.FoodStatFluid;
 import gregapi.util.CR;
@@ -691,7 +692,7 @@ public class RegisterItems {
             }
         });
 
-        QTI.qwerFood.set(new MultiItemRandom(QwerTech.MODID, "qwertech.food") {
+        QTI.qwerFood.set(new MultiItemRandomWithCompat(QwerTech.MODID, "qwertech.food") {
 
             @Override
             public void addItems() {
@@ -1460,7 +1461,8 @@ public class RegisterItems {
                 QTI.frogLegRaw.set(ST.make(this, 1, 29));
                 QTI.frogLegCooked.set(ST.make(this, 1, 30));
                 QTI.frogEggs.set(ST.make(this, 1, 31));
-                QTI.chickenEgg.set(ST.make(this, 1, 32));
+                QTI.chickenEgg.set(ST.make(this, 1, 32))
+                    .registerOre("itemEgg");
                 QTI.junglefowlWholeRaw.set(ST.make(this, 1, 33));
                 QTI.junglefowlWholeCooked.set(ST.make(this, 1, 34));
                 QTI.junglefowlBreastRaw.set(ST.make(this, 1, 35));
@@ -1471,7 +1473,8 @@ public class RegisterItems {
                 QTI.junglefowlLegCooked.set(ST.make(this, 1, 40));
                 QTI.junglefowlLegFried.set(ST.make(this, 1, 41));
                 QTI.junglefowlWingFried.set(ST.make(this, 1, 42));
-                QTI.junglefowlEgg.set(ST.make(this, 1, 43));
+                QTI.junglefowlEgg.set(ST.make(this, 1, 43))
+                    .registerOre("itemEgg");
 
                 QTI.tomatoSauce.set(ST.make(this, 1, 1000));
                 QTI.salsaMild.set(ST.make(this, 1, 1001));

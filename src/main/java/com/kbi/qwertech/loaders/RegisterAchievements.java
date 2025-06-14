@@ -769,8 +769,9 @@ public class RegisterAchievements {
 
     // @SubscribeEvent
     public void onBroken(PlayerDestroyItemEvent event) {
-        if (event.original.hasTagCompound() && event.original.getTagCompound()
-            .hasKey("QT.ToolData")) {
+        if (event.original != null && event.original.hasTagCompound()
+            && event.original.getTagCompound()
+                .hasKey("QT.ToolData")) {
             if (event.original.getTagCompound()
                 .getCompoundTag("QT.ToolData")
                 .getBoolean("Rusted")) {

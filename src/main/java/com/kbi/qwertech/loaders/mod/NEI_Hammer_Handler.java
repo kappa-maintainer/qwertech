@@ -301,20 +301,20 @@ public class NEI_Hammer_Handler extends ShapedRecipeHandler {
 
     public HammerableCachedRecipe shapelessHammerRecipe(HammerablePrefixRecipe recipe, OreDictPrefix prefix,
         OreDictMaterial mat) {
-        ArrayList<List<ItemStack>> returning = new ArrayList();
+        ArrayList<List<ItemStack>> returning = new ArrayList<>();
         for (int q = 0; q < 9; q++) {
             returning.add(null);
         }
-        ArrayList<Object> items = new ArrayList(Arrays.asList(recipe.recipePieces));
+        ArrayList<Object> items = new ArrayList<>(Arrays.asList(recipe.recipePieces));
         for (Object item : items) {
-            if (((item instanceof List)) && (((List) item).isEmpty())) return null;
+            if (((item instanceof List)) && (((List<?>) item).isEmpty())) return null;
         }
         try {
             for (int q = 0; q < items.size(); q++) {
                 Object check = items.get(q);
                 if (check instanceof OreDictItemData) {
                     OreDictItemData data = (OreDictItemData) check;
-                    List<ItemStack> adderble = new ArrayList();
+                    List<ItemStack> adderble = new ArrayList<>();
                     if (mat != null && mat != MT.NULL && data.mPrefix.isTrue(mat)) {
                         if (data.mMaterial.mMaterial == MT.NULL
                             || (data.mMaterial.mMaterial == QTMT.Undefined && mat != QTMT.Undefined)) {
@@ -440,7 +440,7 @@ public class NEI_Hammer_Handler extends ShapedRecipeHandler {
                     return null;
                 } else if (item instanceof OreDictItemData) {
                     OreDictItemData data = (OreDictItemData) item;
-                    List<ItemStack> adderble = new ArrayList();
+                    List<ItemStack> adderble = new ArrayList<>();
                     if (mat != null && mat != MT.NULL && data.mPrefix.isTrue(mat)) {
                         if (data.mMaterial.mMaterial == MT.NULL
                             || (data.mMaterial.mMaterial == MT.Steel && mat != MT.Steel)) {

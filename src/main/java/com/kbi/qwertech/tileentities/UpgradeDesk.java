@@ -13,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
@@ -142,7 +143,7 @@ public class UpgradeDesk extends TileEntityBase09FacingSingle
                         aStack.stackSize = aStack.stackSize - 1;
                         aPlayer.setCurrentItemOrArmor(0, aStack.stackSize > 0 ? aStack : null);
                     } else {
-                        UT.Sounds.send(CS.SFX.MC_AHA, this);
+                        UT.Sounds.send(CS.SFX.MC_AHA, (TileEntity) this);
                         UT.Entities.chat(
                             aPlayer,
                             "You cannot place " + LH.Chat.BLINKING_RED
